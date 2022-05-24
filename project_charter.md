@@ -15,4 +15,4 @@ Project Developers/Designers:
 
 ## 2. Overview
 
-The Anteaters, Omar, Soham, and Philippe, are planning to develop and attendance security door system to facilitate monitoring the attendance of people at an event/conference or a school/college.
+The Anteaters, Omar, Soham, and Philippe, are planning to develop an attendance security door system to facilitate monitoring the attendance of people at an event/conference or a school/college.
