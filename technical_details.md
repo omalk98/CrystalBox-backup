@@ -4,7 +4,7 @@ The backend service is hosted on a [Heroku](https://heroku.com) cloud machine. I
 
 # Front-End
 
-The front-end of the admin portal will use [React](https://reactjs.org/) as its frontend framework and [Bootstrap 5.0](https://react-bootstrap.github.io/) as its UI framework. React is uses Virtual DOM to update the underlying DOM elements, which provides faster webpage load time. As for the Mobile application it will use React Native as its frontend framework and [NativeBase](https://nativebase.io/) as its UI framework.
+The front-end of the admin portal will use [React](https://reactjs.org/) as its frontend framework and [Bootstrap 5.0](https://react-bootstrap.github.io/) as its UI framework. React uses Virtual DOM to update the underlying DOM elements, which provides faster webpage load time. As for the Mobile application it will use React Native as its frontend framework and [NativeBase](https://nativebase.io/) as its UI framework.
 
 # Developing Tools
 
