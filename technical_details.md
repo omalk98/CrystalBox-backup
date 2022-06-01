@@ -1,6 +1,6 @@
 # Back-End
 
-The backend service is hosted on a [Heroku](https://heroku.com) cloud machine. It uses a Node.js framework which in turn uses the MVC pattern to implement the Separation of Concerns (SOC) principle to separate the models, views & controllers from each other to provide code reusability and maintainability. It uses [MongoDB](https://www.mongodb.com/) behind the scenes to persist all the user data which is transferred to the user using HTTPS protocol.
+The backend service is hosted on a [Heroku](https://heroku.com) cloud machine. It uses a Node.js framework which in turn uses Express.js package that introduces MVC pattern to implement the Separation of Concerns (SOC) principle to separate the models, views & controllers from each other to provide code reusability and maintainability. It uses [MongoDB](https://www.mongodb.com/) behind the scenes to persist all the user data which is transferred to the user using HTTPS protocol.
 
 # Front-End
 
