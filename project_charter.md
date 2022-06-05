@@ -29,7 +29,7 @@ The Anteaters, Omar, Soham, and Philippe, are planning to develop an attendance 
 
 ## 4. Deliverables 
 
-1. Software & Hardware modules installed and active (lights, buzzers, RFID reader).
+1. Software & Hardware modules installed and active (lights, buzzers, RFID reader) on Rasp Pi.
 2. Web application for Users and Admin (no interactive functions delivered yet).
 3. Mobile app works in its entirity for software part of the app(eg, login form, user auth, etc), published on Play Store/App Store.
 4. Mobile app uses built-in Bluetooth to interact with the Bluetooth module on Rasp Pi.
