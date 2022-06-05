@@ -19,8 +19,8 @@ The Anteaters, Omar, Soham, and Philippe, are planning to develop an attendance 
 
 ## 3. Milestones
 1. List of technological choices for front-end, back-end, database, and hosting defined: [link](https://github.com/CAPSTONE-2022-2023/Group_04/blob/main/technical_details.md).
-2. Install necessary tools, software & programs to be ran in the background on Raspberry Pi.
-3. Make necessary hardware connections like RFID reader, buzzer & light with Raspberry Pi.
+2. Install necessary tools, software & programs to be ran in the background on Rasp Pi.
+3. Make necessary hardware connections like RFID reader, buzzer & light with Rasp Pi.
 4. Develop a skeleton web application (frontend + backend) with no interactive tools (static test pages).
 5. Mobile app (frontend, like user login & user athentication) is designed and published to the store.
 6. Mobile app (built-in bluetooth interaction with Rasp Pi's Bluetooth module) is designed and tested.
