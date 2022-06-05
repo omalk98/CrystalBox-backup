@@ -18,7 +18,7 @@ Project Developers/Designers:
 The Anteaters, Omar, Soham, and Philippe, are planning to develop an attendance security door system to facilitate monitoring the attendance of people at an event/conference or a school/college.
 
 ## 3. Milestones
-1. List of technological choices for front-end, back-end, database, and hosting defined: [link](https://github.com/CAPSTONE-2022-2023/Group_04/blob/main/technical_details.md)
+1. List of technological choices for front-end, back-end, database, and hosting defined: [link](https://github.com/CAPSTONE-2022-2023/Group_04/blob/main/technical_details.md).
 2. Install necessary tools, software & programs to be ran in the background on the Raspberry Pi.
 3. Prepare a skeleton web application (frontend + backend) with no interactive tools (static test pages).
 4. Mobile app (frontend) is designed and published to the store.
@@ -33,4 +33,4 @@ The Anteaters, Omar, Soham, and Philippe, are planning to develop an attendance 
 3. Mobile app works in its entirity, published on Play Store/App Store(login form, update the password) (except the BT).
 4. Mobile app interaction with the bluetooth module (making the app ready to interact with rasp pi).
 5. User dashboard & monitoring tools (update user password, reissue rfid), deleting(revoke access to rid, username & password).
-6. Admin dashboard & monitoring tools (CRUD operations for user, track user footprints)
+6. Admin dashboard & monitoring tools (CRUD operations for user, track user footprints).
