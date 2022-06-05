@@ -21,16 +21,16 @@ The Anteaters, Omar, Soham, and Philippe, are planning to develop an attendance 
 1. List of technological choices for front-end, back-end, database, and hosting defined: [link](https://github.com/CAPSTONE-2022-2023/Group_04/blob/main/technical_details.md).
 2. Install necessary tools, software & programs to be ran in the background on Raspberry Pi.
 3. Make necessary hardware connections like RFID reader, buzzer & light with Raspberry Pi.
-4. Prepare a skeleton web application (frontend + backend) with no interactive tools (static test pages).
+4. Develop a skeleton web application (frontend + backend) with no interactive tools (static test pages).
 5. Mobile app (frontend, like user login & user athentication) is designed and published to the store.
 6. Mobile app (built-in bluetooth interaction with Rasp Pi's Bluetooth module) is designed and tested.
-7. User dashboard & monitoring tools fully implemented.
-8. Admin dashboard & monitoring tools up and running for the admins.
+7. User dashboard & monitoring tools fully implemented on the web application.
+8. Admin dashboard & monitoring tools up and running for the admins on the web application.
 
 ## 4. Deliverables 
 
 1. Hardware modules installed and active (lights, buzzers, RFID reader).
-2. Web portal for Users and Admin (no interactive functions developed yet).
+2. Web application for Users and Admin (no interactive functions developed yet).
 3. Mobile app works in its entirity for software part of the app(eg, login form, user auth, etc), published on Play Store/App Store.
 4. Mobile app uses built-in Bluetooth to interact with the Bluetooth module on Rasp Pi.
 5. User dashboard & monitoring tools (eg, update user password, reissuing RFID, deleting a user(revoke access to RFID, username & password), etc).
