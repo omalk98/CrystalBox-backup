@@ -23,7 +23,7 @@ The Anteaters, Omar, Soham, and Philippe, are planning to develop an attendance 
 3. Make necessary hardware connections like RFID reader, buzzer & light with Raspberry Pi.
 4. Prepare a skeleton web application (frontend + backend) with no interactive tools (static test pages).
 5. Mobile app (frontend, like user login & user athentication) is designed and published to the store.
-6. Mobile app (built-in bluetooth interaction with Rasp Pi) is designed and tested.
+6. Mobile app (built-in bluetooth interaction with Rasp Pi's Bluetooth module) is designed and tested.
 7. User dashboard & monitoring tools fully implemented.
 8. Admin dashboard & monitoring tools up and running for the admins.
 
