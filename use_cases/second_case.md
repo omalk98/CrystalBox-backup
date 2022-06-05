@@ -5,7 +5,8 @@ An authorized and authenticated user possessing a system registered RFID chip/Bl
 
 ### Pre-conditions
 User possesses either a valid RFID chip or a Bluetooth ready mobile phone or both where RFID chip is issued by the 
-admin & the mobile device has the app installed  . Information about all groups is already stored in the database.
+admin & the mobile device has the app installed which uses bluetooth technology to interact with the system (Raspberry Pi). 
+Information about all groups is already stored in the database.
 
 ### Main Flow
 1. The faculty clicks on the **Groups** tab on the BTR490 website.
