@@ -12,7 +12,7 @@ admin & the mobile device with the app installed and is already logged into the 
 2. The system checks whether the tapped RFID chip's UUID matches with any admin issued UUIDs stored in the database or whether the mobile device has already been logged into the app using admin issued credentials (username & password). A green light lights up and a buzzer beeps which tells user to enter the premise. 
 4. User enters the premise and tries to access any other areas within the premise using either RFID chip or a bluetooth powered phone.
 5. System checks for security clearance for the hardware used to access the area. A green light lights up and a buzzer beeps which tells user to enter the premise.
-6. User enters the designated area. Steps 4, 5, 6 are repeated every time a user tries to enter an area within a premise.
+6. User enters the designated area. Steps 1, 2, 3 are repeated every time a user tries to enter a premise. Steps 4, 5, 6 are repeated every time a user tries to enter an area within a premise.
 
 ### Alternate Flows
 - If an unregistered hardware (RFID chip or Bluetooth phone) is used to enter a premise: 
