@@ -15,10 +15,10 @@ admin & the mobile device with the app installed and is already logged into the 
 6. User enters the designated area. Steps 4, 5, 6 are repeated every time a user tries to enter an area within a premise.
 
 ### Alternate Flows
-- If any connection issues arise, preventing the message to be sent before it times out: 
-  1. The system will add an error message to the modal, warning the faculty that the message was not sent.
-- If a faculty clicks on **Close**, instead of **Submit**:
-  1. The modal disappears, and no further action is taken by the system. The contents of the modal will remain, though. Allowing the faculty to pick another group to send the message, for example.
+- If an unregistered hardware (RFID chip or Bluetooth phone) is used to enter a premise: 
+  1. The system will light up a red light and a buzzer will beep informing the user that their access is denied.
+- If an unregistered hardware (RFID chip or Bluetooth phone) is used to enter an area within a premise:
+  1. The system will light up a red light and a buzzer will beep informing the user that their access is denied.
 
 ### Postconditions
-After a faculty has succesfully send a message, each member of the group (as well as the faculty) receives an email with its contents.
+User is allowed access to the premise or an area within the premise when they use system registered hardware.
