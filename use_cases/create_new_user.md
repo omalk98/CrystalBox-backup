@@ -19,11 +19,11 @@ Main Flow
 
 Alternate Flows
 
-(A1) The actor entered no characters, illegal characters, too few characters, or too many characters.
-(A2) The actor entered no characters, illegal characters, too few characters, or too many characters.
-(A3) The actor did not enter a valid email.
-(A4) The actor entered an email that already exists in the database.
-(A5) The actor entered no characters, too few characters, too many characters, or too weak of a password.
+1. (A1) The actor entered no characters, illegal characters, too few characters, or too many characters.
+2. (A2) The actor entered no characters, illegal characters, too few characters, or too many characters.
+3. (A3) The actor did not enter a valid email.
+4. (A4) The actor entered an email that already exists in the database.
+5. (A5) The actor entered no characters, too few characters, too many characters, or too weak of a password.
 
 
 Post-Conditions
