@@ -1,10 +1,10 @@
 ## Create New User (done by Philippe)
 
- ###Actor (Administrator)
+ ### Actor (Administrator)
 
 A system administrator who has full access to all system functionality.
 
- ###Pre-Conditions
+ ### Pre-Conditions
 
 1. The actor is logged in.
 2. The actor has authorization to create new users.
