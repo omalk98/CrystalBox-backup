@@ -9,7 +9,7 @@ A system administrator who has full access to all system functionality.
 1. The actor is logged in.
 2. The actor has authorization to create new users.
  
- ###Main Flow
+ ### Main Flow
 
 1. The actor enters a first name. (A1)
 2. The actor enters a last name. (A2)
@@ -19,7 +19,7 @@ A system administrator who has full access to all system functionality.
 6. The actor chooses a clearance level from a drop-down menu.
 7. The actor registers the new user.
 
- ###Alternate Flows
+ ### Alternate Flows
 
 1. (A1) The actor entered no characters, illegal characters, too few characters, or too many characters.
 2. (A2) The actor entered no characters, illegal characters, too few characters, or too many characters.
@@ -28,7 +28,7 @@ A system administrator who has full access to all system functionality.
 5. (A5) The actor entered no characters, too few characters, too many characters, or too weak of a password.
 
 
- ###Post-Conditions
+ ### Post-Conditions
 
 1. The new user is saved to the database.
 2. The new user can sign into the Bluetooth app.
