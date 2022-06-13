@@ -11,13 +11,20 @@ A system administrator who has full access to all system functionality.
  
  ### Main Flow
 
-1. The actor enters a first name. (A1)
-2. The actor enters a last name. (A2)
-3. The actor enters an email. (A3, A4)
-4. The actor enters a password. (A5)
-5. The actor selects a location from a drop-down menu.
-6. The actor chooses a clearance level from a drop-down menu.
-7. The actor registers the new user.
+1. The actor enters a first name.
+2. The system validates the input.
+3. The actor enters a last name.
+4. The system validates the input.
+5. The actor enters an email.
+6. The system validates the input.
+7. The actor enters a password.
+8. The system validates the input.
+9. The actor selects a location from a drop-down menu.
+10. The system updates the drop-down menu's displayed option.
+11. The actor chooses a clearance level from a drop-down menu.
+12. The system updates the drop-down menu's displayed option.
+13. The actor clicks the submit button.
+14. The system processes the POST request.
 
  ### Alternate Flows
 
