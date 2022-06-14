@@ -8,14 +8,14 @@ User exists in the system, and requests a new key (Admin must be logged in to is
 
 ### Main Flow
 1. The Admin requests identification 
-2. System validates the user
+2. System validates the user 
 3. The Admin issues a request to generate a new UUID
 4. The system generates a new key and replaces the old key making it obsolete
 5. Admin gives user new RFID chip
 
 ### Alternate Flows
 - User could not be authenticated through the system with valid ID
-  1. Mobile app can be used to authenticate user if user is registered
+  1. User can use system credentials to authenticate their identity 
 - User does not have mobile app
   1. User cannot be authenticated through system
   2. User must get clerance from a higher authority on premise
