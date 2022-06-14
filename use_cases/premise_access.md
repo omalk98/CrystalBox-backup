@@ -1,4 +1,4 @@
-## Allowing a user into a premise and any other areas within the same premise (done by Soham)
+## Premise Access (done by Soham)
 
 ### Actor (User)
 An authorized and authenticated user possessing a system registered RFID chip/Mobile phone with BT functionality.
