@@ -22,10 +22,9 @@ A system administrator who has full access to all system functionality.
  ### Alternate Flows
 
 1. The actor entered no characters, illegal characters, too few characters, or too many characters.
-2. The actor entered no characters, illegal characters, too few characters, or too many characters.
-3. The actor did not enter a valid email.
-4. The actor entered an email that already exists in the database.
-5. The actor entered no characters, too few characters, too many characters, or too weak of a password.
+2. The actor did not enter a valid email.
+3. The actor entered an email that already exists in the database.
+4. The actor entered no characters, too few characters, too many characters, or too weak of a password.
 
 
  ### Post-Conditions
