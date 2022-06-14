@@ -16,3 +16,11 @@ Extended to the end of the day (Wednesday)
  
  ### Technical Details (15/15)*2/3
  Very well done. I would add Express to your list of back-end frameworks.
+ 
+ ## Task 3
+ 
+ ### Use cases
+ 
+- **Create New User (done by Philippe)** - Well done! The alternate flows are incomplete. They describe the errors made by the user, but not the responses from the system. 8/10
+- **Premise Access (done by Soham)** - Well done! Shouldn't the user access be logged into the system? I missed that step in the main flow and on the post-conditons. There should be an alternate flow covering the case were a user has an RFID that is not working properly. 7/10
+- **Reissue RFID Key (done by Omar)** - Perfect 10/10
