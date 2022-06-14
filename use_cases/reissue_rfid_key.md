@@ -11,8 +11,7 @@ User exists in the system, and requests a new key (Admin must be logged in to is
 2. System validates the user
 3. The Admin issues a request to generate a new UUID
 4. The system generates a new key and replaces the old key making it obsolete
-5. The system logs out the user session on mobile application to replace the old key 
-6. Admin gives user new RFID chip
+5. Admin gives user new RFID chip
 
 ### Alternate Flows
 - User could not be authenticated through the system with valid ID
