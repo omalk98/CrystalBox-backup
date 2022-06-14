@@ -4,8 +4,7 @@
 An authorized and authenticated user possessing a system registered RFID chip/Mobile phone with BT functionality.
 
 ### Pre-conditions
-User possesses either a RFID chip or a Bluetooth ready mobile phone or both where RFID chip is issued by the 
-admin & the mobile device with the app installed and is already logged into the app which uses bluetooth technology to interact with the system (Raspberry Pi). Both the user credentials for a mobile app login and UUID for a RFID chip are already persisted in the database which are to be checked against when a user tries to enter a premise using any of these 2 technologies.
+User possesses either a RFID chip or a Bluetooth ready mobile phone (the mobile device with the app installed and is already logged into the app) or both. Both the user credentials for a mobile app login and UUID for a RFID chip are already persisted in the database which are to be checked against when a user tries to enter a premise using any of these 2 technologies.
 
 ### Main Flow
 1. The user taps the RFID chip or brings a mobile device close to the system (Rasp Pi).
