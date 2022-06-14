@@ -8,7 +8,8 @@ User possesses either a RFID chip or a Bluetooth ready mobile phone (the mobile 
 
 ### Main Flow
 1. The user taps the RFID chip or brings a mobile device close to the system (Rasp Pi).
-2. The system checks whether the tapped RFID chip's UUID matches with any admin issued UUIDs stored in the database or whether the mobile device has already been logged into the app using admin issued credentials (username & password). A green light lights up and a buzzer beeps which tells user to enter the premise. 
+2. The system checks whether the tapped RFID chip's UUID matches with any admin issued UUIDs stored in the database or whether the mobile device has already been logged into the app using admin issued credentials (username & password). 
+3. If the user is authenticated, a green light lights up and a buzzer beeps which tells user to enter the premise. 
 4. User enters the premise and tries to access any other areas within the premise using either RFID chip or a bluetooth powered phone.
 5. System checks for security clearance for the hardware used to access the area. A green light lights up and a buzzer beeps which tells user to enter the premise.
 6. User enters the designated area. Steps 1, 2, 3 are repeated every time a user tries to enter a premise. Steps 4, 5, 6 are repeated every time a user tries to enter an area within a premise.
