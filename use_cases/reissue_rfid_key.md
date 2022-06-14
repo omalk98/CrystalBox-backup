@@ -7,11 +7,12 @@ Admin with valid credentials who is able to access and update the system.
 User exists in the system, and requests a new key (Admin must be logged in to issue new key) 
 
 ### Main Flow
-1. The Admin requests identification and validates the user through the system
-2. The Admin issues a request to generate a new UUID
-3. The system generates a new key and replaces the old key making it obsolete
-4. The system logs out the user session on mobile application to replace the old key 
-5. Admin gives user new RFID chip
+1. The Admin requests identification 
+2. System validates the user
+3. The Admin issues a request to generate a new UUID
+4. The system generates a new key and replaces the old key making it obsolete
+5. The system logs out the user session on mobile application to replace the old key 
+6. Admin gives user new RFID chip
 
 ### Alternate Flows
 - User could not be authenticated through the system with valid ID
