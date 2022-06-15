@@ -22,10 +22,10 @@ The Anteaters, Omar, Soham, and Philippe, are planning to develop an attendance 
 2. Install necessary tools, software & programs to be ran in the background on Rasp Pi.
 3. Make necessary hardware connections like RFID reader, buzzer & light with Rasp Pi.
 4. Develop a skeleton web application (frontend + backend) with no interactive tools (static test pages).
-5. Mobile app (frontend, like user login & user athentication) is designed and published to the store.
+5. Mobile app (frontend, like user login & user athentication) is designed and tested.
 6. Mobile app (built-in bluetooth interaction with Rasp Pi's Bluetooth module) is designed and tested.
-7. User dashboard & monitoring tools fully implemented on the web application.
-8. Admin dashboard & monitoring tools up and running for the admins on the web application.
+7. User dashboard & monitoring tools are designed and tested on the web application.
+8. Admin dashboard & monitoring tools are designed and tested for the admins on the web application.
 
 ## 4. Deliverables 
 
