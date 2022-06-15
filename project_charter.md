@@ -31,7 +31,8 @@ The Anteaters, Omar, Soham, and Philippe, are planning to develop an attendance 
 
 1. Software & Hardware modules installed and active on Rasp Pi (lights, buzzers, RFID reader & key fob, etc).
 2. Web application for Users and Admin (no interactive functions delivered yet).
-3. Mobile app works in its entirity for software part of the app (eg, login form, user auth, etc), published on Play Store/App Store.
-4. Mobile app uses built-in Bluetooth to interact with the Bluetooth module on Rasp Pi.
-5. User dashboard & monitoring tools (eg, update user password, reissuing RFID, deleting a user(revoke access to RFID, username & password), etc).
-6. Admin dashboard & monitoring tools (eg, CRUD operations for user, track user footprints, etc).
+3. Mobile app is published on the App Store/Play store for the users to download and start using the app.
+4. Mobile app works in its entirity for software part of the app (eg, login form, user auth, etc), published on Play Store/App Store.
+5. Mobile app uses built-in Bluetooth to interact with the Bluetooth module on Rasp Pi.
+6. User dashboard & monitoring tools (eg, update user password, reissuing RFID, deleting a user(revoke access to RFID, username & password), etc).
+7. Admin dashboard & monitoring tools (eg, CRUD operations for user, track user footprints, etc).
