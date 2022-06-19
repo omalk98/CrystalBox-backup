@@ -17,6 +17,8 @@ Admin is logged into the sytem using their credentials.
   1. System shows a pop up informing them about the error regarding invalid characters. 
 - User misses entering any of the required fields.
   1. System shows a pop up informing them about the error regarding required input fields.
+- User enters an already existing email.
+  1. System notifies the user about email already present in the database, asks them to reenter different email.
 - User tries to create a new user but the backend server is down.
   1. System shows an informative 503 Servive Unavailable page.
   2. System optionally asks the user to fill out a report which is sent directly to the developers of the system.
