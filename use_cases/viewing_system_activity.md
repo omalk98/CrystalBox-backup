@@ -16,10 +16,12 @@ Admin must have valid credentials and be logged in to view system activity logs 
 
 ### Alternate Flows
 - Admin authentication token expired
-  1. System ignores data request
+  1. System ignores data request and responds with 403 Unauthorized error
   2. System logs admin out of session
 - Admin does not choose viewing style
   1. System generates default report (weekley)
+- System API is down, unresponsive, or overloaded
+  1. System will respond with a 503 Service Unavailable error
 
 ### Post-conditions
 The system frontend portal will display statistics and graphs based on the data received from the system backend API.
