@@ -53,7 +53,7 @@ The Anteaters, Omar, Soham, and Philippe, are planning to develop an attendance 
 
 - System onwer has predefined points of access they wish to install the RFID/BT gateway on with recognized names/IDs.
 - System users have a valid email to access web portal and mobile app
-- Admins have manually verified newer admins before they create new admin creadentials and provide those credentials to those new admins.  
+- Admins have manually verified newer admins before they create new admin credentials and provide those credentials to those new admins.  
 
 ### 5.3 Constraints
 
