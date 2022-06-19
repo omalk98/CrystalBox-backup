@@ -41,14 +41,10 @@ The Anteaters, Omar, Soham, and Philippe, are planning to develop an attendance 
 
 ### 5.1 Risks
 
-- Raspberry Pi can blow out due to any external component using more current than necessary hence putting too much load on the pcb.
-
+- Raspberry Pi can blow out due to any external component using more current than necessary hence putting too much load on the PCB.
 - RFID chip and/or RFID reader can be hacked by an attacker who could be in close proximity to attemt a break in into the system. 
-
 - Mobile bluetooth module and/or Rasp Pi bluetooth module could be hacked.
-
 - User credentials can be exploited due to an attack on the website in an attempt to steal sensitive information.
-
 - Web portal and/or Mobile app could be compromised due to an attack on app in an attempt to steal sensitive information.
 
 ### 5.2 Assumptions
