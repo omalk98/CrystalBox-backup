@@ -20,6 +20,9 @@ Admin is logged into the sytem using their credentials.
   1. System shows a pop up informing them about the error regarding required input fields.
 - User enters an already existing email.
   1. System notifies the user about email already present in the database, asks them to reenter different email.
+- Admin authentication token is expired.
+  1. System ignores any data request that comes from this user and responds with an informative 403 Forbidden page.
+  2. System logs admin out of session and directs them to the login page.
 - User tries to create a new user but the backend server is down.
   1. System shows an informative 503 Service Unavailable page.
   2. System optionally asks the user to fill out a report which is sent directly to the developers of the system.
