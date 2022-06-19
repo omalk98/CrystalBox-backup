@@ -8,9 +8,9 @@ Admin must have valid credentials and be logged in to view system activity logs 
 
 ### Main Flow
 1. Admin chooses user data set to review
-2. System requests data set age (day, week, month, year)
+2. System requests data set age ( period of - day, week, month, year)
 3. Admin chooses data seet age
-4. System retrives user data set and requests for viewing style
+4. System retrives user data set and requests for viewing style (Graph, Pie, Bar, Line)
 5. Admin chooses viewing style
 6. System generates report 
 
