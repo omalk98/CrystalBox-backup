@@ -9,7 +9,7 @@ Admin must have valid credentials and be logged in to view system activity logs 
 ### Main Flow
 1. Admin chooses user data set to review
 2. System requests data set age ( period of - day, week, month, year)
-3. Admin chooses data seet age
+3. Admin chooses data set age
 4. System retrives user data set and requests for viewing style (Graph, Pie, Bar, Line)
 5. Admin chooses viewing style
 6. System generates report 
@@ -19,7 +19,7 @@ Admin must have valid credentials and be logged in to view system activity logs 
   1. System ignores data request and responds with 403 Unauthorized error
   2. System logs admin out of session
 - Admin does not choose viewing style
-  1. System generates default report (weekley)
+  1. System generates default report (weekly)
 - No data available for requested period
   1. System responds with 404 Not Found error
 - System API is down, unresponsive, or overloaded
