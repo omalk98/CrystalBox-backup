@@ -50,11 +50,12 @@ The Anteaters, Omar, Soham, and Philippe, are planning to develop an attendance 
 
 ### 5.2 Assumptions
 
-- Abc
+- System onwer has predefined points of access they wish to install the RFID/BT gateway on with recognized names/IDs.
 
 ### 5.3 Constraints
 
 - RFID chip range has a limit as to how closer it can be brought to make a contact with the RFID reader.
+- Bluetooth module proximity detetion is lowered to match RFID range.
 
 ## 6. Organization/Stakeholders
 
