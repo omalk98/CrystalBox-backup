@@ -10,7 +10,8 @@ Admin is logged into the sytem using their credentials.
 1. Actor navigates to the page that allows them to create a new admin. 
 2. System asks the user to fill up the required input fields.
 3. Actor inputs admin's first name, last name, email address, system access level and clicks submit.
-4. System generates a random hashed password for newly created admin & stores all the details to a database. 
+4. System generates a random hashed password for newly created admin & stores all the details to a database.
+5. System notifies user that admin is successfully created.
 
 ### Alternate Flows
 - User enters invalid characters for the required input fields.
@@ -20,7 +21,7 @@ Admin is logged into the sytem using their credentials.
 - User enters an already existing email.
   1. System notifies the user about email already present in the database, asks them to reenter different email.
 - User tries to create a new user but the backend server is down.
-  1. System shows an informative 503 Servive Unavailable page.
+  1. System shows an informative 503 Service Unavailable page.
   2. System optionally asks the user to fill out a report which is sent directly to the developers of the system.
 
 ### Post-conditions
