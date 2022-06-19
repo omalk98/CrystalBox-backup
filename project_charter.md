@@ -46,6 +46,7 @@ The Anteaters, Omar, Soham, and Philippe, are planning to develop an attendance 
 - Mobile bluetooth module and/or Raspberry Pi bluetooth module vulnerable to bluetooth hacks.
 - User credentials exploitation through cross-site scripting and other server attacks.
 - Web portal and/or Mobile app compromisation due to API link exposure.
+- Web server down due to overload of requests from users.
 
 ### 5.2 Assumptions
 
