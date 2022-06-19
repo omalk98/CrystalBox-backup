@@ -44,6 +44,7 @@ The Anteaters, Omar, Soham, and Philippe, are planning to develop an attendance 
 - Raspberry Pi short circuit due to power overload from external components.
 - RFID chip/reader susceptible to close proximity hack attempts. 
 - Mobile bluetooth module and/or Raspberry Pi bluetooth module vulnerable to bluetooth hacks.
+- RFID chip can be cloned through 3rd party software.
 - User credential exploitation through cross-site scripting and other server attacks.
 - Web portal and/or Mobile app compromisation due to API link exposure.
 - Web server goes down due to overload of requests from users.
