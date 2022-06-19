@@ -53,13 +53,15 @@ The Anteaters, Omar, Soham, and Philippe, are planning to develop an attendance 
 
 - System onwer has predefined points of access they wish to install the RFID/BT gateway on with recognized names/IDs.
 - System users have a valid email to access web portal and mobile app
-- Admins have manually verified newer admins before they create new admin credentials and provide those credentials to those new admins.  
+- Admins have manually verified newer admins before they create new admin credentials and provide those credentials to those new admins.
+- We are able to procure 3 Raspberry Pi's for the project.  
 
 ### 5.3 Constraints
 
 - RFID chip range has a limit as to how closer it can be brought to make a contact with the RFID reader.
 - Bluetooth module proximity detetion is lowered to match RFID range.
-- Single gateway can handle a single user at a time. 
+- Single gateway can handle a single user at a time.
+- The project needs to be completed within 2 years.
 
 ## 6. Organization/Stakeholders
 
