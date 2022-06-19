@@ -36,3 +36,25 @@ The Anteaters, Omar, Soham, and Philippe, are planning to develop an attendance 
 5. Mobile app is ready to use built-in Bluetooth to interact with the Bluetooth module on Rasp Pi.
 6. User dashboard & monitoring tools (eg, update user password, reissuing RFID, deleting a user(revoke access to RFID, username & password), etc) are published.
 7. Admin dashboard & monitoring tools (eg, CRUD operations for user, track user footprints, etc) are up and running.
+
+## 5. Risks, Assumptions, and Constraints
+
+### 5.1 Risks
+
+- Abc
+
+### 5.2 Assumptions
+
+- Abc
+
+### 5.3 Constraints
+
+- Abc
+
+## 6. Organization/Stakeholders
+
+| Project Role | Responsibilities | Assigned to |
+| ----------- | ----------- | ----------- |
+| Project Manager | Design and maintain the website| Marcel Jar|
+| Project Sponsor | Cover website costs | Marcel Jar|
+| Users | Access the provided contents  | Seneca Students|
