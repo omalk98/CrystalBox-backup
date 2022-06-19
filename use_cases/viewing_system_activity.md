@@ -20,6 +20,8 @@ Admin must have valid credentials and be logged in to view system activity logs 
   2. System logs admin out of session
 - Admin does not choose viewing style
   1. System generates default report (weekley)
+- No data available for requested period
+  1. System responds with 404 Not Found error
 - System API is down, unresponsive, or overloaded
   1. System will respond with a 503 Service Unavailable error
 
