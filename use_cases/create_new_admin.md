@@ -1,4 +1,4 @@
-## Creating new Admin (done by Soham)
+## Create new Admin (done by Soham)
 
 ### Actor (Admin)
 The system initially has a set Admin who has full access to the system and can create new admins.
