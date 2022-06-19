@@ -44,7 +44,7 @@ The Anteaters, Omar, Soham, and Philippe, are planning to develop an attendance 
 - Raspberry Pi short circuit due to power overload from external components.
 - RFID chip/reader susceptible to close proximity hack attempts. 
 - Mobile bluetooth module and/or Raspberry Pi bluetooth module vulnerable to bluetooth hacks.
-- User credentials exploitation through cross-site scripting and other server attacks.
+- User credential exploitation through cross-site scripting and other server attacks.
 - Web portal and/or Mobile app compromisation due to API link exposure.
 - Web server goes down due to overload of requests from users.
 
@@ -63,6 +63,6 @@ The Anteaters, Omar, Soham, and Philippe, are planning to develop an attendance 
 
 | Project Role | Responsibilities | Assigned to |
 | ----------- | ----------- | ----------- |
-| Project Manager | Design and maintain the website| Marcel Jar|
-| Project Sponsor | Cover website costs | Marcel Jar|
-| Users | Access the provided contents  | Seneca Students|
+| Project Manager | Design and maintain the system | All Group Members (The Anteaters) |
+| Project Sponsor | Cover website/hardware costs | All Group Members (The Anteaters) |
+| Users | Access premise gateways  | Organization Employees/Members |
