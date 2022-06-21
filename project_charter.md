@@ -48,6 +48,7 @@ The Anteaters, Omar, Soham, and Philippe, are planning to develop an attendance 
 - User credential exploitation through cross-site scripting and other server attacks.
 - Web portal and/or Mobile app compromisation due to API link exposure.
 - Web server goes down due to overload of requests from users.
+- Team member drops out of course.
 
 ### 5.2 Assumptions
 
