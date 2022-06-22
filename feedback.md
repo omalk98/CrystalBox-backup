@@ -34,3 +34,15 @@ Extended to the end of the day (Wednesday)
 - For item 4, there should be a reason (taking the client's perspective) for this connection
 - Items 5 and 6 are missing: "up and running" or "published"
 
+## Task 4
+
+### Risks, Assumptions, and Constraints (5/5)
+Perfect!
+
+### README.md (5/5)
+No changes requested
+
+### Use Cases
+- **Create new Admin (done by Soham)** - Almost Perfect! (10/10) Your postconditions should also indicate the changes in the database.
+- **First User Login (done by Philippe)** - Almost Perfect (10/10) The case where the new password and confirmation passsword do not match should have been an alternate case on its own.
+- **Viewing System Activity (done by Omar)** - PErfect (10/10)
