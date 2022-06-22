@@ -20,6 +20,7 @@ A user who has downloaded the Bluetooth-enabling app.
 
 1. The actor enters their admin-provided credentials incorrectly.  
 1.1. An appropriate error message(s) is displayed.  
+
 2. While on the password change route, the actor attempts to navigate to another route without reseting their password.  
 2.1 The system redirects them to the password change route.  
 3. The actor's changed password fails the password policy check (too short, not enough variety, matches current password, etc...)  
