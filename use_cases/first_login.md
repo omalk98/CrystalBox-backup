@@ -12,9 +12,9 @@ A user who has downloaded the Bluetooth-enabling app.
  ### Main Flow
 
 1. The actor enters their username and password, then attempts to log in.
-2. The system verifies the entered credentials. If valid, the actor is prompted to create a new password.
+2. The system verifies the entered credentials. If valid, the actor authenticated and is prompted to create a new password.
 3. The actor enters their current password, their new password, and a confirmation password that matches their new password.
-4. The system checks the password against the established password policy. If the password is valid, the actor's password is changed and they are authenticated.
+4. The system checks the password against the established password policy. If the password is valid, the actor's password is changed and they are granted free access to the site.
 
  ### Alternate Flows
 
