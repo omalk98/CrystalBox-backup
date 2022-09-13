@@ -8,4 +8,4 @@ The front-end of the admin portal will use [React](https://reactjs.org/) as its 
 
 # Developing Tools
 
-This system was developed using [Visual Studio Code](https://code.visualstudio.com/) using JavaScript, Python, using JavaScript for the server and frontend, Python for [RFID](https://en.wikipedia.org/wiki/Radio-frequency_identification) interactions, and handling hardware modules.
+This system was developed with [Visual Studio Code](https://code.visualstudio.com/). It uses JavaScript for the server and the frontend, and Python for [RFID](https://en.wikipedia.org/wiki/Radio-frequency_identification) interactions and for handling hardware modules.
