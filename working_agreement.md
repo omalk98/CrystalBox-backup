@@ -11,16 +11,16 @@
 ***
 3. Responsiveness :
   - Team members must respond within 1 business day for all communications among group members
-  - Team members must state any emegencies that occur to other team members
+  - Team members must state any emergencies that occur to other team members
 ***
 4. New Features :
   - A group discussion will be held to add new features
   - A collective agreement will be taken on whether new feature is worth implementing
-  - If agreed upon, the feature will be added to the product bakclog to be implemented
+  - If agreed upon, the feature will be added to the product backlog to be implemented
 ***
 5. Documentation : 
   - Adding comments are recommended for better readability
-  - Minimal function explination and complex logic steps are targets for documentation 
+  - Minimal function explanation and complex logic steps are targets for documentation 
 ***
 6. Meetings :
   - A meeting will be held every week at a decided time to discuss work done
