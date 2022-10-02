@@ -15,7 +15,7 @@
 ***
 4. New Features :
   - A group discussion will be held to add new features
-  - A collective agreement will be taken on whether new feature is worth implementing
+  - A collective agreement will be taken on whether a new feature is worth implementing
   - If agreed upon, the feature will be added to the product backlog to be implemented
 ***
 5. Documentation : 
