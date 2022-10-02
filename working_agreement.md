@@ -24,7 +24,7 @@
 ***
 6. Meetings :
   - A meeting will be held every week at a decided time to discuss work done
-  - Future commitments and ideas for the project will be discussed.
+  - Future commitments and ideas for the project will be discussed
 ***
 7. Expectations : 
   - All members are to contribute towards the project equally
