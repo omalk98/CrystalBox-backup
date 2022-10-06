@@ -6,3 +6,4 @@
 - Newly developed code is peer reviewed by at least one team member.
 - Required documentation on newly developed code is completed.
 - Newly developed code is merged into the main branch through a Pull Request.
+- The feature is fully functional on the hardware device and/or web portal/mobile.
