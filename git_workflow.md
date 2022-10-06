@@ -6,7 +6,7 @@
 
 3. Make the required changes and test
 
-4. Stage and commit the changes - `git add .` and `git commit -m "commit message"`
+4. Stage and commit the changes - `git add .` & `git commit -m "commit message"`
 
 5. Push the branch to GitHub - `git push origin branchName`
 
