@@ -35,3 +35,7 @@
 8. **Release Cycles :** 
   - Only a stable version of the application will be shipped to the client
   - Client test notes are to be added to the following release backlog
+***
+9. **Coding Style :**
+  - All React/JSX and backend code will be written using the AirBnb style guide.
+  - All Python code will be written using the Google style guide.
