@@ -1,0 +1,251 @@
+body {
+  min-width: 100vw;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  width: 100%;
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+.body-dark {
+  background-color: #3d4851;
+  color: #fff;
+}
+
+.body-light {
+  background-color: #e6eae6;
+  color: #000;
+}
+
+.C-box {
+  text-align: center;
+  background-repeat: repeat;
+  min-width: 100vw;
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  color: var(--main-color);
+  overflow-x: scroll;
+  transition: all 0.5s linear;
+
+  --footer-bg: #98373766;
+
+  --cool-red: #ff0000;
+  --cool-green: #1db954;
+  --cool-blue: #00bcd4;
+  --cool-purple: #7431f9;
+  --cool-orange: #ed9038;
+  --cool-aqua: #09fbd3;
+  --cool-yellow: #f5d300;
+  --cool-pink: #fe53bb;
+  --cool-lime: #b8fb3c;
+
+  --glow-color: var(--cool-green);
+}
+
+.C-box-dark {
+  --main-color: #fff;
+  --main-color-flip: #000;
+  --main-bg: #3d4851;
+  --main-bg-flip: #e6eae6;
+  --navbar-bg: #212529;
+  --sidebar-bg: #292841;
+  --sidebar-glow: var(--cool-green);
+  --sidebar-hover-bg: #3f3f4f;
+  --search-box-bg: #2c3441;
+  --search-icon-hover-bg: #5d6b83;
+}
+
+.C-box-light {
+  --main-color: #000;
+  --main-color-flip: #fff;
+  --main-bg: #e6eae6;
+  --main-bg-flip: #3d4851;
+  --navbar-bg: #f8f9fa;
+  --sidebar-bg: #d5d3f1;
+  --sidebar-glow: var(--cool-purple);
+  --sidebar-hover-bg: #c8c5ef;
+  --search-box-bg: #b1ccf9;
+  --search-icon-hover-bg: #2f3640;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .spin-clockwise {
+    animation: Spin-Clockwise infinite 1s linear;
+  }
+
+  .spin-yaxis {
+    animation: Spin-Yaxis infinite 3s linear;
+  }
+
+  .spin-color {
+    animation: Spin-Color infinite 3s linear;
+  }
+
+  .spin-clockwise-once {
+    animation: Spin-Clockwise 1s linear;
+  }
+
+  .spin-yaxis-once {
+    animation: Spin-Yaxis 1.5s linear;
+  }
+
+  .spin-color-once {
+    animation: Spin-Color 1s linear;
+  }
+
+  .rotate-180 {
+    transform: rotate(180deg) !important;
+    transition: 0.3s linear;
+  }
+
+}
+
+@keyframes Spin-Clockwise {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes Spin-Yaxis {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes Spin-Color {
+  from {
+    filter: hue-rotate(0deg);
+  }
+
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes Enter-Left {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes Color-Wave {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+
+  25% {
+    filter: hue-rotate(45deg);
+  }
+
+  50% {
+    filter: hue-rotate(90deg);
+  }
+
+  75% {
+    filter: hue-rotate(45deg);
+  }
+
+  100% {
+    filter: hue-rotate(0deg);
+  }
+}
+
+@keyframes Clipboard-Alert {
+  0% {
+    opacity: 1;
+  }
+
+  25% {
+    translate: 0px 0px;
+    opacity: 1;
+  }
+
+  60% {
+    translate: 0px 0px;
+    opacity: 1;
+  }
+
+  100% {
+    translate: 0px 0px;
+    opacity: 0;
+  }
+}
+
+@keyframes Fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+main {
+  padding-top: 65px;
+  min-height: 100vh;
+  height: 100%;
+  padding-bottom: 180px;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  width: 100%;
+  height: 40px;
+  background-color: var(--sidebar-bg);
+  color: var(--main-color);
+  translate: 0 -100px;
+  transition: translate 0.15s ease-in-out;
+}
+
+.skip-link:focus {
+  translate: 0 0;
+}
+
+.glow-green {
+  --glow-color: var(--cool-green);
+}
+
+.glow-purple {
+  --glow-color: var(--cool-purple);
+}
+
+.glow-red {
+  --glow-color: var(--cool-red);
+}
+
+.glow-blue {
+  --glow-color: var(--cool-blue);
+}
+
+.glow-yellow {
+  --glow-color: var(--cool-yellow);
+}
+
+.glow-orange {
+  --glow-color: var(--cool-orange);
+}
+
+.glow-aqua {
+  --glow-color: var(--cool-aqua);
+}
+
+.glow-pink {
+  --glow-color: var(--cool-pink);
+}
