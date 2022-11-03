@@ -1,0 +1,15 @@
+.navbar-brand-link {
+    color: var(--main-color);
+    text-decoration: none;
+    animation: Fade 1.5s ease-in;
+}
+
+.navbar-brand-link:hover {
+    text-decoration: none;
+}
+
+.navbar-brand-icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 5px;
+}

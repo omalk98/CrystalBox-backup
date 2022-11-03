@@ -1,0 +1,61 @@
+.home-page {
+    padding: 20px 10px;
+}
+
+.home-page-title {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.home-page-brand {
+    animation: Fade 1.5s ease-in;
+}
+
+.home-content {
+    padding: 10px;
+    margin: 0;
+}
+
+.home-section {
+    width: 300px;
+    display: inline-table;
+    padding: 0 10px;
+    margin: 20px;
+    height: 100px;
+}
+
+.home-title {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.home-text-container {
+    overflow: hidden;
+    margin-bottom: 20px;
+    transition: height 0.4s ease-in-out;
+}
+
+.home-text {
+    font-size: 16px;
+    text-align: justify;
+    width: 100%;
+    overflow: hidden;
+    line-height: 25px;
+    max-height: 500px;
+}
+
+.home-text-hider {
+    position: absolute;
+    margin-right: -3px;
+    margin-top: -85px;
+    width: 290px;
+    height: 65px;
+    background: linear-gradient(transparent, var(--main-bg));
+}
+
+.logo-icon {
+    font-size: 200px;
+    margin-bottom: 20px;
+}
