@@ -1,0 +1,43 @@
+{
+  "graphs": {
+    "labels": ["A125", "A246", "B318", "C62", "C101", "D443"],
+    "daily": [
+      {
+        "dataset": [12, 19, 3, 5, 2, 3],
+        "label": "Gate Usage"
+      }
+    ],
+    "weekly": [
+      {
+        "dataset": [34, 56, 76, 29, 18, 25],
+        "label": "Home Robberies"
+      },
+      {
+        "dataset": [39, 66, 56, 18, 30, 45],
+        "label": "Not Sure What"
+      },
+      {
+        "dataset": [32, 16, 86, 36, 25, 41],
+        "label": "Something Else"
+      }
+    ],
+    "monthly": [
+      {
+        "dataset": [281, 726, 173, 234, 282, 353],
+        "label": "Mice Caught"
+      },
+      {
+        "dataset": [323, 176, 586, 236, 235, 410],
+        "label": "Some Data"
+      },
+      {
+        "dataset": [247, 376, 463, 237, 182, 393],
+        "label": "Ze Title"
+      },
+      {
+        "dataset": [332, 146, 886, 367, 125, 641],
+        "label": "Blah Blah"
+      }
+    ]
+  }
+}

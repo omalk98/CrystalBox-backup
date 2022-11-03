@@ -1,0 +1,31 @@
+[
+  {
+    "name": "Omar Hussein",
+    "avatar": "https://avatars.githubusercontent.com/u/77292466?v=4",
+    "email": "omar@mail.com",
+    "phone": "2315468732",
+    "socialLinks": [
+      "https://github.com/omalk98",
+      "https://www.linkedin.com/in/omar-hussein-51915622b/",
+      "https://www.instagram.com/omar_010751/"
+    ]
+  },
+  {
+    "name": "Soham Thaker",
+    "avatar": "https://avatars.githubusercontent.com/u/71615163?v=4",
+    "email": "soham@mail.com",
+    "phone": "0205456986",
+    "socialLinks": [
+      "https://github.com/sdthaker",
+      "https://www.linkedin.com/in/soham-thaker/",
+      "https://www.instagram.com/sohamgram/"
+    ]
+  },
+  {
+    "name": "Philippe Cormier",
+    "avatar": "https://avatars.githubusercontent.com/u/77126178?v=4",
+    "email": "philippe@mail.com",
+    "phone": "6528765425",
+    "socialLinks": ["https://github.com/BigBrainWorld"]
+  }
+]
