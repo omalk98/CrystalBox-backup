@@ -1,0 +1,26 @@
+.clipboard-container {
+    position: fixed;
+    display: flex;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1050;
+    padding-top: 10px;
+    translate: 0 -100px;
+    opacity: 0;
+    animation: Clipboard-Alert 1.5s ease-in-out;
+}
+
+.clipboard-alert {
+    min-width: 250px;
+    height: 35px;
+    background-color: var(--main-bg-flip);
+    border: 1px solid var(--glow-color);
+    color: var(--main-color-flip);
+    font-size: 14px;
+    padding: 0 15px;
+    padding-top: 7px;
+    border-radius: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}

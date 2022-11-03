@@ -197,8 +197,8 @@ app.get(`${dataAPI}/admin/all-users`, (req, res) => {
     username: user?.user_details?.username,
     roles: user?.server_details?.roles,
     s_lvl: user?.security_details?.security_level,
-    activated: user?.server_details?.status?.is_Activated ? 'Yes' : 'No',
-    locked: user?.server_details?.status?.is_Locked ? 'Yes' : 'No',
+    activated: user?.server_details?.status?.activated ? 'Yes' : 'No',
+    locked: user?.server_details?.status?.locked ? 'Yes' : 'No',
     email: user?.user_details?.email
   }));
   res.status(200).json(userMinInfo);

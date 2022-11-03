@@ -1,0 +1,42 @@
+.analytics-chart {
+    margin: 15px;
+    display: inline-block;
+    background-color: var(--main-bg);
+    color: var(--main-color);
+    border: #000 solid 1px;
+    border-radius: 5px;
+    min-height: 430px;
+    box-shadow: 0 3px 8px #000;
+    padding: 5px 10px;
+}
+
+.analytics-chart-sm {
+    width: 30%;
+    min-width: 350px;
+}
+
+.analytics-chart-med {
+    width: 60%;
+    min-width: 650px;
+}
+
+.analytics-chart-lg {
+    width: 90%;
+}
+
+@media screen and (max-width: 800px) {
+    .analytics-chart {
+        width: 95%;
+        height: auto;
+        min-height: 0;
+    }
+
+    .analytics-chart-sm {
+        width: 70%;
+        min-width: 0;
+    }
+
+    .analytics-chart-med {
+        min-width: 0;
+    }
+}
