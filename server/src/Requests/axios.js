@@ -1,7 +1,10 @@
 import axios from 'axios';
 
-// const baseUrl = 'http://localhost:5000/api/v1';
-const baseUrl = `http://${import.meta.env.VITE_DEV_NETWORK_IP}:5000/api/v1`;
+const baseUrl = `${
+  import.meta.env.DEV
+    ? `http://${import.meta.env.VITE_DEV_NETWORK_IP}:5000`
+    : ''
+}/api/v1`;
 
 export default axios.create({
   baseURL: baseUrl,
