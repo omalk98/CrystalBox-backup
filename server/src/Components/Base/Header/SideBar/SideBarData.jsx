@@ -39,14 +39,14 @@ const SideBarData = (roles) => {
         icon: <Icons.Utilities />,
         sub: [
           {
-            title: 'Reissue RFID',
-            icon: <Icons.RFID />,
-            link: `${baseAdminRoute}/utilities/reissue-RFID`
-          },
-          {
             title: 'Create User',
             icon: <Icons.CreateUser />,
             link: `${baseAdminRoute}/utilities/create-user`
+          },
+          {
+            title: 'Reissue RFID',
+            icon: <Icons.RFID />,
+            link: `${baseAdminRoute}/utilities/reissue-RFID`
           },
           {
             title: 'Lock System',
