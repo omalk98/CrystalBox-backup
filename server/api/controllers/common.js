@@ -1,7 +1,7 @@
 import fs from 'fs';
 
 const dashboardData = JSON.parse(
-  fs.readFileSync('../../data/dashboard-data.json', 'utf8')
+  fs.readFileSync('./data/dashboard-data.json', 'utf8')
 );
 
 const dashboard = (req, res) => {
