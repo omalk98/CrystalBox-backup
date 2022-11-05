@@ -36,6 +36,16 @@ const Get = {
 
 // ============================================================
 
+// Post Requests
+// ============================================================
+const createUser = (payload) =>
+  options(`${adminBaseRoute}/create-user`, httpType.POST, payload);
+
+const Post = {
+  createUser
+};
+// ============================================================
+
 // Put Requests
 // ============================================================
 
@@ -119,6 +129,7 @@ const Delete = {
 const PrivateRequests = {
   Hook: usePrivateRequest,
   Get,
+  Post,
   Put,
   Delete
 };

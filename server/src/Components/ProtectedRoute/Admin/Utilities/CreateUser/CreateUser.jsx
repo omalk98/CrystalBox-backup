@@ -1,6 +1,7 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
+import Requests from '../../../../../Requests';
 import Icons from '../../../../../Resources/Icons';
 import {
   PageTab,
@@ -93,7 +94,25 @@ function FormFields({ data, prefix, depth = 0 }) {
 
 export default function CreateUser() {
   const keys = Object.keys(UserModel);
-  const values = Object.values(UserModel);
+  const vals = Object.values(UserModel);
+
+  const privateRequest = Requests.Private.Hook();
+
+  const createUser = async (values, actions) => {
+    console.log(values);
+    try {
+      const res = await privateRequest(
+        Requests.Private.Post.createUser(values)
+      );
+      if (res.status !== 200) {
+        return;
+      }
+    } catch {
+      console.log('hello');
+    }
+    actions.setSubmitting(false);
+  };
+
   return (
     <PageTab
       type="admin"
@@ -105,15 +124,23 @@ export default function CreateUser() {
         <Formik
           initialValues={UserModel}
           validationSchema={UserSchema}
+          onSubmit={createUser}
         >
           <Form className="user-detail-form">
             {keys.map((title, i) => (
               <FormFields
                 key={i}
-                data={values[i]}
+                data={vals[i]}
                 prefix={title}
               />
             ))}
+
+            <button
+              type="submit"
+              className="clear-input glow-green"
+            >
+              Temp Submit
+            </button>
           </Form>
         </Formik>
       </div>

@@ -68,6 +68,11 @@ const userByID = (req, res) => {
   res.status(200).json(resUser);
 };
 
+const createUser = (req, res) => {
+  console.log(req.body);
+  res.status(200).json({ status: 'ok' });
+};
+
 const activateUserToggle = (req, res) => {
   const { id } = req.params;
   console.log(id);
@@ -111,6 +116,7 @@ export {
   adminAnalytics,
   allUsers,
   userByID,
+  createUser,
   activateUserToggle,
   lockUserToggle,
   deleteUser,

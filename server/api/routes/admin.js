@@ -7,6 +7,7 @@ import {
   adminAnalytics,
   allUsers,
   userByID,
+  createUser,
   activateUserToggle,
   lockUserToggle,
   deleteUser,
@@ -16,43 +17,38 @@ import {
 } from '../controllers/admin.js';
 
 const adminRouter = Router();
-const baseAPI = '/api/v1';
-const dataAPI = `${baseAPI}/data`;
+const baseAPI = '/api/v1/data/admin';
+
+adminRouter.put(`${baseAPI}/user/update-target-user-details`, userDetails);
+
+adminRouter.get(`${baseAPI}/analytics`, adminAnalytics);
 
 adminRouter.put(
-  `${dataAPI}/admin/user/update-target-user-details`,
-  userDetails
-);
-
-adminRouter.get(`${dataAPI}/admin/analytics`, adminAnalytics);
-
-adminRouter.put(
-  `${dataAPI}/admin/user/update-target-personal-details`,
+  `${baseAPI}/user/update-target-personal-details`,
   personalDetails
 );
 
 adminRouter.put(
-  `${dataAPI}/admin/user/reset-target-user-password`,
+  `${baseAPI}/user/reset-target-user-password`,
   resetUserPassword
 );
 
-adminRouter.get(`${dataAPI}/admin/all-users`, allUsers);
+adminRouter.get(`${baseAPI}/all-users`, allUsers);
 
-adminRouter.get(`${dataAPI}/admin/user/:id`, userByID);
+adminRouter.get(`${baseAPI}/user/:id`, userByID);
 
-adminRouter.put(
-  `${dataAPI}/admin/activate-user-toggle/:id`,
-  activateUserToggle
-);
+adminRouter.post(`${baseAPI}/create-user/`, createUser);
 
-adminRouter.put(`${dataAPI}/admin/lock-user-toggle/:id`, lockUserToggle);
+adminRouter.put(`${baseAPI}/activate-user-toggle/:id`, activateUserToggle);
 
-adminRouter.delete(`${dataAPI}/admin/delete-user/:id`, deleteUser);
+adminRouter.put(`${baseAPI}/lock-user-toggle/:id`, lockUserToggle);
 
-adminRouter.put(`${dataAPI}/admin/bulk-deactivate-users`, bulkDeactivateUsers);
+adminRouter.delete(`${baseAPI}/delete-user/:id`, deleteUser);
 
-adminRouter.put(`${dataAPI}/admin/bulk-lock-users`, bulkLockUsers);
+adminRouter.put(`${baseAPI}/bulk-deactivate-users`, bulkDeactivateUsers);
 
-adminRouter.delete(`${dataAPI}/admin/bulk-delete-users`, bulkDeleteUsers);
+adminRouter.put(`${baseAPI}/bulk-lock-users`, bulkLockUsers);
+
+adminRouter.delete(`${baseAPI}/bulk-delete-users`, bulkDeleteUsers);
 
 export default adminRouter;
