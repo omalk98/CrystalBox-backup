@@ -7,6 +7,8 @@ import { Cors, RequestLogger, ErrorLogger } from './middleware/index.js';
 
 import adminRouter from './routes/admin.js';
 import contentRouter from './routes/content.js';
+import commonRouter from './routes/common.js';
+import publicRouter from './routes/public.js';
 
 // import jwt from 'jsonwebtoken';
 // import bcrypt from 'bcrypt';
@@ -27,6 +29,8 @@ app.use(express.static(path.join(__dirname, '../public/dist')));
 
 app.use(adminRouter);
 app.use(contentRouter);
+app.use(commonRouter);
+app.use(publicRouter);
 
 app.get('*', (req, res) => {
   res
