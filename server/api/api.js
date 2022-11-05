@@ -30,12 +30,8 @@ app.use(adminRouter);
 app.use(contentRouter);
 
 const baseAPI = '/api/v1';
-const dataAPI = `${baseAPI}/data`;
 
 const data = JSON.parse(fs.readFileSync('./data/user-data.json', 'utf8'));
-const dashboardData = JSON.parse(
-  fs.readFileSync('./data/dashboard-data.json', 'utf8')
-);
 
 app.post(`${baseAPI}/login`, (req, res) => {
   const { username, password, rememberMe } = req.body;
@@ -130,33 +126,6 @@ app.get(`${baseAPI}/refresh-token`, (req, res) => {
       roles: user?.server_details?.roles
     }
   });
-});
-
-app.get(`${dataAPI}/common/dashboard`, (req, res) => {
-  res.status(200).json(dashboardData);
-});
-
-app.put(`${dataAPI}/common/user/update-user-details`, (req, res) => {
-  console.log(req.body);
-  res.status(200).json({ status: 'ok' });
-});
-
-app.put(`${dataAPI}/common/user/update-personal-details`, (req, res) => {
-  console.log(req.body);
-  res.status(200).json({ status: 'ok' });
-});
-
-app.put(`${dataAPI}/common/user/reset-password`, (req, res) => {
-  console.log(req.body);
-  // eslint-disable-next-line camelcase
-  const { new_password, confirm_new_password } = req.body;
-  console.log(new_password, confirm_new_password);
-  // eslint-disable-next-line camelcase
-  if (new_password !== confirm_new_password) {
-    res.sendStatus(400);
-  }
-
-  res.status(200).json({ status: 'ok' });
 });
 
 app.get('*', (req, res) => {
