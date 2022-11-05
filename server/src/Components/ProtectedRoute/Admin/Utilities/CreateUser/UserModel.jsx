@@ -36,7 +36,7 @@ const UserModel = {
       street: '',
       city: '',
       province: '',
-      country: '',
+      country: 'Canada',
       postal_code: ''
     }
   },
@@ -46,8 +46,7 @@ const UserModel = {
       locked: false,
       activated: false
     }
-  },
-  user_image: ''
+  }
 };
 
 export default UserModel;

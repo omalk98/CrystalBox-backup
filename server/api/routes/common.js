@@ -24,3 +24,5 @@ commonRouter.put(
 );
 
 commonRouter.put(`${dataAPI}/common/user/reset-password`, resetUserPassword);
+
+export default commonRouter;
