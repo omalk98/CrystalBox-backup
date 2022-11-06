@@ -1,8 +1,8 @@
 import { Schema, model } from 'mongoose';
 
-const UserCredentialSchema = new Schema({
-  hash: { type: String, required: true },
-  id: { type: String, required: true, unique: true }
+const PasswordSchema = new Schema({
+  _id: { type: String },
+  hash: { type: String, required: true }
 });
 
-export default model('Passwords', UserCredentialSchema);
+export default model('Passwords', PasswordSchema);
