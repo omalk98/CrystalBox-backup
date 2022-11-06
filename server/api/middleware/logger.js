@@ -35,6 +35,7 @@ const InternalTransports = [
 const defaultFormat = format.combine(
   format.json(),
   format.timestamp(),
+  format.prettyPrint(),
   format.printf(
     ({ level, message, timestamp }) => `${timestamp} ${level}: ${message}`
   )
@@ -42,7 +43,8 @@ const defaultFormat = format.combine(
 const requestFormat = format.combine(
   format.json(),
   format.timestamp(),
-  format.metadata()
+  format.metadata(),
+  format.prettyPrint()
 );
 
 const Logger = createLogger({

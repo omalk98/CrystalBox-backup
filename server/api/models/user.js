@@ -3,8 +3,8 @@ import { Schema, model } from 'mongoose';
 const UserDetails = new Schema({
   first_name: { type: String, required: true },
   last_name: { type: String, required: true },
-  username: { type: String, required: true },
-  email: { type: String, required: true }
+  username: { type: String, unique: true, required: true },
+  email: { type: String, unique: true, required: true }
 });
 
 const SecurityDetails = new Schema({
@@ -34,7 +34,7 @@ const Address = new Schema({
 
 const PersonalDetails = new Schema({
   date_of_birth: { type: Date, required: true },
-  phone: { type: Number, required: true },
+  phone: { type: Number, unique: true, required: true },
   address: { type: Address, required: true }
 });
 
