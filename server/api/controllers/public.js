@@ -1,11 +1,12 @@
 import fs from 'fs';
+import { generateAccessToken, generateRefreshToken } from '../common/jwt.js';
 
 const data = JSON.parse(fs.readFileSync('./data/user-data.json', 'utf8'));
 
 const login = (req, res) => {
   const { username, password, rememberMe } = req.body;
   console.log(req.body);
-  if (!username || !password || password === '123') {
+  if (!username || !password) {
     res.status(401).json({ msg: 'Invalid username or password', code: 401 });
     return;
   }
@@ -35,13 +36,11 @@ const login = (req, res) => {
     }
   };
   if (rememberMe) {
-    res.cookie('token', user?.security_details?.id, {
+    res.cookie('token', generateRefreshToken(user?.security_details?.id), {
       httpOnly: true,
       path: '/',
-      // remove none after development, uncomment secure and strict
-      sameSite: 'none',
-      // sameSite: 'strict',
-      // secure: true,
+      sameSite: process.env.VITE_DEV_NETWORK_IP ? 'none' : 'strict',
+      secure: !process.env.VITE_DEV_NETWORK_IP,
       maxAge: 60 * 60 * 24 * 7 * 1000
     });
   } else res.clearCookie('token', { httpOnly: true });
@@ -49,7 +48,7 @@ const login = (req, res) => {
   res.status(200).json({
     user: resUser,
     auth: {
-      token: `${user?.security_details?.id}-12345`,
+      token: generateAccessToken(user?.security_details?.id),
       roles: user?.server_details?.roles
     }
   });
@@ -91,7 +90,7 @@ const refreshToken = (req, res) => {
   res.status(200).json({
     user: resUser,
     auth: {
-      token: `${user?.security_details?.id}-12345`,
+      token: generateAccessToken(user?.security_details?.id),
       roles: user?.server_details?.roles
     }
   });
