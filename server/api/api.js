@@ -3,6 +3,7 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import cookieParser from 'cookie-parser';
+import { connect } from 'mongoose';
 import { Cors, RequestLogger, ErrorLogger } from './middleware/index.js';
 
 import {
@@ -11,6 +12,11 @@ import {
   commonRouter,
   publicRouter
 } from './routes/index.js';
+
+const database = process.env.MONGO_URI;
+connect(database, { useUnifiedTopology: true, useNewUrlParser: true })
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.log(err));
 
 // import jwt from 'jsonwebtoken';
 // import bcrypt from 'bcrypt';
