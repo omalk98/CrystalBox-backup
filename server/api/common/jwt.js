@@ -35,12 +35,12 @@ const generateRefreshToken = async (id) => {
 };
 
 const verifyAccessToken = async (token, allowedRoles) => {
+  if (!token) return false;
   const id = jwt.verify(
     token,
     process.env.ACCESS_TOKEN_SECRET,
     (err, decoded) => (err ? false : decoded.id)
   );
-  if (!token) return false;
 
   let user = null;
   try {
@@ -49,7 +49,7 @@ const verifyAccessToken = async (token, allowedRoles) => {
     if (
       !access ||
       access.token !== token ||
-      access.expires > Date.now() ||
+      access.expires < Date.now() ||
       user.security_details.id !== id ||
       user.server_details.roles.find((role) => allowedRoles.includes(role)) ===
         -1
@@ -64,21 +64,21 @@ const verifyAccessToken = async (token, allowedRoles) => {
 };
 
 const verifyRefreshToken = async (token) => {
+  if (!token) return false;
   const id = jwt.verify(
     token,
     process.env.REFRESH_TOKEN_SECRET,
     (err, decoded) => (err ? false : decoded.id)
   );
-  if (!token) return false;
 
   let user = null;
   try {
-    const access = await RefreshTokens.findOne({ id });
+    const refresh = await RefreshTokens.findOne({ id });
     user = await Users.findOne({ 'security_details.id': id });
     if (
-      !access ||
-      !user ||
-      access.token !== token ||
+      !refresh ||
+      refresh.token !== token ||
+      refresh.expires < Date.now() ||
       user.security_details.id !== id
     ) {
       return false;
