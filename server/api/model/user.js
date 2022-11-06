@@ -1,43 +1,48 @@
 import { Schema, model } from 'mongoose';
 
+const UserDetails = new Schema({
+  first_name: { type: String, required: true },
+  last_name: { type: String, required: true },
+  username: { type: String, required: true },
+  email: { type: String, required: true }
+});
+
+const SecurityDetails = new Schema({
+  id: { type: String, required: true, unique: true },
+  security_level: { type: Number, required: true }
+});
+
+const Status = new Schema({
+  locked: { type: Boolean, required: true, default: false },
+  activated: { type: Boolean, required: true, default: true }
+});
+
+const ServerDetails = new Schema({
+  roles: { type: [String], required: true },
+  status: { type: Status, required: true },
+  date_joined: { type: Date, required: true, default: Date.now },
+  time_last_login: { type: Date, required: true }
+});
+
+const Address = new Schema({
+  street: { type: String, required: true },
+  city: { type: String, required: true },
+  province: { type: String, required: true },
+  postal_code: { type: String, required: true },
+  country: { type: String, required: true }
+});
+
+const PersonalDetails = new Schema({
+  date_of_birth: { type: Date, required: true },
+  phone: { type: Number, required: true },
+  address: { type: Address, required: true }
+});
+
 const UserSchema = new Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true },
-  password: { type: String, required: true },
-  location: { type: String, default: 'Toronto' },
-  date: { type: Date, default: Date.now },
-
-  user_details: {
-    first_name: {},
-    last_name: 'Depp',
-    username: 'Black-Pearl',
-    email: 'johnny-pirate@email.com'
-  },
-
-  security_details: {
-    id: 'pd4d3a5a-022c-4cfc-b7f0-9385751j751',
-    security_level: '3'
-  },
-
-  personal_details: {
-    date_of_birth: '1973-01-01',
-    phone: '(123) 456-7890',
-    address: {
-      street: '123 Main St',
-      city: 'Toronto',
-      province: 'ON',
-      postal_code: 'M4J 2J2',
-      country: 'Canada'
-    }
-  },
-
-  server_details: {
-    roles: ['ADMIN'],
-    status: { locked: false, activated: true },
-    date_joined: '2022-02-15T15:26:54.699Z',
-    time_last_login: '2022-10-26T07:55:20.630Z'
-  },
-
+  user_details: { type: UserDetails, required: true },
+  security_details: { type: SecurityDetails, required: true },
+  personal_details: { type: PersonalDetails, required: true },
+  server_details: { type: ServerDetails, required: true },
   user_image: { type: String }
 });
 
