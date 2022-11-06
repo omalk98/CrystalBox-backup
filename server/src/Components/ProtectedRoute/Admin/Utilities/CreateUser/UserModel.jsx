@@ -27,7 +27,7 @@ const UserModel = {
     email: ''
   },
   security_details: {
-    security_level: 0
+    security_level: 1
   },
   personal_details: {
     date_of_birth: Date.now(),
