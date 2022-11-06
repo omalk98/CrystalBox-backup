@@ -37,7 +37,7 @@ adminRouter.get(`${baseAPI}/all-users`, allUsers);
 
 adminRouter.get(`${baseAPI}/user/:id`, userByID);
 
-adminRouter.post(`${baseAPI}/create-user/`, createUser);
+adminRouter.post(`${baseAPI}/create-user`, createUser);
 
 adminRouter.put(`${baseAPI}/activate-user-toggle/:id`, activateUserToggle);
 
