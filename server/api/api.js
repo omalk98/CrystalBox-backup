@@ -5,10 +5,12 @@ import { fileURLToPath } from 'url';
 import cookieParser from 'cookie-parser';
 import { Cors, RequestLogger, ErrorLogger } from './middleware/index.js';
 
-import adminRouter from './routes/admin.js';
-import contentRouter from './routes/content.js';
-import commonRouter from './routes/common.js';
-import publicRouter from './routes/public.js';
+import {
+  adminRouter,
+  contentRouter,
+  commonRouter,
+  publicRouter
+} from './routes/index.js';
 
 // import jwt from 'jsonwebtoken';
 // import bcrypt from 'bcrypt';
