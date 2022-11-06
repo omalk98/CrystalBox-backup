@@ -27,7 +27,7 @@ const UserModel = {
     email: ''
   },
   security_details: {
-    security_level: 0
+    security_level: 1
   },
   personal_details: {
     date_of_birth: Date.now(),
@@ -36,7 +36,7 @@ const UserModel = {
       street: '',
       city: '',
       province: '',
-      country: '',
+      country: 'Canada',
       postal_code: ''
     }
   },
@@ -46,8 +46,7 @@ const UserModel = {
       locked: false,
       activated: false
     }
-  },
-  user_image: ''
+  }
 };
 
 export default UserModel;

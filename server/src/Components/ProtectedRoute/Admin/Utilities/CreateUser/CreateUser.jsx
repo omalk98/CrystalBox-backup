@@ -1,6 +1,8 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Alert } from 'react-bootstrap';
 
+import Requests from '../../../../../Requests';
 import Icons from '../../../../../Resources/Icons';
 import {
   PageTab,
@@ -37,7 +39,7 @@ function FormField({ title, prefix }) {
             } glow-yellow`}
             name={prefix}
             type={type}
-            min={type === 'number' ? 0 : null}
+            min={type === 'number' ? 1 : null}
             max={type === 'number' ? 3 : null}
           />
         )}
@@ -92,8 +94,30 @@ function FormFields({ data, prefix, depth = 0 }) {
 }
 
 export default function CreateUser() {
+  const [message, setMessage] = React.useState({});
   const keys = Object.keys(UserModel);
-  const values = Object.values(UserModel);
+  const vals = Object.values(UserModel);
+
+  const privateRequest = Requests.Private.Hook();
+
+  const createUser = async (values, actions) => {
+    setMessage({});
+    try {
+      const res = await privateRequest(
+        Requests.Private.Post.createUser(values)
+      );
+      if (res.status !== 200) throw new Error('Session expired');
+      setMessage({
+        text: 'Created user successfully',
+        variant: 'success'
+      });
+      actions.resetForm();
+    } catch {
+      setMessage({ text: 'Failed to create user', variant: 'danger' });
+    }
+    actions.setSubmitting(false);
+  };
+
   return (
     <PageTab
       type="admin"
@@ -105,17 +129,38 @@ export default function CreateUser() {
         <Formik
           initialValues={UserModel}
           validationSchema={UserSchema}
+          onSubmit={createUser}
         >
           <Form className="user-detail-form">
             {keys.map((title, i) => (
               <FormFields
                 key={i}
-                data={values[i]}
+                data={vals[i]}
                 prefix={title}
               />
             ))}
+
+            <div className="users-options">
+              <button
+                type="submit"
+                className="clear-input glow-green"
+              >
+                <Icons.CreateUser />
+                &nbsp;Create User
+              </button>
+            </div>
           </Form>
         </Formik>
+
+        {message.text && (
+          <Alert
+            variant={message.variant}
+            dismissible
+            onClose={() => setMessage({})}
+          >
+            {message.text}
+          </Alert>
+        )}
       </div>
     </PageTab>
   );
