@@ -5,12 +5,13 @@ import {
   verifyRefreshToken
 } from './jwt.js';
 
-import responseUser from './response-user.js';
+import { responseUser, responseUserList } from './response-user.js';
 
 export {
   generateAccessToken,
   generateRefreshToken,
   verifyAccessToken,
   verifyRefreshToken,
-  responseUser
+  responseUser,
+  responseUserList
 };

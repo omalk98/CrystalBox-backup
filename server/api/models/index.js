@@ -1,5 +1,5 @@
 import Users from './user.js';
 import Passwords from './password.js';
-import { AccessTokens, RefreshTokens } from './token.js';
+import Tokens from './token.js';
 
-export { Users, Passwords, AccessTokens, RefreshTokens };
+export { Users, Passwords, Tokens };
