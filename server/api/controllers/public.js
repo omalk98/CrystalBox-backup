@@ -1,5 +1,5 @@
 import { compare } from 'bcrypt';
-import { Users, Passwords, RefreshTokens } from '../models/index.js';
+import { Users, Passwords, Tokens } from '../models/index.js';
 import {
   generateAccessToken,
   generateRefreshToken,
@@ -78,7 +78,7 @@ const login = async (req, res) => {
 const logout = async (req, res) => {
   const { token } = req.cookies;
   if (token) {
-    await RefreshTokens.deleteOne({ token });
+    await Tokens.deleteOne({ token });
     res.clearCookie('token', { httpOnly: true });
   }
   res.sendStatus(200);

@@ -1,22 +1,11 @@
 import jwt from 'jsonwebtoken';
-import { AccessTokens, RefreshTokens, Users } from '../models/index.js';
-import responseUser from './response-user.js';
+import { Tokens, Users } from '../models/index.js';
+import { responseUser } from './response-user.js';
 
-const generateAccessToken = async (id) => {
-  const period = 10;
-  const expires = Date.now() + 1000 * period; // 10 seconds
-  const token = jwt.sign({ id }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: `${period}s`
+const generateAccessToken = async (id) =>
+  jwt.sign({ id }, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: '10s'
   });
-
-  try {
-    await AccessTokens.create({ id, token, expires });
-  } catch (err) {
-    throw new Error(err);
-  }
-
-  return token;
-};
 
 const generateRefreshToken = async (id) => {
   const period = 7;
@@ -26,7 +15,7 @@ const generateRefreshToken = async (id) => {
   });
 
   try {
-    await RefreshTokens.create({ id, token, expires });
+    await Tokens.create({ id, token, expires });
   } catch (err) {
     throw new Error(err);
   }
@@ -42,14 +31,9 @@ const verifyAccessToken = async (token, allowedRoles) => {
     (err, decoded) => (err ? false : decoded.id)
   );
 
-  let user = null;
   try {
-    const access = await AccessTokens.findOne({ id });
-    user = await Users.findOne({ 'security_details.id': id });
+    const user = await Users.findOne({ 'security_details.id': id });
     if (
-      !access ||
-      access.token !== token ||
-      access.expires < Date.now() ||
       user.security_details.id !== id ||
       user.server_details.roles.find((role) => allowedRoles.includes(role)) ===
         -1
@@ -73,7 +57,7 @@ const verifyRefreshToken = async (token) => {
 
   let user = null;
   try {
-    const refresh = await RefreshTokens.findOne({ id });
+    const refresh = await Tokens.findOne({ token });
     user = await Users.findOne({ 'security_details.id': id });
     if (
       !refresh ||
