@@ -1,10 +1,10 @@
 import fs from 'fs';
+import { responseUserList } from '../common/index.js';
+import { Users } from '../models/index.js';
 
 const analyticsData = JSON.parse(
   fs.readFileSync('./data/analytics-data.json', 'utf8')
 );
-
-const data = JSON.parse(fs.readFileSync('./data/user-data.json', 'utf8'));
 
 const userDetails = (req, res) => {
   console.log(req.body);
@@ -25,47 +25,49 @@ const adminAnalytics = (req, res) => {
   res.status(200).json(analyticsData);
 };
 
-const allUsers = (req, res) => {
-  const userMinInfo = data.map((user) => ({
-    id: user?.security_details?.id,
-    name: `${user?.user_details?.first_name} ${user?.user_details?.last_name}`,
-    username: user?.user_details?.username,
-    roles: user?.server_details?.roles,
-    s_lvl: user?.security_details?.security_level,
-    activated: user?.server_details?.status?.activated ? 'Yes' : 'No',
-    locked: user?.server_details?.status?.locked ? 'Yes' : 'No',
-    email: user?.user_details?.email
-  }));
-  res.status(200).json(userMinInfo);
+const allUsers = async (req, res) => {
+  try {
+    const userMinInfo = await Users.find(
+      {},
+      { _id: 0, user_details: 1, security_details: 1, server_details: 1 }
+    );
+    res.status(200).json(responseUserList(userMinInfo));
+  } catch (err) {
+    throw new Error(err);
+  }
 };
 
-const userByID = (req, res) => {
+const userByID = async (req, res) => {
   const { id } = req.params;
-  const user = data.find((usr) => usr?.security_details?.id === id);
-  if (!user) {
-    res.status(404).json({ msg: 'User not found', code: 404 });
-    return;
-  }
-  const resUser = {
-    user_details: {
-      isEditable: true,
-      details: user?.user_details
-    },
-    security_details: {
-      isEditable: false,
-      details: user?.security_details
-    },
-    personal_details: {
-      isEditable: true,
-      details: user?.personal_details,
-      user_image: user?.user_image
-    },
-    server_details: {
-      isEditable: false,
-      details: user?.server_details
+  try {
+    const user = await Users.findOne({ 'security_details.id': id });
+    if (!user) {
+      res.status(404).json({ msg: 'User not found', code: 404 });
+      return;
     }
-  };
-  res.status(200).json(resUser);
+    const resUser = {
+      user_details: {
+        isEditable: true,
+        details: user.user_details
+      },
+      security_details: {
+        isEditable: false,
+        details: user.security_details
+      },
+      personal_details: {
+        isEditable: true,
+        details: user.personal_details,
+        user_image: user.user_image
+      },
+      server_details: {
+        isEditable: false,
+        details: user.server_details
+      }
+    };
+    res.status(200).json(resUser);
+  } catch (err) {
+    throw new Error(err);
+  }
 };
 
 const createUser = (req, res) => {
