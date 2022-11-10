@@ -4,7 +4,7 @@ const analyticsData = JSON.parse(
   fs.readFileSync('./data/analytics-data.json', 'utf8')
 );
 
-const data = JSON.parse(fs.readFileSync('./data/user-data.json', 'utf8'));
+// const data = JSON.parse(fs.readFileSync('./data/user-data.json', 'utf8'));
 
 const userDetails = (req, res) => {
   console.log(req.body);
@@ -26,16 +26,17 @@ const adminAnalytics = (req, res) => {
 };
 
 const allUsers = (req, res) => {
-  const userMinInfo = data.map((user) => ({
-    id: user?.security_details?.id,
-    name: `${user?.user_details?.first_name} ${user?.user_details?.last_name}`,
-    username: user?.user_details?.username,
-    roles: user?.server_details?.roles,
-    s_lvl: user?.security_details?.security_level,
-    activated: user?.server_details?.status?.activated ? 'Yes' : 'No',
-    locked: user?.server_details?.status?.locked ? 'Yes' : 'No',
-    email: user?.user_details?.email
-  }));
+  const userMinInfo = [];
+  // const userMinInfo = data.map((user) => ({
+  //   id: user?.security_details?.id,
+  //   name: `${user?.user_details?.first_name} ${user?.user_details?.last_name}`,
+  //   username: user?.user_details?.username,
+  //   roles: user?.server_details?.roles,
+  //   s_lvl: user?.security_details?.security_level,
+  //   activated: user?.server_details?.status?.activated ? 'Yes' : 'No',
+  //   locked: user?.server_details?.status?.locked ? 'Yes' : 'No',
+  //   email: user?.user_details?.email
+  // }));
   res.status(200).json(userMinInfo);
 };
 
