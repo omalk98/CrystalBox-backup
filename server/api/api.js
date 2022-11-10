@@ -43,9 +43,8 @@ app.use(publicRouter);
 app.use(populateDBRouter);
 
 app.get('*', (req, res) => {
-  res
-    .setHeader('Content-Type', 'text/html')
-    .sendFile(join(__dirname, '../public/dist', 'index.html'));
+  res.setHeader('Content-Type', 'text/html');
+  res.sendFile(join(__dirname, '../public/dist', 'index.html'));
 });
 
 export default app;
