@@ -1,7 +1,4 @@
-import { config } from 'dotenv';
 import cors from 'cors';
-
-config();
 
 // prettier-ignore
 const allowedOrigins = process.env.VITE_DEV_NETWORK_IP

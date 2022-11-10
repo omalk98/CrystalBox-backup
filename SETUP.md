@@ -23,7 +23,7 @@ You may use **PNPM** or **YARN** instead of **NPM**
 
 To have network access to the server and frontend, launch the frontend first.
 Vite will display the network IP address the server and client are running on. This value is important.
-The server will run on **PORT 5000** in development and the client will be running on **PORT 3000**.
+The server will run on **PORT 5555** in development and the client will be running on **PORT 3000**.
 
 Create a file `./server/.env`.
 Add a variable as such `VITE_DEV_NETWORK_IP = 192.168.122.1` replacing the IP address with the address of your network.
@@ -48,3 +48,7 @@ Copy each value into a variable in `./server/.env`, naming those values
 `ACCESS_TOKEN_SECRET = generated_secret1` and `REFRESH_TOKEN_SECRET = generated_secret2`
 
 Get you MongoDB local or Atlas instance uri and insert it into `./server/.env` as a variable with the name `MONGO_URI = your_mongo_uri`.
+
+To populate the database for the first time launch the server and navigate to [http://localhost:5555/populate-db](http://localhost:5555/populate-db), and check you MongoDB cluster and make sure users and passwords contain **2002** records
+
+The default credentials for login are `username = test` and `password = 12345`

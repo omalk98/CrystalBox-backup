@@ -14,13 +14,13 @@ const SecurityDetails = new Schema({
 
 const Status = new Schema({
   locked: { type: Boolean, required: true, default: false },
-  activated: { type: Boolean, required: true, default: true }
+  activated: { type: Boolean, required: true, default: false }
 });
 
 const ServerDetails = new Schema({
   roles: { type: [String], required: true },
   status: { type: Status, required: true },
-  date_joined: { type: Date, required: true, default: Date.now },
+  date_joined: { type: Date, required: true, default: Date.now() },
   time_last_login: { type: Date, required: true }
 });
 

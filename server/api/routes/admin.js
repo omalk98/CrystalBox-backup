@@ -19,6 +19,8 @@ import {
 const adminRouter = Router();
 const baseAPI = '/api/v1/data/admin';
 
+// adminRouter.use(middelewareFunc);
+
 adminRouter.put(`${baseAPI}/user/update-target-user-details`, userDetails);
 
 adminRouter.get(`${baseAPI}/analytics`, adminAnalytics);
