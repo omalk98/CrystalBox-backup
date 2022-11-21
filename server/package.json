@@ -6,7 +6,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "vite build && node server.js",
+    "start": "node server.js",
     "dev": "vite --host",
     "srv": "nodemon server.js",
     "test": "vitest",
