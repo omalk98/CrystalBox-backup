@@ -16,12 +16,23 @@ const login = async (req, res) => {
   }
 
   try {
-    const user = await Users.findOne({
-      $or: [
-        { 'user_details.email': username },
-        { 'user_details.username': username }
-      ]
-    });
+    const user = await Users.findOne(
+      {
+        $or: [
+          { 'user_details.email': username },
+          { 'user_details.username': username }
+        ]
+      },
+      {
+        __v: 0,
+        'user_details._id': 0,
+        'personal_details._id': 0,
+        'personal_details.address._id': 0,
+        'security_details._id': 0,
+        'server_details._id': 0,
+        'server_details.status._id': 0
+      }
+    );
 
     if (!user) {
       res.status(401).json({ msg: 'Invalid username or password', code: 401 });
@@ -56,7 +67,8 @@ const login = async (req, res) => {
     if (rememberMe) {
       res.cookie('token', refreshToken, {
         httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
+        maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+        sameSite: 'none'
       });
     } else res.clearCookie('token', { httpOnly: true });
 

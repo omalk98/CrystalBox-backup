@@ -40,7 +40,18 @@ const allUsers = async (req, res) => {
 const userByID = async (req, res) => {
   const { id } = req.params;
   try {
-    const user = await Users.findOne({ 'security_details.id': id });
+    const user = await Users.findOne(
+      { 'security_details.id': id },
+      {
+        __v: 0,
+        'user_details._id': 0,
+        'personal_details._id': 0,
+        'personal_details.address._id': 0,
+        'security_details._id': 0,
+        'server_details._id': 0,
+        'server_details.status._id': 0
+      }
+    );
     if (!user) {
       res.status(404).json({ msg: 'User not found', code: 404 });
       return;
