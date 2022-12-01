@@ -42,14 +42,14 @@ app.use(publicRouter);
 
 app.use(populateDBRouter);
 
-app.get('/reset-password', (req, res) => {
+app.get('/forgot-password', (req, res) => {
   const { token } = req.query;
   if (!token) {
     res.redirect('/login');
     return;
   }
   res.setHeader('Content-Type', 'text/html');
-  res.sendFile(join(__dirname, '../public', 'reset-password.html'));
+  res.sendFile(join(__dirname, '../public', 'forgot-password.html'));
 });
 
 app.get('*', (req, res) => {

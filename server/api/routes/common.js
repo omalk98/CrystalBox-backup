@@ -5,7 +5,7 @@ import {
   updateUserDetails,
   updatePersonalDetails,
   resetUserPassword,
-  resetPassword
+  forgotPassword
 } from '../controllers/common.js';
 
 const commonRouter = Router();
@@ -23,6 +23,6 @@ commonRouter.put(
 
 commonRouter.put(`${dataAPI}/user/reset-password`, resetUserPassword);
 
-commonRouter.post(`${baseAPI}/reset-password`, resetPassword);
+commonRouter.post(`${baseAPI}/forgot-password`, forgotPassword);
 
 export default commonRouter;

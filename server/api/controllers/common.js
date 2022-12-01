@@ -23,27 +23,29 @@ const updatePersonalDetails = (req, res) => {
 
 const resetUserPassword = (req, res) => {
   console.log(req.body);
-  const { new_password, confirm_new_password } = req.body;
-  if (new_password !== confirm_new_password) res.sendStatus(400);
+  const { old_password, new_password, confirm_new_password } = req.body;
+  if (old_password === new_password || new_password !== confirm_new_password) {
+    res.sendStatus(400);
+  }
   res.status(200).json({ status: 'ok' });
 };
 
-const resetPassword = async (req, res) => {
+const forgotPassword = async (req, res) => {
   try {
-    const { password, confirm_password } = req.body;
+    const { new_password, confirm_new_password } = req.body;
     const { token } = req.query;
     const tokenExists = await AccessTokens.findOne({ token });
     const id = verifyAccessToken(token, ['ADMIN', 'USER']);
 
     if (!tokenExists || !id) throw 401;
-    else if (password !== confirm_password) throw 409;
+    else if (new_password !== confirm_new_password) throw 409;
 
     const user_password = await Passwords.findById(id);
 
     if (!user_password) throw 404;
-    else if (compare(password, user_password.hash)) throw 400;
+    else if (compare(new_password, user_password.hash)) throw 400;
 
-    user_password.hash = await hash(password, 10);
+    user_password.hash = await hash(new_password, 10);
     await user_password.save();
     await AccessTokens.deleteOne({ token });
 
@@ -66,5 +68,5 @@ export {
   updateUserDetails,
   updatePersonalDetails,
   resetUserPassword,
-  resetPassword
+  forgotPassword
 };
