@@ -27,9 +27,13 @@ const homeArticles = (signal) =>
 const footerData = (signal) =>
   sendRequest('/content/footer', httpType.GET, null, signal);
 
+const forgotPassword = (email) =>
+  sendRequest(`/forgot-password?email=${email}`, httpType.GET);
+
 const Get = {
   homeArticles,
-  footerData
+  footerData,
+  forgotPassword
 };
 
 // ============================================================
