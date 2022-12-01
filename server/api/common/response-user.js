@@ -1,30 +1,66 @@
-export function responseUser(user) {
+export function responseUser(user, user_details) {
   return {
     user_details: {
       isEditable: true,
-      details: user.user_details
+      details: {
+        first_name: user_details.first_name,
+        last_name: user_details.last_name,
+        username: user.username,
+        email: user.email
+      }
     },
     security_details: {
       isEditable: false,
-      details: user.security_details
+      details: {
+        id: user._id
+      }
     },
     personal_details: {
       isEditable: true,
-      details: user.personal_details,
-      user_image: user.user_image
+      details: {
+        date_of_birth: user_details.date_of_birth,
+        phone: user_details.phone,
+        address: user_details.address
+      },
+      user_image: user_details.image
+    }
+  };
+}
+
+export function detailedResponseUser(user, user_details) {
+  const basic_details = responseUser(user, user_details);
+  return {
+    ...basic_details,
+    server_details: {
+      isEditable: false,
+      details: {
+        roles: user.roles,
+        status: user.status,
+        date_joined: user.date_joined,
+        last_login: user.last_login
+      }
     }
   };
 }
 
 export function responseUserList(users) {
   return users.map((user) => ({
-    id: user.security_details.id,
-    name: `${user?.user_details?.first_name} ${user?.user_details?.last_name}`,
-    username: user?.user_details?.username,
-    roles: user?.server_details?.roles,
-    s_lvl: user?.security_details?.security_level,
-    activated: user?.server_details?.status?.activated ? 'Yes' : 'No',
-    locked: user?.server_details?.status?.locked ? 'Yes' : 'No',
-    email: user?.user_details?.email
+    id: user._id,
+    username: user.username,
+    roles: user.roles,
+    activated: user.status.activated ? 'Yes' : 'No',
+    locked: user.status.locked ? 'Yes' : 'No',
+    email: user.email
   }));
 }
+
+export const NoExtraUser_ID = {
+  __v: 0,
+  'status._id': 0,
+  'last_login._id': 0
+};
+
+export const NoExtraUserDetails_ID = {
+  __v: 0,
+  'address.id': 0
+};

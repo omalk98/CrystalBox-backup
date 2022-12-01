@@ -1,7 +1,8 @@
 import fs from 'fs';
 import { v4 as uuid } from 'uuid';
+import { hashSync } from 'bcrypt';
 import { Router } from 'express';
-import { Users, Passwords } from './models/index.js';
+import { Users, UserDetails, Passwords } from './models/index.js';
 
 const populateDBRouter = Router();
 
@@ -26,21 +27,25 @@ export const formatDate = (date, dateDelimiter = '-', timeDelimiter = ':') => {
 
 populateDBRouter.get('/populate-db', (req, res) => {
   const user = JSON.parse(fs.readFileSync('./data/user-data.json', 'utf8'));
-  const pass = JSON.parse(fs.readFileSync('./data/password-data.json', 'utf8'));
+  const { users, user_details } = user;
 
   let i;
-  for (i = 0; i < user.length; i += 1) {
-    // eslint-disable-next-line prefer-const
-    let newID = uuid();
-    user[i].security_details.id = newID;
-    pass[i]._id = newID;
-    let newDate = formatDate(user[i].server_details.date_joined);
-    user[i].server_details.date_joined = newDate;
+  for (i = 0; i < users.length; i += 1) {
+    const newID = uuid();
+    users[i]._id = newID;
+    user_details[i]._id = newID;
+    let newDate = formatDate(users[i].date_joined);
+    users[i].date_joined = newDate;
 
-    newDate = formatDate(user[i].server_details.time_last_login);
-    user[i].server_details.time_last_login = newDate;
-    Users.create(user[i]);
-    Passwords.create(pass[i]);
+    newDate = formatDate(users[i].last_login.time);
+    users[i].last_login.time = newDate;
+    Users.create(users[i]);
+    UserDetails.create(user_details[i]);
+    Passwords.create({ _id: newID, hash: hashSync('12345', 10) });
+    if (i % 20 === 0) {
+      console.clear();
+      console.log(`${i / 20}% done`);
+    }
   }
 
   res.sendStatus(200);
