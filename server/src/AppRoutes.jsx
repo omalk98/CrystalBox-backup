@@ -4,6 +4,9 @@ import { Loader } from './Components/Common';
 
 const PersistLogin = lazy(() => import('./PersistLogin'));
 const Home = lazy(() => import('./Components/Base/Main/Home/Home'));
+const ForgotPassword = lazy(() =>
+  import('./Components/Base/ForgotPassword/ForgotPassword')
+);
 const ProtectedRoutes = lazy(() =>
   import('./Components/ProtectedRoute/ProtectedRoutes')
 );
@@ -137,6 +140,11 @@ export default function AppRoutes() {
               />
             </Route>
           </Route>
+
+          <Route
+            path="/forgot-password"
+            element={<ForgotPassword />}
+          />
 
           <Route
             path="/forbidden"

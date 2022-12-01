@@ -56,12 +56,10 @@ const login = async (req, res) => {
       user: responseUser(user, user_details),
       auth: {
         token,
-        roles: user.roles,
-        first_login: user.last_login?.time === null
+        roles: user.roles
       }
     });
   } catch (err) {
-    console.log(err);
     if (err === 401) {
       res.status(401).json({ msg: 'Invalid username or password', code: 401 });
     } else res.sendStatus(500);
@@ -87,7 +85,7 @@ const refreshToken = async (req, res) => {
     if (!token) throw 401;
     const response = await verifyRefreshToken(token);
     res.status(200).json(response);
-  } catch {
+  } catch (err) {
     res.status(401).json({ msg: 'Invalid token', code: 401 });
   }
 };

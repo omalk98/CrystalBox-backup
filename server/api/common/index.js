@@ -1,8 +1,10 @@
 import {
   generateAccessToken,
   generateRefreshToken,
+  generatePasswordToken,
   verifyAccessToken,
-  verifyRefreshToken
+  verifyRefreshToken,
+  verifyPasswordToken
 } from './jwt.js';
 
 import {
@@ -16,8 +18,10 @@ import {
 export {
   generateAccessToken,
   generateRefreshToken,
+  generatePasswordToken,
   verifyAccessToken,
   verifyRefreshToken,
+  verifyPasswordToken,
   responseUser,
   responseUserList,
   detailedResponseUser,

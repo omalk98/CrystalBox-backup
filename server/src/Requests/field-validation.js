@@ -8,9 +8,9 @@ const oneOfErr = (field, type) => `${field} must contain at least 1 ${type}`;
 
 const namePattern = /^[a-zA-Z,'"-.]+$/;
 const passwordPattern = {
-  lowerCase: /^(?=.*[a-z])[a-z]{1,}/,
-  upperCase: /^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{1,}/,
-  number: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{1,}/,
+  lowerCase: /^(?=.*[a-z])[a-zA-Z0-9!@#$%^&*]{1,}/,
+  upperCase: /^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]{1,}/,
+  number: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{1,}/,
   symbol:
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{1,}/
 };
