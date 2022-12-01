@@ -1,8 +1,10 @@
 import {
   generateAccessToken,
   generateRefreshToken,
+  generatePasswordToken,
   verifyAccessToken,
-  verifyRefreshToken
+  verifyRefreshToken,
+  verifyPasswordToken
 } from './jwt.js';
 
 import {
@@ -18,8 +20,10 @@ import sendMail from './mailer.js';
 export {
   generateAccessToken,
   generateRefreshToken,
+  generatePasswordToken,
   verifyAccessToken,
   verifyRefreshToken,
+  verifyPasswordToken,
   responseUser,
   responseUserList,
   detailedResponseUser,
