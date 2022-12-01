@@ -21,11 +21,6 @@ const personalDetails = (req, res) => {
   res.status(200).json({ status: 'ok' });
 };
 
-const resetUserPassword = (req, res) => {
-  console.log(req.body);
-  res.status(200).json({ status: 'ok' });
-};
-
 const adminAnalytics = (req, res) => {
   res.status(200).json(analyticsData);
 };
@@ -99,7 +94,6 @@ const bulkDeleteUsers = (req, res) => {
 export {
   userDetails,
   personalDetails,
-  resetUserPassword,
   adminAnalytics,
   allUsers,
   userByID,
