@@ -13,6 +13,8 @@ import {
   NoExtraUserDetails_ID
 } from './response-user.js';
 
+import sendMail from './mailer.js';
+
 export {
   generateAccessToken,
   generateRefreshToken,
@@ -22,5 +24,6 @@ export {
   responseUserList,
   detailedResponseUser,
   NoExtraUser_ID,
-  NoExtraUserDetails_ID
+  NoExtraUserDetails_ID,
+  sendMail
 };
