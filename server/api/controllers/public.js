@@ -10,7 +10,9 @@ import {
   generateRefreshToken,
   responseUser,
   verifyRefreshToken,
-  NoExtraUser_ID
+  NoExtraUser_ID,
+  sendMail,
+  generatePasswordToken
 } from '../common/index.js';
 
 const login = async (req, res) => {
@@ -90,4 +92,25 @@ const refreshToken = async (req, res) => {
   }
 };
 
-export { login, logout, refreshToken };
+const sendResetPasswordLink = async (req, res) => {
+  try {
+    const { email } = req.query;
+
+    if (!email) throw 400;
+
+    const passwordToken = await generatePasswordToken(email);
+    const resetLink = `http://${process.env.VITE_DEV_NETWORK_IP}/user/forgot-password?token=${passwordToken}`;
+
+    sendMail({
+      to: email,
+      subject: 'Reset password',
+      html: `<p>Click <a href="${resetLink}">here</a> to reset your password</p>`
+    });
+  } catch (err) {
+    if (err === 400) {
+      res.status(400).json({ msg: 'Invalid email', code: 400 });
+    } else res.sendStatus(500);
+  }
+};
+
+export { login, logout, refreshToken, sendResetPasswordLink };

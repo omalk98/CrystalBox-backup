@@ -21,12 +21,3 @@ export default function sendMail(message) {
     }
   );
 }
-
-//message to be passed to the mailer
-//   const message = {
-//     from: '',
-//     to: '',
-//     subject: '',
-//     text: '',
-//     html: ''
-//   };
