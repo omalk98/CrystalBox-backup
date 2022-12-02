@@ -110,12 +110,12 @@ const sendResetPasswordLink = async (req, res) => {
       return;
     }
 
-    const passwordToken = await generatePasswordToken(user._id);
+    const [password_token, token_uuid] = await generatePasswordToken(user._id);
     const resetLink = `http${process.env.VITE_DEV_NETWORK_IP ? '' : 's'}://${
       process.env.VITE_DEV_NETWORK_IP || process.env.SERVER_ADDRESS
     }${
       process.env.VITE_DEV_NETWORK_IP ? `:${process.env.PORT}` : ''
-    }/user/forgot-password?token=${passwordToken}`;
+    }/user/forgot-password/${token_uuid}?token=${password_token}`;
 
     sendMail({
       to: email,

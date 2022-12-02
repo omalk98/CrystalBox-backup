@@ -52,8 +52,9 @@ const generatePasswordToken = async (id) => {
   try {
     const period = 15;
     const expires = Date.now() + 1000 * 60 * period; // 15 minutes
+    const token_uuid = uuid();
     const token = jwt.sign(
-      { id, rand: { id: uuid(), secret: randomBytes(64).toString('hex') } },
+      { id, rand: { id: token_uuid, secret: randomBytes(64).toString('hex') } },
       process.env.PASSWORD_TOKEN_SECRET,
       {
         expiresIn: `${period}m`
@@ -61,7 +62,7 @@ const generatePasswordToken = async (id) => {
     );
 
     await PasswordTokens.create({ token, expires });
-    return token;
+    return [token, token_uuid];
   } catch {
     throw 500;
   }
@@ -131,16 +132,16 @@ const verifyRefreshToken = async (token) => {
   }
 };
 
-const verifyPasswordToken = async (token, allowedRoles) => {
+const verifyPasswordToken = async (token_uuid, token) => {
   try {
     if (!token) return false;
-    const id = jwt.verify(
+    const [id, uid] = jwt.verify(
       token,
       process.env.PASSWORD_TOKEN_SECRET,
-      (err, decoded) => (err ? false : decoded.id)
+      (err, decoded) => (err ? [false, false] : [decoded.id, decoded.rand.id])
     );
 
-    if (!id) return false;
+    if (!id || token_uuid !== uid) return false;
     const access = await PasswordTokens.findOne({ token });
     const user = await Users.findById(id);
 
@@ -148,14 +149,13 @@ const verifyPasswordToken = async (token, allowedRoles) => {
       !access ||
       access.token !== token ||
       access.expires < Date.now() ||
-      user._id !== id ||
-      user.roles.find((role) => allowedRoles.includes(role)) === -1
+      user._id !== id
     ) {
       await PasswordTokens.deleteOne({ token: access.token });
       return false;
     }
     return id;
-  } catch (err) {
+  } catch {
     throw 500;
   }
 };

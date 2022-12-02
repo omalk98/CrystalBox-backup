@@ -23,6 +23,6 @@ commonRouter.put(
 
 commonRouter.put(`${dataAPI}/user/reset-password`, resetUserPassword);
 
-commonRouter.post(`${baseAPI}/forgot-password`, forgotPassword);
+commonRouter.post(`${baseAPI}/user/forgot-password/:id`, forgotPassword);
 
 export default commonRouter;

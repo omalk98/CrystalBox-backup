@@ -65,14 +65,15 @@ const resetUserPassword = async (req, res) => {
 const forgotPassword = async (req, res) => {
   try {
     const { new_password, confirm_new_password } = req.body;
+    const { id } = req.params;
     const { token } = req.query;
     const tokenExists = await PasswordTokens.findOne({ token });
-    const id = await verifyPasswordToken(token, ['ADMIN', 'USER']);
+    const user_id = await verifyPasswordToken(id, token);
 
-    if (!tokenExists || !id) throw 401;
+    if (!tokenExists || !user_id) throw 401;
     else if (new_password !== confirm_new_password) throw 400;
 
-    const user_password = await Passwords.findById(id);
+    const user_password = await Passwords.findById(user_id);
 
     if (!user_password) throw 404;
     else if (await compare(new_password, user_password.hash)) throw 409;

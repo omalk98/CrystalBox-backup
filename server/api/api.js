@@ -42,9 +42,10 @@ app.use(publicRouter);
 
 app.use(populateDBRouter);
 
-app.get('/user/forgot-password', (req, res) => {
+app.get('/user/forgot-password/:id', (req, res) => {
+  const { id } = req.params;
   const { token } = req.query;
-  if (!token) {
+  if (!token || !id) {
     res.redirect('/login');
     return;
   }
