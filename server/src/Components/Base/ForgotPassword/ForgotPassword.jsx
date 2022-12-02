@@ -12,11 +12,12 @@ export default function ForgotPassword() {
   const location = useLocation();
   const email = new URLSearchParams(location?.search).get('email');
   const forgotPassword = async (e) => {
-    setLoading(true);
-    setMessage({});
     e.preventDefault();
     try {
-      if (!emailField.current?.value || !email) return;
+      if (!emailField.current?.value) return;
+      console.log('what?');
+      setLoading(true);
+      setMessage({});
       const res = await Requests.Public.Get.forgotPassword(
         emailField.current?.value || email
       );
