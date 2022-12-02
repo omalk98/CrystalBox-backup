@@ -13,7 +13,7 @@ import {
   NoExtraUser_ID,
   sendMail,
   generatePasswordToken
-} from '../common/index.js';
+} from '../services/index.js';
 
 const login = async (req, res) => {
   try {
@@ -105,7 +105,10 @@ const sendResetPasswordLink = async (req, res) => {
       NoExtraUser_ID
     );
 
-    if (!user) throw 404;
+    if (!user) {
+      res.sendStatus(200);
+      return;
+    }
 
     const passwordToken = await generatePasswordToken(user._id);
     const resetLink = `http${process.env.VITE_DEV_NETWORK_IP ? '' : 's'}://${

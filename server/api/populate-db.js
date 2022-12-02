@@ -44,7 +44,7 @@ populateDBRouter.get('/populate-db', (req, res) => {
     Passwords.create({ _id: newID, hash: hashSync('12345', 10) });
     if (i % 20 === 0) {
       console.clear();
-      console.log(`${i / 20}% done`);
+      console.log(`(${i}/${users.length}) -> ${i / 20}% done`);
     }
   }
 

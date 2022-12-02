@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { compare, hash } from 'bcrypt';
 import { Passwords, AccessTokens, PasswordTokens } from '../models/index.js';
-import { verifyAccessToken, verifyPasswordToken } from '../common/index.js';
+import { verifyAccessToken, verifyPasswordToken } from '../services/index.js';
 
 const dashboardData = JSON.parse(
   fs.readFileSync('./data/dashboard-data.json', 'utf8')

@@ -24,8 +24,7 @@ const generateAccessToken = async (id) => {
 
     await AccessTokens.create({ token, expires });
     return token;
-  } catch (err) {
-    console.log(err);
+  } catch {
     throw 500;
   }
 };

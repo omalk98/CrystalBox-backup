@@ -4,7 +4,7 @@ import {
   detailedResponseUser,
   NoExtraUser_ID,
   NoExtraUserDetails_ID
-} from '../common/index.js';
+} from '../services/index.js';
 import { Users, UserDetails } from '../models/index.js';
 
 const analyticsData = JSON.parse(
