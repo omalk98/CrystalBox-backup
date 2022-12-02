@@ -109,7 +109,7 @@ const sendResetPasswordLink = async (req, res) => {
     if (!user) throw 404;
 
     const passwordToken = await generatePasswordToken(user._id);
-    const resetLink = `http://${process.env.VITE_DEV_NETWORK_IP}/user/forgot-password?token=${passwordToken}`;
+    const resetLink = `http://${process.env.VITE_DEV_NETWORK_IP}:${process.env.PORT}/user/forgot-password?token=${passwordToken}`;
 
     sendMail({
       to: email,
