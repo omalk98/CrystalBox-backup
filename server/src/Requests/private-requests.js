@@ -76,13 +76,6 @@ const adminPersonalDetails = (payload) =>
     payload
   );
 
-const adminResetPassword = (payload) =>
-  options(
-    `${adminBaseRoute}/user/reset-target-user-password`,
-    httpType.PUT,
-    payload
-  );
-
 const toggleActivateUser = (id) =>
   options(`${adminBaseRoute}/activate-user-toggle/${id}`, httpType.PUT);
 
@@ -101,7 +94,6 @@ const Put = {
   resetPassword,
   adminUserDetails,
   adminPersonalDetails,
-  adminResetPassword,
   toggleActivateUser,
   toggleLockUser,
   bulkLockUsers,
