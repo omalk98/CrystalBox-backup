@@ -15,7 +15,6 @@ export default function ForgotPassword() {
     e.preventDefault();
     try {
       if (!emailField.current?.value) return;
-      console.log('what?');
       setLoading(true);
       setMessage({});
       const res = await Requests.Public.Get.forgotPassword(
