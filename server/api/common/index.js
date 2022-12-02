@@ -1,17 +1,33 @@
 import {
   generateAccessToken,
   generateRefreshToken,
+  generatePasswordToken,
   verifyAccessToken,
-  verifyRefreshToken
+  verifyRefreshToken,
+  verifyPasswordToken
 } from './jwt.js';
 
-import { responseUser, responseUserList } from './response-user.js';
+import {
+  responseUser,
+  responseUserList,
+  detailedResponseUser,
+  NoExtraUser_ID,
+  NoExtraUserDetails_ID
+} from './response-user.js';
+
+import sendMail from './mailer.js';
 
 export {
   generateAccessToken,
   generateRefreshToken,
+  generatePasswordToken,
   verifyAccessToken,
   verifyRefreshToken,
+  verifyPasswordToken,
   responseUser,
-  responseUserList
+  responseUserList,
+  detailedResponseUser,
+  NoExtraUser_ID,
+  NoExtraUserDetails_ID,
+  sendMail
 };

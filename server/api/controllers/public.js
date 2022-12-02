@@ -1,101 +1,130 @@
 import { compare } from 'bcrypt';
-import { Users, Passwords, Tokens } from '../models/index.js';
+import {
+  Users,
+  UserDetails,
+  Passwords,
+  RefreshTokens
+} from '../models/index.js';
 import {
   generateAccessToken,
   generateRefreshToken,
   responseUser,
-  verifyRefreshToken
+  verifyRefreshToken,
+  NoExtraUser_ID,
+  sendMail,
+  generatePasswordToken
 } from '../common/index.js';
 
 const login = async (req, res) => {
-  const { username, password, rememberMe } = req.body;
-
-  if (!username || !password) {
-    res.status(401).json({ msg: 'Invalid username or password', code: 401 });
-    return;
-  }
-
   try {
-    const user = await Users.findOne({
-      $or: [
-        { 'user_details.email': username },
-        { 'user_details.username': username }
-      ]
-    });
+    const { username, password, rememberMe } = req.body;
 
-    if (!user) {
-      res.status(401).json({ msg: 'Invalid username or password', code: 401 });
-      return;
-    }
-    const userID = user.security_details.id;
+    if (!username || !password) throw 401;
+
+    const user = await Users.findOne(
+      { $or: [{ email: username }, { username }] },
+      NoExtraUser_ID
+    );
+
+    if (!user) throw 401;
+    const userID = user._id;
 
     const pass = await Passwords.findById(userID);
+    const user_details = await UserDetails.findById(userID);
 
-    if (!pass) {
-      res.status(401).json({ msg: 'Invalid username or password', code: 401 });
-      return;
-    }
+    if (!user_details || !pass) throw 401;
 
     const isMatch = await compare(password, pass.hash);
 
-    if (!isMatch) {
-      res.status(401).json({ msg: 'Invalid username or password', code: 401 });
-      return;
-    }
+    if (!isMatch) throw 401;
 
-    let token = null;
-    let refreshToken = null;
-    try {
-      token = await generateAccessToken(userID);
-      refreshToken = await generateRefreshToken(userID);
-    } catch {
-      res.sendStatus(500);
-      return;
-    }
+    const token = await generateAccessToken(userID);
+    const refreshToken = await generateRefreshToken(userID);
 
     if (rememberMe) {
       res.cookie('token', refreshToken, {
         httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
+        maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+        sameSite: 'none'
       });
     } else res.clearCookie('token', { httpOnly: true });
 
-    user.server_details.last_login = Date.now();
+    user.last_login.time = new Date();
+    user.last_login.ip = req.ip.split(':').pop();
+
     await user.save();
 
     res.status(200).json({
-      user: responseUser(user),
+      user: responseUser(user, user_details),
       auth: {
         token,
-        roles: user.server_details.roles
+        roles: user.roles
       }
     });
   } catch (err) {
-    res.sendStatus(500);
+    if (err === 401) {
+      res.status(401).json({ msg: 'Invalid username or password', code: 401 });
+    } else res.sendStatus(500);
   }
 };
 
 const logout = async (req, res) => {
-  const { token } = req.cookies;
-  if (token) {
-    await Tokens.deleteOne({ token });
-    res.clearCookie('token', { httpOnly: true });
+  try {
+    const { token } = req.cookies;
+    if (token) {
+      await RefreshTokens.deleteOne({ token });
+      res.clearCookie('token', { httpOnly: true });
+    }
+    res.sendStatus(200);
+  } catch {
+    res.sendStatus(500);
   }
-  res.sendStatus(200);
 };
 
 const refreshToken = async (req, res) => {
-  const { token } = req.cookies;
-  if (!token) {
-    res.status(401).json({ msg: 'Invalid token', code: 401 });
-    return;
-  }
   try {
+    const { token } = req.cookies;
+    if (!token) throw 401;
     const response = await verifyRefreshToken(token);
     res.status(200).json(response);
-  } catch {
+  } catch (err) {
     res.status(401).json({ msg: 'Invalid token', code: 401 });
   }
 };
 
-export { login, logout, refreshToken };
+const sendResetPasswordLink = async (req, res) => {
+  try {
+    const { email } = req.query;
+    console.log(email);
+
+    if (!email) throw 400;
+
+    const user = await Users.findOne(
+      {
+        email
+      },
+      NoExtraUser_ID
+    );
+
+    if (!user) throw 404;
+
+    const passwordToken = await generatePasswordToken(user._id);
+    const resetLink = `http://${process.env.VITE_DEV_NETWORK_IP}:${process.env.PORT}/user/forgot-password?token=${passwordToken}`;
+
+    sendMail({
+      to: email,
+      subject: 'Reset password',
+      html: `<p>Click <a href="${resetLink}">here</a> to reset your password</p>`
+    });
+
+    res.sendStatus(200);
+  } catch (err) {
+    if (err === 400) {
+      res.status(400).json({ msg: 'Invalid email', code: 400 });
+    } else if (err === 404) {
+      res.status(404).json({ msg: 'User not found', code: 404 });
+    } else res.sendStatus(500);
+  }
+};
+
+export { login, logout, refreshToken, sendResetPasswordLink };

@@ -317,7 +317,7 @@ function ProfileForm({
   );
 }
 
-function ResetPassword({ isOtherUser, userID }) {
+function ResetPassword({ isOtherUser, userID, userEmail }) {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const privateRequest = Requests.Private.Hook();
@@ -326,28 +326,18 @@ function ResetPassword({ isOtherUser, userID }) {
     new_password: '',
     confirm_new_password: ''
   };
-
   const resetPassword = async (values, actions) => {
     if (
       // eslint-disable-next-line no-restricted-globals, no-alert
-      confirm(
-        `Are you sure you want to reset ${
-          isOtherUser ? '"The User\'s"' : '"Your"'
-        } password?`
-      )
+      confirm('Are you sure you want to reset Your password?')
     ) {
-      const data = values;
-      let res;
-      if (isOtherUser) data.id = userID;
-      setLoading(true);
       try {
-        if (isOtherUser) {
-          res = await privateRequest(
-            Requests.Private.Put.adminResetPassword(data)
-          );
-        } else {
-          res = await privateRequest(Requests.Private.Put.resetPassword(data));
-        }
+        const data = values;
+        data.id = userID;
+        setLoading(true);
+        const res = await privateRequest(
+          Requests.Private.Put.resetPassword(data)
+        );
         if (res.status !== 200) {
           throw new Error('Error resetting password');
         }
@@ -361,6 +351,29 @@ function ResetPassword({ isOtherUser, userID }) {
     actions.setSubmitting(false);
     actions.resetForm();
     setLoading(false);
+  };
+
+  const adminResetPassword = async () => {
+    if (
+      // eslint-disable-next-line no-restricted-globals, no-alert
+      confirm(
+        `Are you sure you want to reset The User's password? ${userEmail}`
+      )
+    ) {
+      try {
+        setLoading(true);
+        const res = await Requests.Public.Get.forgotPassword(userEmail);
+        if (res.status !== 200) {
+          throw new Error('Error resetting password');
+        }
+
+        setIsOpen(false);
+        setLoading(false);
+      } catch {
+        // eslint-disable-next-line no-alert
+        alert('Failed to reset password');
+      }
+    }
   };
 
   return (
@@ -378,24 +391,34 @@ function ResetPassword({ isOtherUser, userID }) {
       >
         <Form>
           <div className="users-options">
-            {/* eslint-disable-next-line react/button-has-type */}
-            <button
-              type={isOpen ? 'button' : 'reset'}
-              className="clear-input hover-black glow-red"
-              onClick={() => (!isOtherUser ? setIsOpen((prev) => !prev) : null)}
-            >
-              {isOpen && !isOtherUser ? (
-                <>
-                  <Icons.Close />
-                  &nbsp;&nbsp;Cancel
-                </>
-              ) : (
-                <>
-                  {loading ? <Icons.LoadingLine /> : <Icons.Password />}
-                  &nbsp;&nbsp;Reset Password
-                </>
-              )}
-            </button>
+            {isOtherUser ? (
+              <button
+                type="submit"
+                className="clear-input hover-black glow-red"
+                onClick={adminResetPassword}
+              >
+                {loading ? <Icons.LoadingLine /> : <Icons.Password />}
+                &nbsp;&nbsp;Reset Password
+              </button>
+            ) : (
+              <button
+                type={isOpen ? 'button' : 'reset'}
+                className="clear-input hover-black glow-red"
+                onClick={() => setIsOpen((prev) => !prev)}
+              >
+                {isOpen && !isOtherUser ? (
+                  <>
+                    <Icons.Close />
+                    &nbsp;&nbsp;Cancel
+                  </>
+                ) : (
+                  <>
+                    {loading ? <Icons.LoadingLine /> : <Icons.Password />}
+                    &nbsp;&nbsp;Reset Password
+                  </>
+                )}
+              </button>
+            )}
           </div>
           {!isOtherUser ? (
             <>
@@ -447,6 +470,7 @@ export default function UserProfile({ userData, isOtherUser }) {
       <ResetPassword
         isOtherUser={isOtherUser}
         userID={userID}
+        userEmail={userData?.user_details?.details?.email}
       />
       <section className="profile-user-detail-section">
         {userData

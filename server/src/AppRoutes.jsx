@@ -1,10 +1,12 @@
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-
 import { Loader } from './Components/Common';
-import PersistLogin from './PersistLogin';
-import Home from './Components/Base/Main/Home/Home';
 
+const PersistLogin = lazy(() => import('./PersistLogin'));
+const Home = lazy(() => import('./Components/Base/Main/Home/Home'));
+const ForgotPassword = lazy(() =>
+  import('./Components/Base/ForgotPassword/ForgotPassword')
+);
 const ProtectedRoutes = lazy(() =>
   import('./Components/ProtectedRoute/ProtectedRoutes')
 );
@@ -138,6 +140,11 @@ export default function AppRoutes() {
               />
             </Route>
           </Route>
+
+          <Route
+            path="/forgot-password"
+            element={<ForgotPassword />}
+          />
 
           <Route
             path="/forbidden"

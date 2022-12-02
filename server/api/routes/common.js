@@ -4,25 +4,25 @@ import {
   dashboard,
   updateUserDetails,
   updatePersonalDetails,
-  resetUserPassword
+  resetUserPassword,
+  forgotPassword
 } from '../controllers/common.js';
 
 const commonRouter = Router();
 const baseAPI = '/api/v1';
-const dataAPI = `${baseAPI}/data`;
+const dataAPI = `${baseAPI}/data/common`;
 
-commonRouter.get(`${dataAPI}/common/dashboard`, dashboard);
+commonRouter.get(`${dataAPI}/dashboard`, dashboard);
 
-commonRouter.put(
-  `${dataAPI}/common/user/update-user-details`,
-  updateUserDetails
-);
+commonRouter.put(`${dataAPI}/user/update-user-details`, updateUserDetails);
 
 commonRouter.put(
-  `${dataAPI}/common/user/update-personal-details`,
+  `${dataAPI}/user/update-personal-details`,
   updatePersonalDetails
 );
 
-commonRouter.put(`${dataAPI}/common/user/reset-password`, resetUserPassword);
+commonRouter.put(`${dataAPI}/user/reset-password`, resetUserPassword);
+
+commonRouter.post(`${baseAPI}/forgot-password`, forgotPassword);
 
 export default commonRouter;

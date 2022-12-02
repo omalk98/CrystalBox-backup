@@ -42,6 +42,16 @@ app.use(publicRouter);
 
 app.use(populateDBRouter);
 
+app.get('/user/forgot-password', (req, res) => {
+  const { token } = req.query;
+  if (!token) {
+    res.redirect('/login');
+    return;
+  }
+  res.setHeader('Content-Type', 'text/html');
+  res.sendFile(join(__dirname, '../public', 'forgot-password.html'));
+});
+
 app.get('*', (req, res) => {
   res.setHeader('Content-Type', 'text/html');
   res.sendFile(join(__dirname, '../public/dist', 'index.html'));
