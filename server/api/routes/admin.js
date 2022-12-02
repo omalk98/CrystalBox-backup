@@ -3,7 +3,6 @@ import { Router } from 'express';
 import {
   userDetails,
   personalDetails,
-  resetUserPassword,
   adminAnalytics,
   allUsers,
   userByID,
@@ -19,8 +18,6 @@ import {
 const adminRouter = Router();
 const baseAPI = '/api/v1/data/admin';
 
-// adminRouter.use(middelewareFunc);
-
 adminRouter.put(`${baseAPI}/user/update-target-user-details`, userDetails);
 
 adminRouter.get(`${baseAPI}/analytics`, adminAnalytics);
@@ -28,11 +25,6 @@ adminRouter.get(`${baseAPI}/analytics`, adminAnalytics);
 adminRouter.put(
   `${baseAPI}/user/update-target-personal-details`,
   personalDetails
-);
-
-adminRouter.put(
-  `${baseAPI}/user/reset-target-user-password`,
-  resetUserPassword
 );
 
 adminRouter.get(`${baseAPI}/all-users`, allUsers);

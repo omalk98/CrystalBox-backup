@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-const baseUrl = `${import.meta.env.DEV
-  ? `http://${import.meta.env.VITE_DEV_NETWORK_IP}:5555`
-  : ''
-  }/api/v1`;
+const baseUrl = `${
+  import.meta.env.DEV
+    ? `http://${import.meta.env.VITE_DEV_NETWORK_IP}:5555`
+    : ''
+}/api/v1`;
 
 export default axios.create({
   baseURL: baseUrl,

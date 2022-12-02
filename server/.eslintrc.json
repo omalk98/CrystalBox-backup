@@ -15,6 +15,7 @@
     "react/jsx-props-no-spreading": "off",
     "react/no-array-index-key": "off",
     "react/jsx-curly-newline": "off",
+    "react/button-has-type": "off",
     "no-else-return": "off",
     "implicit-arrow-linebreak": "off",
     "operator-linebreak": "off",

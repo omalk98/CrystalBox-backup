@@ -34,13 +34,9 @@ function FormField({ title, prefix }) {
         ) : (
           <Field
             id={prefix}
-            className={`${
-              type === 'number' ? 'clear-input number-input' : 'detail-input'
-            } glow-yellow`}
+            className="detail-input glow-yellow"
             name={prefix}
             type={type}
-            min={type === 'number' ? 1 : null}
-            max={type === 'number' ? 3 : null}
           />
         )}
       </div>
