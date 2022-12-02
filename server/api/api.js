@@ -29,7 +29,7 @@ const app = express();
 
 app.use(RequestLogger);
 app.use(ErrorLogger);
-app.use(Cors);
+if (process.env.VITE_DEV_NETWORK_IP) app.use(Cors);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
