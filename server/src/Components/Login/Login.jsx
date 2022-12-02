@@ -17,7 +17,7 @@ function LoginPage({ from }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const username = useRef();
+  const [username, setUsername] = useState('');
   const password = useRef();
   const [rememberMe, setRememberMe] = useState(
     localStorage.getItem('c_box_remember_me') === 'true'
@@ -37,7 +37,7 @@ function LoginPage({ from }) {
     setError(false);
     try {
       const res = await Requests.Public.Post.userLogin({
-        username: username.current?.value?.replace(/^\s+|\s+$/g, ''),
+        username: username.replace(/^\s+|\s+$/g, ''),
         password: password.current?.value.replace(/^\s+|\s+$/g, ''),
         rememberMe
       });
@@ -51,8 +51,6 @@ function LoginPage({ from }) {
       setError(true);
     }
   };
-
-  username.current?.focus();
 
   return (
     <div className="login-page-wrapper">
@@ -82,7 +80,8 @@ function LoginPage({ from }) {
                         className="login-input glow-blue"
                         type="text"
                         placeholder="Username"
-                        ref={username}
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                         required
                         autoFocus
                       />
@@ -149,7 +148,7 @@ function LoginPage({ from }) {
                       </div>
                       <div className="w-100 my-2 text-md-right">
                         <Link
-                          to="/forgot-password"
+                          to={`/forgot-password?email=${username || ''}`}
                           style={{ color: '#fff' }}
                         >
                           Forgot Password ?
