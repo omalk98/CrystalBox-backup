@@ -73,9 +73,7 @@ export default function ForgotPassword() {
         </Form>
       </div>
       <br />
-      {message?.length ? (
-        <Alert variant={message.variant}>{message.text}</Alert>
-      ) : null}
+      {message ? <Alert variant={message.variant}>{message.text}</Alert> : null}
     </PageTab>
   );
 }
