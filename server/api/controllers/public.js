@@ -98,17 +98,28 @@ const sendResetPasswordLink = async (req, res) => {
 
     if (!email) throw 400;
 
-    const passwordToken = await generatePasswordToken(email);
-    const resetLink = `http://${process.env.VITE_DEV_NETWORK_IP}/user/forgot-password?token=${passwordToken}`;
+    const user = await Users.findOne(
+      {
+        email
+      },
+      NoExtraUser_ID
+    );
 
-    sendMail({
-      to: email,
-      subject: 'Reset password',
-      html: `<p>Click <a href="${resetLink}">here</a> to reset your password</p>`
-    });
+    if (user) {
+      const passwordToken = await generatePasswordToken(email);
+      const resetLink = `http://${process.env.VITE_DEV_NETWORK_IP}/user/forgot-password?token=${passwordToken}`;
+
+      sendMail({
+        to: email,
+        subject: 'Reset password',
+        html: `<p>Click <a href="${resetLink}">here</a> to reset your password</p>`
+      });
+    } else throw 404;
   } catch (err) {
     if (err === 400) {
       res.status(400).json({ msg: 'Invalid email', code: 400 });
+    } else if (err === 404) {
+      res.status(404).json({ msg: 'User not found', code: 404 });
     } else res.sendStatus(500);
   }
 };
