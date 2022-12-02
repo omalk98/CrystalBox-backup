@@ -149,7 +149,7 @@ function LoginPage({ from }) {
                       </div>
                       <div className="w-100 my-2 text-md-right">
                         <Link
-                          to="/login"
+                          to="/forgot-password"
                           style={{ color: '#fff' }}
                         >
                           Forgot Password ?
