@@ -14,7 +14,6 @@ const allowedOrigins = process.env.VITE_DEV_NETWORK_IP
 
 // prettier-ignore
 const corsOptions = {
-<<<<<<< Updated upstream
   origin: process.env.SERVER_ADDRESS
     ? (og, cb) => {
       if (
@@ -25,17 +24,6 @@ const corsOptions = {
       } else {
         cb('Not allowed by CORS');
       }
-=======
-  origin: (og, cb) => {
-    if (
-      allowedOrigins.indexOf(og) !== -1 ||
-      (process.env.VITE_DEV_NETWORK_IP && !og)
-    ) {
-      console.log('CORS: ', og);
-      cb(null, true);
-    } else {
-      cb('Not allowed by CORS');
->>>>>>> Stashed changes
     }
     : '*',
   optionsSuccessStatus: 200,
