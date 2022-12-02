@@ -95,7 +95,6 @@ const refreshToken = async (req, res) => {
 const sendResetPasswordLink = async (req, res) => {
   try {
     const { email } = req.query;
-    console.log(email);
 
     if (!email) throw 400;
 
