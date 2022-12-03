@@ -50,10 +50,34 @@ const userByID = async (req, res) => {
   }
 };
 
-const createUser = (req, res) => {
-  console.log(req.body);
-  res.status(200).json({ status: 'ok' });
-};
+// Create controller function for creating a new user
+// Return 201 if the user is created
+// Return 400 if data is invalid
+// Return 409 if the user already exists
+// Return 500 if there is an error
+// User Data Format received from the client
+/* {
+  user_details: {
+    first_name: 'Dave',
+    last_name: 'Roberts',
+    username: 'tester',
+    email: 'tester@mail.com'
+  },
+  personal_details: {
+    date_of_birth: 1670096178458,
+    phone: '',
+    address: {
+      street: '',
+      city: '',
+      province: '',
+      country: 'Canada',
+      postal_code: ''
+    }
+  },
+  server_details: { roles: [], status: { locked: false, activated: false } }
+}
+*/
+// Export the controller function at the bottom of the page
 
 const activateUserToggle = (req, res) => {
   const { id } = req.params;
@@ -97,7 +121,6 @@ export {
   adminAnalytics,
   allUsers,
   userByID,
-  createUser,
   activateUserToggle,
   lockUserToggle,
   deleteUser,
