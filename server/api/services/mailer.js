@@ -12,12 +12,8 @@ export default function sendMail(message) {
 
   transporter.sendMail(
     { from: process.env.MAIL_ADDRESS, ...message },
-    (error, info) => {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log(`Email sent: ${info.response}`);
-      }
+    (err) => {
+      if (err) throw 400;
     }
   );
 }
