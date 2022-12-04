@@ -6,6 +6,7 @@ import {
   adminAnalytics,
   allUsers,
   userByID,
+  createUser,
   activateUserToggle,
   lockUserToggle,
   deleteUser,
@@ -33,6 +34,8 @@ adminRouter.get(`${baseAPI}/user/:id`, userByID);
 // Add route to create a new user, use POST method and url /api/v1/data/admin/create-user
 // import and pass in the controller function
 // ${baseAPI}/create-user is the short form
+
+adminRouter.post(`${baseAPI}/create-user`, createUser);
 
 adminRouter.put(`${baseAPI}/activate-user-toggle/:id`, activateUserToggle);
 

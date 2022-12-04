@@ -25,6 +25,7 @@
     "no-underscore-dangle": "off",
     "camelcase": "off",
     "no-throw-literal": "off",
+    "linebreak-style" : "off",
     "comma-dangle": [
       "error",
       {

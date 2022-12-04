@@ -3,7 +3,8 @@ import {
   responseUserList,
   detailedResponseUser,
   NoExtraUser_ID,
-  NoExtraUserDetails_ID
+  NoExtraUserDetails_ID,
+  databaseUserResponse
 } from '../services/index.js';
 import { Users, UserDetails } from '../models/index.js';
 
@@ -45,8 +46,9 @@ const userByID = async (req, res) => {
   } catch (err) {
     if (err === 404) {
       res.status(404).json({ message: 'User not found' });
+    } else {
+      res.sendStatus(500);
     }
-    res.sendStatus(500);
   }
 };
 
@@ -78,6 +80,33 @@ const userByID = async (req, res) => {
 }
 */
 // Export the controller function at the bottom of the page
+
+const createUser = async (req, res) => {
+  try {
+    const newUser = req.body;
+    const { user, user_details } = databaseUserResponse(newUser);
+    const check1 = await Users.findOne({
+      $or: [{ username: user.username }, { email: user.email }]
+    });
+    const check2 = UserDetails.findOne({ phone: user.phone });
+
+    if (check1 || check2) throw 409;
+
+    await Users.create(user);
+    await UserDetails.create(user_details);
+
+    res.sendStatus(201);
+  } catch (err) {
+    console.log(err);
+    if (err === 400) {
+      res.status(400).json({ msg: 'Invalid data', code: 400 });
+    } else if (err === 409) {
+      res.status(409).json({ msg: 'Username already exists', code: 409 });
+    } else {
+      res.sendStatus(500);
+    }
+  }
+};
 
 const activateUserToggle = (req, res) => {
   const { id } = req.params;
@@ -121,6 +150,7 @@ export {
   adminAnalytics,
   allUsers,
   userByID,
+  createUser,
   activateUserToggle,
   lockUserToggle,
   deleteUser,

@@ -9,6 +9,7 @@ import {
 
 import {
   responseUser,
+  databaseUserResponse,
   responseUserList,
   detailedResponseUser,
   NoExtraUser_ID,
@@ -29,5 +30,6 @@ export {
   detailedResponseUser,
   NoExtraUser_ID,
   NoExtraUserDetails_ID,
-  sendMail
+  sendMail,
+  databaseUserResponse
 };
