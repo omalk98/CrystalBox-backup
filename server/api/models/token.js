@@ -2,7 +2,12 @@ import { Schema, model } from 'mongoose';
 
 const TokenSchema = new Schema({
   token: { type: String, unique: true, required: true, immutable: true },
-  expires: { type: Date, required: true, immutable: true, expires: 0 }
+  expires: {
+    type: Date,
+    required: true,
+    immutable: true,
+    expiresAfterSeconds: 0
+  }
 });
 
 const AccessTokens = model('Access_Tokens', TokenSchema);
