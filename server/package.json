@@ -48,10 +48,10 @@
     "vite": "^2.9.15",
     "winston": "^3.8.2",
     "winston-mongodb": "^5.1.0",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "@faker-js/faker": "^7.6.0"
   },
   "devDependencies": {
-    "@faker-js/faker": "^7.6.0",
     "eslint": "^8.28.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.26.0",

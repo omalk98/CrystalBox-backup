@@ -1,4 +1,6 @@
 import { v4 as uuid } from 'uuid';
+import { faker } from '@faker-js/faker';
+import { hash } from 'bcrypt';
 
 export function responseUser(user, user_details) {
   return {
@@ -56,7 +58,7 @@ export function responseUserList(users) {
   }));
 }
 
-export function databaseUserResponse(user) {
+export async function databaseUserResponse(user) {
   const newID = uuid();
 
   return {
@@ -89,6 +91,10 @@ export function databaseUserResponse(user) {
       },
       image:
         'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg'
+    },
+    password: {
+      _id: newID,
+      hash: await hash(faker.internet.password(), 10)
     }
   };
 }

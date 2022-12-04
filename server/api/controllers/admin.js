@@ -4,9 +4,11 @@ import {
   detailedResponseUser,
   NoExtraUser_ID,
   NoExtraUserDetails_ID,
-  databaseUserResponse
+  databaseUserResponse,
+  sendMail,
+  generatePasswordToken
 } from '../services/index.js';
-import { Users, UserDetails } from '../models/index.js';
+import { Users, UserDetails, Passwords } from '../models/index.js';
 
 const analyticsData = JSON.parse(
   fs.readFileSync('./data/analytics-data.json', 'utf8')
@@ -55,12 +57,18 @@ const userByID = async (req, res) => {
 const createUser = async (req, res) => {
   try {
     const newUser = req.body;
-    const { user, user_details } = databaseUserResponse(newUser);
+    const { user, user_details, password } = await databaseUserResponse(
+      newUser
+    );
 
     if (!user || !user_details) throw 400;
 
     const existsUsernameOrEmail = await Users.findOne({
-      $or: [{ username: user.username }, { email: user.email }]
+      $or: [
+        { _id: user._id },
+        { username: user.username },
+        { email: user.email }
+      ]
     });
     const existsPhone = UserDetails.findOne({ phone: user.phone });
 
@@ -68,6 +76,21 @@ const createUser = async (req, res) => {
 
     await Users.create(user);
     await UserDetails.create(user_details);
+    await Passwords.create(password);
+
+    const resetLink = await generatePasswordToken(user._id);
+
+    sendMail({
+      to: user.email,
+      subject: 'CrystalBox - Account Created',
+      html: `
+      <div>
+        <h1>Credentials</h1>
+        <p>Welcome to CrystalBox!</p>
+        <p>Click <a href="${resetLink}">here</a> to set up your password.</p>
+      </div>
+      `
+    });
 
     res.sendStatus(201);
   } catch (err) {
