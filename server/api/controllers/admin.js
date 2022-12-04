@@ -96,7 +96,7 @@ const createUser = async (req, res) => {
         This can be changed at any time in your profile settings.
         <br />
         The link will expire in <strong>24 hours</strong>.
-        <p>Click <a href="${resetLink}">here</a> to setup your password and activate your account.</p>
+        <p>Click <a href="${resetLink}" target="_blank">here</a> to setup your password and activate your account.</p>
         <p>Or copy and paste this link into your browser:</p>
         <br />
         <p>${resetLink}</p>

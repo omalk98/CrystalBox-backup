@@ -122,7 +122,7 @@ const sendResetPasswordLink = async (req, res) => {
         <p>If you did <strong>NOT</strong> request a <u>password reset</u>, please ignore this email.</p>
         <br />
         <p>This link will expire in 15 minutes.</p>
-        <p>Click <a href="${reset_link}">here</a> to reset your password</p>
+        <p>Click <a href="${reset_link}" target="_blank">here</a> to reset your password</p>
         <p>Or copy and paste the following link into your browser:</p>
         <br />
         <p>${reset_link}</p>
