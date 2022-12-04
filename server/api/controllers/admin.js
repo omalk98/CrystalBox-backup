@@ -95,8 +95,11 @@ const createUser = async (req, res) => {
         Your Username is: ${user.username}
         This can be changed at any time in your profile settings.
         <br />
-        <p>Click <a href="${resetLink}">here</a> to setup your password and activate your account.</p>
         The link will expire in <strong>24 hours</strong>.
+        <p>Click <a href="${resetLink}">here</a> to setup your password and activate your account.</p>
+        <p>Or copy and paste this link into your browser:</p>
+        <br />
+        <p>${resetLink}</p>
         <br />
         <p>If the link is not working or has expired, you will need to use the <a href="${forgotPasswordLink}">forgot password</a> link and provide your email to reset your password.</p>
       </div>

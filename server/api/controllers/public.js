@@ -121,7 +121,11 @@ const sendResetPasswordLink = async (req, res) => {
         <p>You are receiving this email because you (or someone else) have requested the reset of the password for your account.</p>
         <p>If you did <strong>NOT</strong> request a <u>password reset</u>, please ignore this email.</p>
         <br />
+        <p>This link will expire in 15 minutes.</p>
         <p>Click <a href="${reset_link}">here</a> to reset your password</p>
+        <p>Or copy and paste the following link into your browser:</p>
+        <br />
+        <p>${reset_link}</p>
       </div>
       `
     });
