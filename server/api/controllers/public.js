@@ -110,12 +110,7 @@ const sendResetPasswordLink = async (req, res) => {
       return;
     }
 
-    const [password_token, token_uuid] = await generatePasswordToken(user._id);
-    const resetLink = `http${process.env.VITE_DEV_NETWORK_IP ? '' : 's'}://${
-      process.env.VITE_DEV_NETWORK_IP || process.env.SERVER_ADDRESS
-    }${
-      process.env.VITE_DEV_NETWORK_IP ? `:${process.env.PORT}` : ''
-    }/user/forgot-password/${token_uuid}?token=${password_token}`;
+    const reset_link = await generatePasswordToken(user._id);
 
     sendMail({
       to: email,
@@ -126,7 +121,7 @@ const sendResetPasswordLink = async (req, res) => {
         <p>You are receiving this email because you (or someone else) have requested the reset of the password for your account.</p>
         <p>If you did <strong>NOT</strong> request a <u>password reset</u>, please ignore this email.</p>
         <br />
-        <p>Click <a href="${resetLink}">here</a> to reset your password</p>
+        <p>Click <a href="${reset_link}">here</a> to reset your password</p>
       </div>
       `
     });
