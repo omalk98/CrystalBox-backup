@@ -1,7 +1,6 @@
 import { config } from 'dotenv';
 import express from 'express';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
 import cookieParser from 'cookie-parser';
 import { connect } from 'mongoose';
 import {
@@ -15,8 +14,10 @@ import {
   contentRouter,
   commonRouter,
   publicRouter,
+  viewRouter,
   populateDBRouter
 } from './routes/index.js';
+import { __dirname } from './utilities/index.js';
 
 config();
 
@@ -27,8 +28,6 @@ connect(database, { useUnifiedTopology: true, useNewUrlParser: true }).catch(
   }
 );
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
 const app = express();
 
 app.use(RequestLogger);
@@ -38,29 +37,14 @@ else app.use(ForceSSL);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(join(__dirname, '../public/dist')));
+app.use(express.static(join(__dirname, 'public/dist')));
 
 app.use(adminRouter);
 app.use(contentRouter);
 app.use(commonRouter);
 app.use(publicRouter);
+app.use(viewRouter);
 
 app.use(populateDBRouter);
-
-app.get('/user/forgot-password/:id', (req, res) => {
-  const { id } = req.params;
-  const { token } = req.query;
-  if (!token || !id) {
-    res.redirect('/login');
-    return;
-  }
-  res.setHeader('Content-Type', 'text/html');
-  res.sendFile(join(__dirname, '../public', 'forgot-password.html'));
-});
-
-app.get('*', (req, res) => {
-  res.setHeader('Content-Type', 'text/html');
-  res.sendFile(join(__dirname, '../public/dist', 'index.html'));
-});
 
 export default app;
