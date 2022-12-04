@@ -6,7 +6,7 @@ const TokenSchema = new Schema({
     type: Date,
     required: true,
     immutable: true,
-    expiresAfterSeconds: 0
+    expires: 0
   }
 });
 
