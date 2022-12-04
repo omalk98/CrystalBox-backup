@@ -5,6 +5,10 @@ const validatePasswordLink = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { token } = req.query;
+    if (!token || !id) {
+      res.redirect('/login');
+      return;
+    }
     const tokenExists = await PasswordTokens.findOne({ token });
     const user_id = await verifyPasswordToken(id, token);
     if (!tokenExists || !user_id) res.redirect('/user/forgot-password');

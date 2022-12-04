@@ -7,12 +7,6 @@ const mainPage = (req, res) => {
 };
 
 const forgotPassword = (req, res) => {
-  const { id } = req.params;
-  const { token } = req.query;
-  if (!token || !id) {
-    res.redirect('/login');
-    return;
-  }
   res.setHeader('Content-Type', 'text/html');
   res.sendFile(join(__dirname, 'public', 'forgot-password.html'));
 };
