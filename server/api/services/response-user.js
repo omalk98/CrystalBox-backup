@@ -1,3 +1,7 @@
+import { v4 as uuid } from 'uuid';
+import { faker } from '@faker-js/faker';
+import { hash } from 'bcrypt';
+
 export function responseUser(user, user_details) {
   return {
     user_details: {
@@ -52,6 +56,47 @@ export function responseUserList(users) {
     locked: user.status.locked ? 'Yes' : 'No',
     email: user.email
   }));
+}
+
+export async function databaseUserResponse(user) {
+  const newID = uuid();
+
+  return {
+    user: {
+      _id: newID,
+      username: user.user_details.username,
+      email: user.user_details.email,
+      roles: ['USER'],
+      last_login: {
+        time: Date.now(),
+        ip: '192.168.1.1'
+      },
+      status: {
+        activated: true,
+        locked: false
+      }
+    },
+    user_details: {
+      _id: newID,
+      first_name: user.user_details.first_name,
+      last_name: user.user_details.last_name,
+      date_of_birth: new Date(),
+      phone: user.personal_details.phone,
+      address: {
+        street: '9481 Harvey Avenue',
+        city: 'Guelph',
+        province: 'SK',
+        postal_code: 'Y8K 9O8',
+        country: 'Canada'
+      },
+      image:
+        'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg'
+    },
+    password: {
+      _id: newID,
+      hash: await hash(faker.internet.password(), 10)
+    }
+  };
 }
 
 export const NoExtraUser_ID = {

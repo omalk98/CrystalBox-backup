@@ -102,7 +102,7 @@ export default function CreateUser() {
       const res = await privateRequest(
         Requests.Private.Post.createUser(values)
       );
-      if (res.status !== 200) throw new Error('Session expired');
+      if (res.status !== 201) throw new Error('Session expired');
       setMessage({
         text: 'Created user successfully',
         variant: 'success'

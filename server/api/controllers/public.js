@@ -110,23 +110,22 @@ const sendResetPasswordLink = async (req, res) => {
       return;
     }
 
-    const [password_token, token_uuid] = await generatePasswordToken(user._id);
-    const resetLink = `http${process.env.VITE_DEV_NETWORK_IP ? '' : 's'}://${
-      process.env.VITE_DEV_NETWORK_IP || process.env.SERVER_ADDRESS
-    }${
-      process.env.VITE_DEV_NETWORK_IP ? `:${process.env.PORT}` : ''
-    }/user/forgot-password/${token_uuid}?token=${password_token}`;
+    const reset_link = await generatePasswordToken(user._id);
 
     sendMail({
       to: email,
       subject: 'CrystalBox - Password Reset',
       html: `
       <div>
-        <h1>Password Reset</h1>
+      <h1 style="background: #808080; color: #fff;">Password Reset</h1>
         <p>You are receiving this email because you (or someone else) have requested the reset of the password for your account.</p>
         <p>If you did <strong>NOT</strong> request a <u>password reset</u>, please ignore this email.</p>
         <br />
-        <p>Click <a href="${resetLink}">here</a> to reset your password</p>
+        <p>This link will expire in 15 minutes.</p>
+        <p>Click <a href="${reset_link}">here</a> to reset your password</p>
+        <p>Or copy and paste the following link into your browser:</p>
+        <br />
+        <p>${reset_link}</p>
       </div>
       `
     });

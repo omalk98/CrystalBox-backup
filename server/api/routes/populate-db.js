@@ -2,7 +2,7 @@ import fs from 'fs';
 import { v4 as uuid } from 'uuid';
 import { hashSync } from 'bcrypt';
 import { Router } from 'express';
-import { Users, UserDetails, Passwords } from './models/index.js';
+import { Users, UserDetails, Passwords } from '../models/index.js';
 
 const populateDBRouter = Router();
 
@@ -43,7 +43,9 @@ populateDBRouter.get('/populate-db', (req, res) => {
     UserDetails.create(user_details[i]);
     Passwords.create({ _id: newID, hash: hashSync('12345', 10) });
     if (i % 20 === 0) {
+      // eslint-disable-next-line no-console
       console.clear();
+      // eslint-disable-next-line no-console
       console.log(`(${i}/${users.length}) -> ${i / 20}% done`);
     }
   }

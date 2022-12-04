@@ -4,15 +4,19 @@ import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import cookieParser from 'cookie-parser';
 import { connect } from 'mongoose';
-import { Cors, RequestLogger, ErrorLogger } from './middleware/index.js';
+import {
+  Cors,
+  RequestLogger,
+  ErrorLogger,
+  ForceSSL
+} from './middleware/index.js';
 import {
   adminRouter,
   contentRouter,
   commonRouter,
-  publicRouter
+  publicRouter,
+  populateDBRouter
 } from './routes/index.js';
-
-import populateDBRouter from './populate-db.js';
 
 config();
 
@@ -30,6 +34,7 @@ const app = express();
 app.use(RequestLogger);
 app.use(ErrorLogger);
 if (process.env.VITE_DEV_NETWORK_IP) app.use(Cors);
+else app.use(ForceSSL);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
