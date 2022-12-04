@@ -14,10 +14,9 @@ import {
   adminRouter,
   contentRouter,
   commonRouter,
-  publicRouter
+  publicRouter,
+  populateDBRouter
 } from './routes/index.js';
-
-import populateDBRouter from './populate-db.js';
 
 config();
 

@@ -78,16 +78,27 @@ const createUser = async (req, res) => {
     await UserDetails.create(user_details);
     await Passwords.create(password);
 
-    const resetLink = await generatePasswordToken(user._id);
+    const resetLink = await generatePasswordToken(user._id, true);
+    const forgotPasswordLink = `http${
+      process.env.VITE_DEV_NETWORK_IP ? '' : 's'
+    }://${process.env.VITE_DEV_NETWORK_IP || process.env.SERVER_ADDRESS}${
+      process.env.VITE_DEV_NETWORK_IP ? `:${process.env.PORT}` : ''
+    }/forgot-password`;
 
     sendMail({
       to: user.email,
       subject: 'CrystalBox - Account Created',
       html: `
       <div>
-        <h1>Credentials</h1>
-        <p>Welcome to CrystalBox!</p>
-        <p>Click <a href="${resetLink}">here</a> to set up your password.</p>
+        <h1 style="background: #808080; color: #fff;">Account Setup</h1>
+        <p>Welcome to CrystalBox, ${user_details.first_name} ${user_details.last_name}!</p>
+        Your Username is: ${user.username}
+        This can be changed at any time in your profile settings.
+        <br />
+        <p>Click <a href="${resetLink}">here</a> to setup your password and activate your account.</p>
+        The link will expire in <strong>24 hours</strong>.
+        <br />
+        <p>If the link is not working or has expired, you will need to use the <a href="${forgotPasswordLink}">forgot password</a> link and provide your email to reset your password.</p>
       </div>
       `
     });

@@ -117,7 +117,7 @@ const sendResetPasswordLink = async (req, res) => {
       subject: 'CrystalBox - Password Reset',
       html: `
       <div>
-        <h1>Password Reset</h1>
+      <h1 style="background: #808080; color: #fff;">Password Reset</h1>
         <p>You are receiving this email because you (or someone else) have requested the reset of the password for your account.</p>
         <p>If you did <strong>NOT</strong> request a <u>password reset</u>, please ignore this email.</p>
         <br />

@@ -48,10 +48,10 @@ const generateRefreshToken = async (id) => {
   }
 };
 
-const generatePasswordToken = async (id) => {
+const generatePasswordToken = async (id, long = false) => {
   try {
-    const period = 15;
-    const expires = Date.now() + 1000 * 60 * period; // 15 minutes
+    const period = long ? 60 * 24 : 15;
+    const expires = Date.now() + 1000 * 60 * period; // 15 minutes || 24 hours
     const token_uuid = uuid();
     const token = jwt.sign(
       { id, rand: { id: token_uuid, secret: randomBytes(64).toString('hex') } },
