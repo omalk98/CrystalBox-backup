@@ -3,7 +3,8 @@ import {
   responseUserList,
   detailedResponseUser,
   NoExtraUser_ID,
-  NoExtraUserDetails_ID
+  NoExtraUserDetails_ID,
+  databaseUserResponse
 } from '../services/index.js';
 import { Users, UserDetails } from '../models/index.js';
 
@@ -45,39 +46,40 @@ const userByID = async (req, res) => {
   } catch (err) {
     if (err === 404) {
       res.status(404).json({ message: 'User not found' });
+    } else {
+      res.sendStatus(500);
     }
-    res.sendStatus(500);
   }
 };
 
-// Create controller function for creating a new user
-// Return 201 if the user is created
-// Return 400 if data is invalid
-// Return 409 if the user already exists
-// Return 500 if there is an error
-// User Data Format received from the client
-/* {
-  user_details: {
-    first_name: 'Dave',
-    last_name: 'Roberts',
-    username: 'tester',
-    email: 'tester@mail.com'
-  },
-  personal_details: {
-    date_of_birth: 1670096178458,
-    phone: '',
-    address: {
-      street: '',
-      city: '',
-      province: '',
-      country: 'Canada',
-      postal_code: ''
+const createUser = async (req, res) => {
+  try {
+    const newUser = req.body;
+    const { user, user_details } = databaseUserResponse(newUser);
+
+    if (!user || !user_details) throw 400;
+
+    const existsUsernameOrEmail = await Users.findOne({
+      $or: [{ username: user.username }, { email: user.email }]
+    });
+    const existsPhone = UserDetails.findOne({ phone: user.phone });
+
+    if (existsUsernameOrEmail || existsPhone) throw 409;
+
+    await Users.create(user);
+    await UserDetails.create(user_details);
+
+    res.sendStatus(201);
+  } catch (err) {
+    if (err === 400) {
+      res.status(400).json({ msg: 'Invalid data', code: 400 });
+    } else if (err === 409) {
+      res.status(409).json({ msg: 'Username already exists', code: 409 });
+    } else {
+      res.sendStatus(500);
     }
-  },
-  server_details: { roles: [], status: { locked: false, activated: false } }
-}
-*/
-// Export the controller function at the bottom of the page
+  }
+};
 
 const activateUserToggle = (req, res) => {
   const { id } = req.params;
@@ -121,6 +123,7 @@ export {
   adminAnalytics,
   allUsers,
   userByID,
+  createUser,
   activateUserToggle,
   lockUserToggle,
   deleteUser,
