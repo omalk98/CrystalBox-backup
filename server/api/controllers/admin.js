@@ -81,33 +81,6 @@ const createUser = async (req, res) => {
   }
 };
 
-const createUser = async (req, res) => {
-  try {
-    const newUser = req.body;
-    const { user, user_details } = databaseUserResponse(newUser);
-    const check1 = await Users.findOne({
-      $or: [{ username: user.username }, { email: user.email }]
-    });
-    const check2 = UserDetails.findOne({ phone: user.phone });
-
-    if (check1 || check2) throw 409;
-
-    await Users.create(user);
-    await UserDetails.create(user_details);
-
-    res.sendStatus(201);
-  } catch (err) {
-    console.log(err);
-    if (err === 400) {
-      res.status(400).json({ msg: 'Invalid data', code: 400 });
-    } else if (err === 409) {
-      res.status(409).json({ msg: 'Username already exists', code: 409 });
-    } else {
-      res.sendStatus(500);
-    }
-  }
-};
-
 const activateUserToggle = (req, res) => {
   const { id } = req.params;
   console.log(id);
