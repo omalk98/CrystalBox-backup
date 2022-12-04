@@ -70,7 +70,7 @@ const createUser = async (req, res) => {
         { email: user.email }
       ]
     });
-    const existsPhone = UserDetails.findOne({ phone: user.phone });
+    const existsPhone = await UserDetails.findOne({ phone: user.phone });
 
     if (existsUsernameOrEmail || existsPhone) throw 409;
 
