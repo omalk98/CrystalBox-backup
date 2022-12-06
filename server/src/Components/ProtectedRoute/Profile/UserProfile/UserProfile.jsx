@@ -398,7 +398,9 @@ function ResetPassword({ isOtherUser, userID, userEmail }) {
                 onClick={adminResetPassword}
               >
                 {loading ? <Icons.LoadingLine /> : <Icons.Password />}
-                &nbsp;&nbsp;Reset Password
+                &nbsp;&nbsp;
+                {isOtherUser ? 'Reset ' : 'Change '}
+                Password
               </button>
             ) : (
               <button
@@ -414,7 +416,7 @@ function ResetPassword({ isOtherUser, userID, userEmail }) {
                 ) : (
                   <>
                     {loading ? <Icons.LoadingLine /> : <Icons.Password />}
-                    &nbsp;&nbsp;Reset Password
+                    &nbsp;&nbsp;Change Password
                   </>
                 )}
               </button>

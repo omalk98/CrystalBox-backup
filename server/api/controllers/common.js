@@ -28,13 +28,13 @@ const resetUserPassword = async (req, res) => {
     const tokenExists = await AccessTokens.findOne({ token });
     const id = await verifyAccessToken(token, ['ADMIN', 'USER']);
 
-    if (!tokenExists || !id) throw 401;
+    if (!tokenExists || !id) throw 403;
     else if (new_password !== confirm_new_password) throw 400;
 
     const user_password = await Passwords.findById(id);
 
     if (!user_password) throw 404;
-    else if (!(await compare(old_password, user_password.hash))) throw 403;
+    else if (!(await compare(old_password, user_password.hash))) throw 401;
     else if (
       old_password === new_password ||
       (await compare(new_password, user_password.hash))
@@ -51,9 +51,9 @@ const resetUserPassword = async (req, res) => {
     if (err === 400) {
       res.status(400).json({ msg: 'Passwords do not match', code: 400 });
     } else if (err === 401) {
-      res.status(401).json({ msg: 'Invalid token', code: 401 });
+      res.status(401).json({ msg: 'Invalid password', code: 401 });
     } else if (err === 403) {
-      res.status(403).json({ msg: 'Invalid password', code: 403 });
+      res.status(403).json({ msg: 'Invalid token', code: 403 });
     } else if (err === 404) {
       res.status(404).json({ msg: 'User not found', code: 404 });
     } else if (err === 409) {
