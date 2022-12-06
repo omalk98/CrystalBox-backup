@@ -248,6 +248,11 @@
         font-size: 20pt;
     }
 
+    .user-detail-wrapper {
+        flex-direction: column;
+        width: 100%;
+    }
+
     .users-options {
         flex-direction: column;
     }

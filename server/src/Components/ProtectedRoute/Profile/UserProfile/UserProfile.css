@@ -134,11 +134,6 @@
         width: 90%;
     }
 
-    .user-detail-wrapper {
-        flex-direction: column;
-        width: 100%;
-    }
-
     .profile-user-detail-header {
         flex-direction: column;
         width: 100%;
