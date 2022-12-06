@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { Alert } from 'react-bootstrap';
 
 import Requests from '../../../../Requests';
 import Icons from '../../../../Resources/Icons';
@@ -320,6 +321,7 @@ function ProfileForm({
 function ResetPassword({ isOtherUser, userID, userEmail }) {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState({});
   const privateRequest = Requests.Private.Hook();
   const passwordModal = {
     old_password: '',
@@ -342,9 +344,15 @@ function ResetPassword({ isOtherUser, userID, userEmail }) {
           throw new Error('Error resetting password');
         }
         setIsOpen(false);
+        setMessage({
+          variant: 'success',
+          text: 'Password successfully changed'
+        });
       } catch {
-        // eslint-disable-next-line no-alert
-        alert('Failed to reset password');
+        setMessage({
+          variant: 'danger',
+          text: 'Failed to change password'
+        });
       }
     }
 
@@ -367,93 +375,109 @@ function ResetPassword({ isOtherUser, userID, userEmail }) {
           throw new Error('Error resetting password');
         }
 
-        setIsOpen(false);
         setLoading(false);
+        setMessage({
+          variant: 'success',
+          text: 'An E-Mail with a password reset link has been sent to the User'
+        });
       } catch {
-        // eslint-disable-next-line no-alert
-        alert('Failed to reset password');
+        setMessage({
+          variant: 'danger',
+          text: 'Failed to send password reset link to the User'
+        });
       }
     }
   };
 
   return (
-    <div
-      className="reset-password mx-auto"
-      style={{
-        height: isOpen && !isOtherUser ? '570px' : '40px',
-        marginBottom: !isOpen ? '150px' : '0px'
-      }}
-    >
-      <Formik
-        initialValues={passwordModal}
-        validationSchema={Schemas.UserPasswordSchema}
-        onSubmit={resetPassword}
+    <div>
+      {message.text ? (
+        <Alert
+          variant={message.variant}
+          onClose={() => setMessage({})}
+          dismissible
+        >
+          {message.text}
+        </Alert>
+      ) : null}
+      <div
+        className="reset-password mx-auto"
+        style={{
+          height: isOpen && !isOtherUser ? '570px' : '40px',
+          marginBottom: !isOpen ? '150px' : '0px'
+        }}
       >
-        <Form>
-          <div className="users-options">
-            {isOtherUser ? (
-              <button
-                type="submit"
-                className="clear-input hover-black glow-red"
-                onClick={adminResetPassword}
-              >
-                {loading ? <Icons.LoadingLine /> : <Icons.Password />}
-                &nbsp;&nbsp;
-                {isOtherUser ? 'Reset ' : 'Change '}
-                Password
-              </button>
-            ) : (
-              <button
-                type={isOpen ? 'button' : 'reset'}
-                className="clear-input hover-black glow-red"
-                onClick={() => setIsOpen((prev) => !prev)}
-              >
-                {isOpen && !isOtherUser ? (
-                  <>
-                    <Icons.Close />
-                    &nbsp;&nbsp;Cancel
-                  </>
-                ) : (
-                  <>
-                    {loading ? <Icons.LoadingLine /> : <Icons.Password />}
-                    &nbsp;&nbsp;Change Password
-                  </>
-                )}
-              </button>
-            )}
-          </div>
-          {!isOtherUser ? (
-            <>
-              {Object.keys(passwordModal).map((field, i) => (
-                <div
-                  key={i}
-                  className="user-detail-form-field"
-                >
-                  <label htmlFor={field}>{capitalizeFirst(field, '_')}</label>
-                  <Field
-                    required
-                    name={field}
-                    type="password"
-                    className="detail-input glow-red"
-                  />
-                  <div className="detail-error detail-error-center">
-                    <ErrorMessage name={field} />
-                  </div>
-                </div>
-              ))}
-              <div className="users-options">
+        <Formik
+          initialValues={passwordModal}
+          validationSchema={Schemas.UserPasswordSchema}
+          onSubmit={resetPassword}
+        >
+          <Form>
+            <div className="users-options">
+              {isOtherUser ? (
                 <button
                   type="submit"
-                  className="clear-input hover-black glow-green"
+                  className="clear-input hover-black glow-red"
+                  onClick={adminResetPassword}
                 >
                   {loading ? <Icons.LoadingLine /> : <Icons.Password />}
-                  &nbsp;&nbsp;Change Password
+                  &nbsp;&nbsp;
+                  {isOtherUser ? 'Reset ' : 'Change '}
+                  Password
                 </button>
-              </div>
-            </>
-          ) : null}
-        </Form>
-      </Formik>
+              ) : (
+                <button
+                  type={isOpen ? 'button' : 'reset'}
+                  className="clear-input hover-black glow-red"
+                  onClick={() => setIsOpen((prev) => !prev)}
+                >
+                  {isOpen && !isOtherUser ? (
+                    <>
+                      <Icons.Close />
+                      &nbsp;&nbsp;Cancel
+                    </>
+                  ) : (
+                    <>
+                      {loading ? <Icons.LoadingLine /> : <Icons.Password />}
+                      &nbsp;&nbsp;Change Password
+                    </>
+                  )}
+                </button>
+              )}
+            </div>
+            {!isOtherUser ? (
+              <>
+                {Object.keys(passwordModal).map((field, i) => (
+                  <div
+                    key={i}
+                    className="user-detail-form-field"
+                  >
+                    <label htmlFor={field}>{capitalizeFirst(field, '_')}</label>
+                    <Field
+                      required
+                      name={field}
+                      type="password"
+                      className="detail-input glow-red"
+                    />
+                    <div className="detail-error detail-error-center">
+                      <ErrorMessage name={field} />
+                    </div>
+                  </div>
+                ))}
+                <div className="users-options">
+                  <button
+                    type="submit"
+                    className="clear-input hover-black glow-green"
+                  >
+                    {loading ? <Icons.LoadingLine /> : <Icons.Password />}
+                    &nbsp;&nbsp;Change Password
+                  </button>
+                </div>
+              </>
+            ) : null}
+          </Form>
+        </Formik>
+      </div>
     </div>
   );
 }
