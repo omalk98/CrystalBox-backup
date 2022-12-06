@@ -9,6 +9,7 @@ export default function ForgotPassword() {
   const emailField = useRef();
   const [message, setMessage] = useState({});
   const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const location = useLocation();
   const email = new URLSearchParams(location?.search).get('email');
   const forgotPassword = async (e) => {
@@ -26,6 +27,7 @@ export default function ForgotPassword() {
         text: 'If the E-Mail exists, a password reset link will be sent to it'
       });
       setLoading(false);
+      setSubmitted(true);
     } catch {
       setMessage({
         variant: 'danger',
@@ -60,7 +62,10 @@ export default function ForgotPassword() {
           <Form.Group className="users-options">
             <button
               type="submit"
-              className="clear-input glow-green"
+              className={`clear-input glow-${
+                submitted || loading ? 'disabled' : 'green'
+              }`}
+              disabled={submitted || loading}
             >
               Send Link &nbsp;
               {loading ? (
