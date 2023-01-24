@@ -16,35 +16,36 @@ import {
 } from '../controllers/admin.js';
 
 const adminRouter = Router();
-const baseAPI = '/api/v1/data/admin';
+const baseAPI = '/api/v1';
+const adminAPI = `${baseAPI}/data/admin`;
 
-adminRouter.put(`${baseAPI}/user/update-target-user-details`, userDetails);
+adminRouter.put(`${adminAPI}/user/update-target-user-details`, userDetails);
 
-adminRouter.get(`${baseAPI}/analytics`, adminAnalytics);
+adminRouter.get(`${adminAPI}/analytics`, adminAnalytics);
 
 adminRouter.put(
-  `${baseAPI}/user/update-target-personal-details`,
+  `${adminAPI}/user/update-target-personal-details`,
   personalDetails
 );
 
-adminRouter.get(`${baseAPI}/all-users`, allUsers);
+adminRouter.get(`${adminAPI}/all-users`, allUsers);
 
-adminRouter.get(`${baseAPI}/user/:id`, userByID);
+adminRouter.get(`${adminAPI}/user/:id`, userByID);
 
-adminRouter.post(`${baseAPI}/create-user`, createUser);
+adminRouter.post(`${adminAPI}/create-user`, createUser);
 
-adminRouter.post(`${baseAPI}/create-user`, createUser);
+adminRouter.post(`${adminAPI}/create-user`, createUser);
 
-adminRouter.put(`${baseAPI}/activate-user-toggle/:id`, activateUserToggle);
+adminRouter.put(`${adminAPI}/activate-user-toggle/:id`, activateUserToggle);
 
-adminRouter.put(`${baseAPI}/lock-user-toggle/:id`, lockUserToggle);
+adminRouter.put(`${adminAPI}/lock-user-toggle/:id`, lockUserToggle);
 
-adminRouter.delete(`${baseAPI}/delete-user/:id`, deleteUser);
+adminRouter.delete(`${adminAPI}/delete-user/:id`, deleteUser);
 
-adminRouter.put(`${baseAPI}/bulk-deactivate-users`, bulkDeactivateUsers);
+adminRouter.put(`${adminAPI}/bulk-deactivate-users`, bulkDeactivateUsers);
 
-adminRouter.put(`${baseAPI}/bulk-lock-users`, bulkLockUsers);
+adminRouter.put(`${adminAPI}/bulk-lock-users`, bulkLockUsers);
 
-adminRouter.delete(`${baseAPI}/bulk-delete-users`, bulkDeleteUsers);
+adminRouter.delete(`${adminAPI}/bulk-delete-users`, bulkDeleteUsers);
 
 export default adminRouter;

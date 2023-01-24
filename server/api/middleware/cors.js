@@ -9,20 +9,24 @@ const allowedOrigins = [
   `http://${process.env.VITE_DEV_NETWORK_IP}:5555`
 ];
 
+// eslint-disable-next-line no-unused-vars
+const originFilter = (og, cb) => {
+  if (
+    allowedOrigins.indexOf(og) !== -1 ||
+    (process.env.VITE_DEV_NETWORK_IP && !og)
+  ) {
+    cb(null, true);
+  } else {
+    cb('Not allowed by CORS');
+  }
+};
+
 const corsOptions = {
-  origin: (og, cb) => {
-    if (
-      allowedOrigins.indexOf(og) !== -1 ||
-      (process.env.VITE_DEV_NETWORK_IP && !og)
-    ) {
-      cb(null, true);
-    } else {
-      cb('Not allowed by CORS');
-    }
-  },
+  origin: '*',
   optionsSuccessStatus: 200,
   credentials: true
 };
 
 const Cors = cors(corsOptions);
+
 export default Cors;

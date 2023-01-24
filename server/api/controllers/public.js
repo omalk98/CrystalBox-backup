@@ -50,7 +50,9 @@ const login = async (req, res) => {
     } else res.clearCookie('token', { httpOnly: true });
 
     user.last_login.time = new Date();
-    user.last_login.ip = req.ip.split(':').pop();
+    const user_ip =
+      req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.ip;
+    user.last_login.ip = user_ip.split(':').pop();
 
     await user.save();
 

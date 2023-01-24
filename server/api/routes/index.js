@@ -4,6 +4,7 @@ import commonRouter from './common.js';
 import publicRouter from './public.js';
 import viewRouter from './view.js';
 import populateDBRouter from './populate-db.js';
+import gatewayRouter from './gateway.js';
 
 export {
   adminRouter,
@@ -11,5 +12,6 @@ export {
   commonRouter,
   publicRouter,
   viewRouter,
+  gatewayRouter,
   populateDBRouter
 };
