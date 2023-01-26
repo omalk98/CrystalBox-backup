@@ -8,9 +8,17 @@ class Authenticator:
     def __init__(self, gate_id) -> None:
         self.gate_id = gate_id
 
+    def fetch(self, url):
+        try:
+            response = urlopen(f"{self.base_url}{url}")
+            return response
+        except:
+            print("WARNING: Could NOT Connect to Server.")
+            return None
+
     def validateKeyAccess(self, key, uuid) -> bool:
-        url = f"{self.base_url}/access/{self.gate_id}/{key}/{uuid}"
-        response = urlopen(url)
-        if response.getcode() != 200:
+        url = f"/access/{self.gate_id}/{key}/{uuid}"
+        response = self.fetch(url)
+        if response == None or response.getcode() != 200:
             return False
         return True
