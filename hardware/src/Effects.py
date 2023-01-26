@@ -7,30 +7,34 @@ class Effects:
         self.buzzer = Buzzer(buzzer)
         self.led = LED(led)
 
+    def off(self) -> None:
+        self.led.off()
+        self.buzzer.off()
+    
+    def success_on(self) -> None:
+        self.led.success()
+        self.buzzer.success()
+
+    def failure_on(self) -> None:
+        self.led.failure()
+        self.buzzer.failure()
+
     # Play a success sound and light the LED green
     def success(self) -> None:
-        self.led.success()
-        self.buzzer.success()
+        self.success_on()
         sleep(0.05)
-        self.led.off()
-        self.buzzer.off()
+        self.off()
         sleep(0.05)
-        self.led.success()
-        self.buzzer.success()
+        self.success_on()
         sleep(0.1)
-        self.led.off()
-        self.buzzer.off()
+        self.off()
 
     # Play a failure sound and light the LED red
     def failure(self) -> None:
-        self.led.failure()
-        self.buzzer.failure()
+        self.failure_on()
         sleep(0.2)
-        self.led.off()
-        self.buzzer.off()
+        self.off()
         sleep(0.01)
-        self.led.failure()
-        self.buzzer.failure()
+        self.failure_on()
         sleep(0.2)
-        self.led.off()
-        self.buzzer.off()
+        self.off()
