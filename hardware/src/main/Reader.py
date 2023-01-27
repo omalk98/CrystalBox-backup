@@ -1,5 +1,5 @@
 from time import sleep
-from Mode import Mode
+from .Mode import Mode
 from Authenticator import Authenticator
 from peripherals import RFID, Effects
 

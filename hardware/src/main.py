@@ -42,10 +42,10 @@ def helpMessage() -> None:
     print("### Gate Access Control Help ###\n")
     print("Q - Quit, CTRL+C - Exit Loop or Program")
     print("### Arguments ###")
-    print("--help,   -h : \tShow this help message")
-    print("--test,   -t : \tStart in TEST mode")
-    print("--admin,  -a : \tStart in ADMIN mode")
-    print("--reader, -r : \tStart in READER mode")
+    print("--help,   -h : Show this help message")
+    print("--test,   -t : Start in TEST mode")
+    print("--admin,  -a : Start in ADMIN mode")
+    print("--reader, -r : Start in READER mode")
 
 def startupMessage() -> None:
     """Print startup message"""
@@ -58,27 +58,28 @@ def startupMessage() -> None:
 def main() -> None:
     """Main function, starts up with a menu to select which loop to run"""
     try:
+        menu_items = [
+            "[t] Test", 
+            "[a] Admin", 
+            "[r] Reader", 
+            "[q] Quit"
+        ]
         args = processArgs()
-        if args["h"] or args["help"]:
+
+        if args["h"] == True or args["help"] == True:
             helpMessage()
             return
         while True:
             startupMessage()
             selection: int = None
             
-            if args["t"] or args["test"]:
+            if args["t"] == True or args["test"] == True:
                 selection = 0
-            elif args["a"] or args["admin"]:
+            elif args["a"] == True or args["admin"] == True:
                 selection = 1
-            elif args["r"] or args["reader"]:
+            elif args["r"] == True or args["reader"] == True:
                 selection = 2
             else:
-                menu_items = [
-                    "[t] Test", 
-                    "[a] Admin", 
-                    "[r] Reader", 
-                    "[q] Quit"
-                ]
                 selection = TerminalMenu(menu_items, title="Main Menu").show()
             
             if selection == 0:
@@ -89,11 +90,13 @@ def main() -> None:
                 loop("READER", Reader(BUZZER_PIN, LED_PINS, GATEWAY_ID, BASE_URL))
             else:
                 break
+    except KeyboardInterrupt:
+        print("Keyboard Interrupt")
     except Exception as e:
         print("WARNING: Error in Main")
         print(e)
-    finally:
         cleanup()
+    finally:
         print("Exiting Program")
 
 # Run main() if this file is executed

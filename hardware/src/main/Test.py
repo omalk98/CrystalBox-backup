@@ -15,6 +15,7 @@ class Test(Mode):
 
     def testAll(self) -> None:
         """Test all peripheral components"""
+        
         print("### Test ALL Components ###")
         frequencies = [220.0, 440.0, 880.0]
         colors = ["red", "green", "blue"]
@@ -27,7 +28,8 @@ class Test(Mode):
             print("ID: ", id)
             print("Data: ", data)
             self.effects.flashAndSound(colors[i], frequencies[i])
-            print(f"Did you hear a {pitches[i]} pitch and saw a {colors[i]} LED flash?")
+            print(f"Did you hear a {pitches[i]} pitch?") 
+            print("Did you see a {colors[i]} LED flash?")
             
         print("### ALL Components Test Complete ###")
 
