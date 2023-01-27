@@ -3,10 +3,11 @@ import json
 
 class Authenticator:
 
-    base_url = "http://localhost:5555/api/v1/gateway"
+    base_url: str = None
 
-    def __init__(self, gate_id) -> None:
+    def __init__(self, gate_id, base_url) -> None:
         self.gate_id = gate_id
+        self.base_url = base_url
 
     # Fetch a URL from the server using base_url
     def fetch(self, url):

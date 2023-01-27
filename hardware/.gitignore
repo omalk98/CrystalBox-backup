@@ -47,4 +47,6 @@ nosetests.xml
 coverage.xml
 
 # Project Ignored Items
-src/pin_config.py
+.env
+env/
+venv/

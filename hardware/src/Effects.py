@@ -13,12 +13,12 @@ class Effects:
         self.buzzer.off()
     
     # Set the LED and buzzer to their success mode
-    def success_mode(self) -> None:
+    def successMode(self) -> None:
         self.led.success()
         self.buzzer.success()
 
     # Set the LED and buzzer to their failure mode
-    def failure_mode(self) -> None:
+    def failureMode(self) -> None:
         self.led.failure()
         self.buzzer.failure()
     
