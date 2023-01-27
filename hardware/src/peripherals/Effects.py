@@ -60,6 +60,16 @@ class Effects:
         sleep(0.2)
         self.off()
 
+    def flashAndSound(self, color, frequency) -> None:
+        """Play a sound and flash an LED"""
+        self.buzzer.frequency(frequency)
+        self.led.off()
+        sleep(0.2)
+        self.led.color(color)
+        sleep(0.2)
+        self.off()
+        sleep(0.1)
+
     def test(self) -> None:
         """Test the buzzer and LED"""
         print("### Effects Test ###")

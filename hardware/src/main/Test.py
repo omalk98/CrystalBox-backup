@@ -1,3 +1,4 @@
+from time import sleep
 from simple_term_menu import TerminalMenu
 from .Mode import Mode
 from peripherals import Buzzer, LED, RFID, Effects
@@ -15,6 +16,21 @@ class Test(Mode):
     def testAll(self) -> None:
         """Test all peripheral components"""
         print("### Test ALL Components ###")
+        frequencies = [220.0, 440.0, 880.0]
+        colors = ["red", "green", "blue"]
+        pitches = ['low', 'medium', 'high']
+        print("Reading 3 times.")
+        for i in range(3):
+            self.led.color(colors[i])
+            print(f"Reading #{i + 1}:")
+            id, data = self.read()
+            print("ID: ", id)
+            print("Data: ", data)
+            self.effects.flashAndSound(colors[i], frequencies[i])
+            print(f"Did you hear a {pitches[i]} pitch and saw a {colors[i]} LED flash?")
+            
+        print("### ALL Components Test Complete ###")
+
 
     def run(self, **kwargs: dict) -> None:
         """Run the test menu and loop"""
