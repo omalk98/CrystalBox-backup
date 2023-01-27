@@ -6,11 +6,15 @@ from peripherals import RFID, Effects
 class Admin(Mode):
     """Handles the Admin menu and Admin functions"""
 
+    effects: Effects = None
+    rfid: RFID = None
+    auth: Authenticator = None
+
     def __init__(self, buzzer: int, led: list, gate_id: str, base_url: str) -> None:
         super().__init__()
-        self.effects = Effects(buzzer, led)
-        self.rfid = RFID()
-        self.auth = Authenticator(gate_id, base_url)
+        Admin.effects = Effects(buzzer, led)
+        Admin.rfid = RFID()
+        Admin.auth = Authenticator(gate_id, base_url)
 
     def run(self, **kwargs: dict) -> None:
         """Run the admin menu"""

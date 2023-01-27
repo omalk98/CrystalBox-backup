@@ -6,12 +6,21 @@ from peripherals import Buzzer, LED, RFID, Effects
 class Test(Mode):
     """Handles the Test menu and Test functions"""
 
+    buzzer: Buzzer = None
+    led: LED = None
+    rfid: RFID = None
+    effects: Effects = None
+
     def __init__(self, buzzer: int, led: list) -> None:
         super().__init__()
-        self.buzzer = Buzzer(buzzer)
-        self.led = LED(led)
-        self.rfid = RFID()
-        self.effects = Effects.fromObjects(self.buzzer, self.led)
+        if Test.buzzer == None:
+            Test.buzzer = Buzzer(buzzer)
+        if Test.led == None:
+            Test.led = LED(led)
+        if Test.rfid == None:
+            Test.rfid = RFID()
+        if Test.effects == None:
+            Test.effects = Effects.fromObjects(Test.buzzer, Test.led)
 
     def testAll(self) -> None:
         """Test all peripheral components"""
@@ -22,12 +31,12 @@ class Test(Mode):
         pitches = ['low', 'medium', 'high']
         print("Reading 3 times.")
         for i in range(3):
-            self.led.color(colors[i])
+            Test.led.color(colors[i])
             print(f"Reading #{i + 1}:")
-            id, data = self.read()
+            id, data = Test.rfid.read()
             print("ID: ", id)
             print("Data: ", data)
-            self.effects.flashAndSound(colors[i], frequencies[i])
+            Test.effects.flashAndSound(colors[i], frequencies[i])
             print(f"Did you hear a {pitches[i]} pitch?") 
             print("Did you see a {colors[i]} LED flash?")
             
@@ -48,13 +57,13 @@ class Test(Mode):
         while True:
             selection = TerminalMenu(menu_items, title="Test Menu").show()
             if selection == 0:
-                self.buzzer.test()
+                Test.buzzer.test()
             elif selection == 1:
-                self.led.test()
+                Test.led.test()
             elif selection == 2:
-                self.effects.test()
+                Test.effects.test()
             elif selection == 3:
-                self.rfid.test()
+                Test.rfid.test()
             elif selection == 4:
                 self.testAll()
             else:
@@ -62,3 +71,7 @@ class Test(Mode):
 
     def __del__(self):
         super().__del__()
+        Test.buzzer = None
+        Test.led = None
+        Test.rfid = None
+        Test.effects = None
