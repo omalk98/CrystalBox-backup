@@ -1,9 +1,9 @@
 from time import sleep
-from Setup import Setup
+from Mode import Mode
 from Authenticator import Authenticator
 from peripherals import RFID, Effects
 
-class Reader(Setup):
+class Reader(Mode):
     """Handles Reader loop and access validation"""
     
     def __init__(self, buzzer: int, led: list, gate_id: str, base_url: str) -> None:

@@ -2,17 +2,19 @@ from urllib.request import urlopen
 import json
 
 class Authenticator:
+    """Handles communication with the server"""
 
     base_url: str = None
 
-    def __init__(self, gate_id: str, base_url: str) -> None:
+    def __init__(self, gate_id: str, base_url: str = None) -> None:
         self.gate_id = gate_id
-        self.base_url = base_url
+        if base_url != None:
+            Authenticator.base_url = base_url
 
     def fetch(self, url: str):
         """Fetch a URL from the server using base_url"""
         try:
-            response = urlopen(f"{self.base_url}{url}")
+            response = urlopen(f"{Authenticator.base_url}{url}")
             return response
         except:
             print("WARNING: Could NOT Connect to Server.")

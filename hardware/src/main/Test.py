@@ -1,8 +1,8 @@
 from simple_term_menu import TerminalMenu
-from Setup import Setup
+from .Mode import Mode
 from peripherals import Buzzer, LED, RFID, Effects
 
-class Test(Setup):
+class Test(Mode):
     """Handles the Test menu and Test functions"""
 
     def __init__(self, buzzer: int, led: list) -> None:
@@ -22,8 +22,8 @@ class Test(Setup):
         menu_items = [
             "[1] Buzzer Test", 
             "[2] LED Test", 
-            "[4] Buzzer and LED Test",
-            "[3] RFID Test",
+            "[3] Buzzer and LED Test",
+            "[4] RFID Test",
             "[5] Test ALL",
             "[6] or q to Exit"
         ]

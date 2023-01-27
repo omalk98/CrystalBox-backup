@@ -3,6 +3,7 @@ from gpiozero import RGBLED
 from colorzero import Color
 
 class LED:
+    """Wrapper class for the RGB LED"""
     
     def __init__(self, pins: list) -> None:
         self.led = RGBLED(pins[0], pins[1], pins[2])

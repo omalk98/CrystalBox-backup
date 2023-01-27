@@ -2,6 +2,7 @@ from time import sleep
 from peripherals import Buzzer, LED
 
 class Effects:
+    """Handles the audible and visual effects for the gateway terminal"""
     
     def __init__(self, buzzer: int, led: list) -> None:
         self.buzzer = Buzzer(buzzer)

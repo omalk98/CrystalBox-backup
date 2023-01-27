@@ -3,6 +3,7 @@ from gpiozero import TonalBuzzer
 from gpiozero.tones import Tone
 
 class Buzzer:
+    """Wrapper class for the buzzer"""
     
     def __init__(self, pin: int):
         self.buzzer = TonalBuzzer(pin)

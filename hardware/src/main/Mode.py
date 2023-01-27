@@ -1,7 +1,7 @@
 from RPi.GPIO import setwarnings, cleanup
 
-class Setup: 
-    """Base class for setup and cleanup"""
+class Mode: 
+    """Base class for setup and cleanup for all modes"""
 
     def __init__(self):
         setwarnings(False)

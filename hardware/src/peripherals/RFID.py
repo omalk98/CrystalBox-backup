@@ -1,6 +1,7 @@
 from mfrc522 import SimpleMFRC522
 
 class RFID:
+    """Wrapper class for the MFRC522 RFID reader module"""
     
     def __init__(self) -> None:
         self.reader = SimpleMFRC522()
@@ -8,6 +9,7 @@ class RFID:
     def read(self) -> tuple:
         """Read the RFID card and return the ID and Data (wrapper function)"""
         try:
+            print("Place a card on the reader:")
             id, data = self.reader.read()
         except:
             print("WARNING: RFID Read Error.")
@@ -27,7 +29,7 @@ class RFID:
         print("### RFID Test ###")
         print("Reading 3 times.")
         for i in range(3):
-            print(f"Reading {i + 1} - Place a card on the reader:")
+            print(f"Reading #{i + 1}:")
             id, data = self.read()
             print("ID: ", id)
             print("Data: ", data)
