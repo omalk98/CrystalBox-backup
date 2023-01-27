@@ -21,14 +21,14 @@ class Effects:
         self.buzzer.off()
     
     def successMode(self) -> None:
-        """Set the LED (green) and buzzer (high pitch) to their success mode"""
+        """Set the LED (green) and buzzer (off) to their success mode"""
         self.led.success()
-        self.buzzer.success()
+        self.buzzer.off()
 
     def failureMode(self) -> None:
-        """Set the LED (red) and buzzer (low pitch) to their failure mode"""
+        """Set the LED (red) and buzzer (off) to their failure mode"""
         self.led.failure()
-        self.buzzer.failure()
+        self.buzzer.off()
     
     def standbyMode(self) -> None:
         """Set the LED (blue) and buzzer (off) to their standby mode"""
