@@ -5,12 +5,12 @@ class Authenticator:
 
     base_url: str = None
 
-    def __init__(self, gate_id, base_url) -> None:
+    def __init__(self, gate_id: str, base_url: str) -> None:
         self.gate_id = gate_id
         self.base_url = base_url
 
-    # Fetch a URL from the server using base_url
-    def fetch(self, url):
+    def fetch(self, url: str):
+        """Fetch a URL from the server using base_url"""
         try:
             response = urlopen(f"{self.base_url}{url}")
             return response
@@ -18,8 +18,8 @@ class Authenticator:
             print("WARNING: Could NOT Connect to Server.")
             return None
 
-    # Validate an RFID tag's access permissions
-    def validateTagAccess(self, key, uuid) -> bool:
+    def validateTagAccess(self, key: str, uuid: str) -> bool:
+        """Validate an RFID tag's access permissions"""
         url = f"/access/{self.gate_id}/{key}/{uuid}"
         response = self.fetch(url)
         if response == None or response.getcode() != 200:
@@ -27,8 +27,8 @@ class Authenticator:
             return False
         return True
     
-    # Replace a User's RFID tag with a new one
-    def replaceTag(self, user_id, new_key) -> str:
+    def replaceTag(self, user_id: str, new_key: str) -> str:
+        """Replace a User's RFID tag with a new one"""
         url = f"/replace/{self.gate_id}/{user_id}/{new_key}"
         response = self.fetch(url)
         if response == None or response.getcode() != 200:

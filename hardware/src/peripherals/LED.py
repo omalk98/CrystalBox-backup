@@ -4,35 +4,36 @@ from colorzero import Color
 
 class LED:
     
-    def __init__(self, pin) -> None:
-        self.led = RGBLED(pin[0], pin[1], pin[2])
+    def __init__(self, pins: list) -> None:
+        self.led = RGBLED(pins[0], pins[1], pins[2])
 
-    # Light the LED green
-    def success(self) -> None:
-        self.led.color = Color('green')
-
-    # Light the LED red
-    def failure(self) -> None:
-        self.led.color = Color('red')
-
-    # Light the LED blue
-    def standby(self) -> None:
-        self.led.color = Color('blue')
-
-    # Light the LED yellow
-    def processing(self) -> None:
-        self.led.color = Color('yellow')
-
-    # Turn off the LED (wrapper function)
+    def color(self, color: str) -> None:
+        """Set the LED to a given color (wrapper function)"""
+        self.led.color = Color(color)
+        
     def off(self) -> None:
+        """Turn off the LED (wrapper function)"""
         self.led.off()
 
-    # Set the LED to a given color (wrapper function)
-    def color(self, color) -> None:
-        self.led.color = Color(color)
+    def success(self) -> None:
+        """Light the LED green"""
+        self.color('green')
 
-    # Test the LED
+    def failure(self) -> None:
+        """Light the LED red"""
+        self.color('red')
+
+    def standby(self) -> None:
+        """Light the LED blue"""
+        self.color('blue')
+
+    def processing(self) -> None:
+        """Light the LED yellow"""
+        self.color('yellow')
+
     def test(self) -> None:
+        """Test the LED"""
+        
         print("### LED Test ###")
         print("Do you see a flashing red light?")
         self.failure()

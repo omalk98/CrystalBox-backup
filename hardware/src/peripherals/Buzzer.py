@@ -4,27 +4,28 @@ from gpiozero.tones import Tone
 
 class Buzzer:
     
-    def __init__(self, pin):
+    def __init__(self, pin: int):
         self.buzzer = TonalBuzzer(pin)
-
-    # Play a success sound
-    def success(self) -> None:
-        self.buzzer.play(Tone(880.0))
-
-    # Play a failure sound
-    def failure(self) -> None:
-        self.buzzer.play(Tone(220.0))
     
-    # Turn off the buzzer (wrapper function)
-    def off(self) -> None:
-        self.buzzer.stop()
-    
-    # Play a tone at a given frequency (wrapper function)
-    def play(self, frequency) -> None:
+    def play(self, frequency: float) -> None:
+        """Play a tone at a given frequency (wrapper function)"""
         self.buzzer.play(Tone(frequency))
     
-    # Test the buzzer
+    def off(self) -> None:
+        """Turn off the buzzer (wrapper function)"""
+        self.buzzer.stop()
+
+    def success(self) -> None:
+        """Play a success sound"""
+        self.play(880.0)
+
+    def failure(self) -> None:
+        """Play a failure sound"""
+        self.play(220.0)
+    
     def test(self) -> None:
+        """Test the buzzer"""
+
         print("### Buzzer Test ###")
         print("Do you hear a high pitch beep?")
         self.success()
