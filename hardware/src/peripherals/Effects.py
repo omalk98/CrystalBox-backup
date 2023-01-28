@@ -89,5 +89,5 @@ class Effects:
             self.led.processing()
             self.buzzer.off()
             sleep(1)
-        self.off()
+        self.led.off()
         print("### Effects Test Complete ###")
