@@ -4,16 +4,9 @@ from peripherals import Buzzer, LED
 class Effects:
     """Handles the audible and visual effects for the gateway terminal"""
     
-    def __init__(self, buzzer: int, led: list) -> None:
-        self.buzzer = Buzzer(buzzer)
-        self.led = LED(led)
-
-    @classmethod
-    def fromObjects(cls, buzzer: Buzzer, led: LED) -> object:
-        """Create an instance of this class from Buzzer and LED objects"""
-        cls.buzzer = buzzer
-        cls.led = led
-        return cls
+    def __init__(self, buzzer: Buzzer, led: LED) -> None:
+        self.buzzer = buzzer
+        self.led = led
 
     def off(self) -> None:
         """Turn off the buzzer and LED"""
@@ -67,8 +60,7 @@ class Effects:
         sleep(0.2)
         self.led.color(color)
         sleep(0.2)
-        self.led.off()
-        self.buzzer.off()
+        self.off()
         sleep(0.1)
 
     def test(self) -> None:
@@ -90,5 +82,5 @@ class Effects:
             self.led.processing()
             self.buzzer.off()
             sleep(1)
-        self.led.off()
+        self.off()
         print("### Effects Test Complete ###")

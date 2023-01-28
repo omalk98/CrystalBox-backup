@@ -1,23 +1,14 @@
 from simple_term_menu import TerminalMenu
-from .Mode import Mode
 from Authenticator import Authenticator
 from peripherals import RFID, Effects
 
-class Admin(Mode):
+class Admin:
     """Handles the Admin menu and Admin functions"""
 
-    effects: Effects = None
-    rfid: RFID = None
-    auth: Authenticator = None
-
-    def __init__(self, buzzer: int, led: list, gate_id: str, base_url: str) -> None:
-        super().__init__()
-        if Admin.effects == None:
-            Admin.effects = Effects(buzzer, led)
-        if Admin.rfid == None:
-            Admin.rfid = RFID()
-        if Admin.auth == None:
-            Admin.auth = Authenticator(gate_id, base_url)
+    def __init__(self, effects: Effects, rfid: RFID, auth: Authenticator) -> None:
+        self.effects: Effects = effects
+        self.rfid: RFID = rfid
+        self.auth: Authenticator = auth
 
     def run(self, **kwargs: dict) -> None:
         """Run the admin menu"""
@@ -38,9 +29,3 @@ class Admin(Mode):
                 print("Replace User Tag")
             else:
                 return
-
-    def __del__(self) -> None:
-        super().__del__()
-        Admin.effects = None
-        Admin.rfid = None
-        Admin.auth = None

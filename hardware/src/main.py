@@ -1,8 +1,11 @@
 from sys import argv
-from RPi.GPIO import cleanup
+from traceback import print_exc
+from RPi.GPIO import setwarnings
 from simple_term_menu import TerminalMenu
 from Globals import BUZZER_PIN, LED_PINS, GATEWAY_ID, BASE_URL
 from main import Test, Admin, Reader
+from Authenticator import Authenticator
+from peripherals import RFID, Effects, Buzzer, LED
 
 def processArgs() -> dict:
     """Argument processor, returns a dictionary of arguments"""
@@ -33,11 +36,9 @@ def loop(name, module: object, **kwargs: dict) -> None:
         module.run(**kwargs)
     except KeyboardInterrupt:
         print(f"### Exiting {name} Loop ###")
-    except Exception as e:
+    except Exception:
         print(f"WARNING: Error in {name} Loop")
-        print(e)
-    finally:
-        del module
+        print_exc()
 
 def helpMessage() -> None:
     """Print help message"""
@@ -59,27 +60,36 @@ def startupMessage() -> None:
 
 def clearStartupArgs(args) -> None:
     """Clears startup arguments"""
-    del args["t"]
-    del args["test"]
-    del args["a"]
-    del args["admin"]
-    del args["r"]
-    del args["reader"]
+    args["t"] = False
+    args["test"] = False
+    args["a"] = False
+    args["admin"] = False
+    args["r"] = False
+    args["reader"] = False
 
 def main() -> None:
     """Main function, starts up with a menu to select which loop to run"""
     try:
+        args = processArgs()
+
+        if args["h"] == True or args["help"] == True:
+            helpMessage()
+            return
+        
+        # Setup Stage
+        setwarnings(False)
+        buzzer = Buzzer(BUZZER_PIN)
+        led = LED(LED_PINS)
+        effects = Effects(buzzer, led)
+        rfid = RFID()
+        auth = Authenticator(BASE_URL, GATEWAY_ID)
         menu_items = [
             "[t] Test", 
             "[a] Admin", 
             "[r] Reader", 
             "[q] Quit"
         ]
-        args = processArgs()
 
-        if args["h"] == True or args["help"] == True:
-            helpMessage()
-            return
         while True:
             startupMessage()
             selection: int = None
@@ -95,19 +105,18 @@ def main() -> None:
             clearStartupArgs(args)
             
             if selection == 0:
-                loop("TEST", Test(BUZZER_PIN, LED_PINS))
+                loop("TEST", Test(buzzer, led, rfid, effects))
             elif selection == 1:
-                loop("ADMIN", Admin(BUZZER_PIN, LED_PINS, GATEWAY_ID, BASE_URL))
+                loop("ADMIN", Admin(effects, rfid, auth))
             elif selection == 2:
-                loop("READER", Reader(BUZZER_PIN, LED_PINS, GATEWAY_ID, BASE_URL))
+                loop("READER", Reader(effects, rfid, auth))
             else:
                 break
     except KeyboardInterrupt:
         print("Keyboard Interrupt")
-    except Exception as e:
+    except Exception:
         print("WARNING: Error in Main")
-        print(e)
-        cleanup()
+        print_exc()
     finally:
         print("Exiting Program")
 

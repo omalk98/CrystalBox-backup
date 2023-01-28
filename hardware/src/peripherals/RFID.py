@@ -1,3 +1,4 @@
+from time import sleep
 from mfrc522 import SimpleMFRC522
 
 class RFID:
@@ -33,4 +34,5 @@ class RFID:
             id, data = self.read()
             print("ID: ", id)
             print("Data: ", data)
+            sleep(2)
         print("### RFID Test Complete ###")
