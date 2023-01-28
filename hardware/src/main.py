@@ -57,6 +57,15 @@ def startupMessage() -> None:
     print("Please select a mode to continue:")
     print("##########################################")
 
+def clearStartupArgs(args) -> None:
+    """Clears startup arguments"""
+    del args["t"]
+    del args["test"]
+    del args["a"]
+    del args["admin"]
+    del args["r"]
+    del args["reader"]
+
 def main() -> None:
     """Main function, starts up with a menu to select which loop to run"""
     try:
@@ -83,6 +92,7 @@ def main() -> None:
                 selection = 2
             else:
                 selection = TerminalMenu(menu_items, title="Main Menu").show()
+            clearStartupArgs(args)
             
             if selection == 0:
                 loop("TEST", Test(BUZZER_PIN, LED_PINS))
