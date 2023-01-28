@@ -43,8 +43,11 @@ class Test:
             "[6] or q to Exit"
         ]
         while True:
+            run_again = False
             try:
-                selection = TerminalMenu(menu_items, title="Test Menu").show()
+                if not run_again:
+                    selection = TerminalMenu(menu_items, title="Test Menu").show()
+
                 if selection == 0:
                     self.buzzer.test()
                 elif selection == 1:
@@ -57,6 +60,8 @@ class Test:
                     self.testAll()
                 else:
                     return
+                selection2 = TerminalMenu(["[1] Run Test Again", "[2] Back"]).show()
+                run_again = selection2 == 0
             except KeyboardInterrupt:
                 self.effects.off()
                 raise KeyboardInterrupt
