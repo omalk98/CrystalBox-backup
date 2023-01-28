@@ -1,11 +1,9 @@
 from time import sleep
 from mfrc522 import SimpleMFRC522
-import RPi.GPIO as GPIO
 from gpiozero import TonalBuzzer, RGBLED
 from gpiozero.tones import Tone
 from colorzero import Color
 
-GPIO.setwarnings(False)
 bz=TonalBuzzer(4)
 led=RGBLED(27, 22, 17)
 
@@ -54,6 +52,5 @@ try :
         led.color = Color('red')
         sleep(2)
         led.off()
-except KeyboardInterrupt :
-    GPIO.cleanup()
-    raise
+except KeyboardInterrupt:
+    pass

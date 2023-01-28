@@ -1,4 +1,5 @@
 import { Router } from 'express';
+
 import { mainPage, forgotPassword } from '../controllers/view.js';
 import { validatePasswordLink } from '../middleware/index.js';
 

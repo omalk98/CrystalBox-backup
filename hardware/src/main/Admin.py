@@ -17,6 +17,7 @@ class Admin:
             "[1] Get User Info From Tag", 
             "[2] Create New User Tag", 
             "[3] Replace User Tag",
+            "[4] Remove User Tag"
             "[4] or q to Exit"
         ]
         while True:

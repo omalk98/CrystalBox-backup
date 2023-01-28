@@ -1,5 +1,6 @@
 import { Router } from 'express';
 
+import { validateAdmin } from '../middleware/index.js';
 import {
   userDetails,
   personalDetails,
@@ -18,6 +19,8 @@ import {
 const adminRouter = Router();
 const baseAPI = '/api/v1';
 const adminAPI = `${baseAPI}/data/admin`;
+
+adminRouter.use(validateAdmin);
 
 adminRouter.put(`${adminAPI}/user/update-target-user-details`, userDetails);
 

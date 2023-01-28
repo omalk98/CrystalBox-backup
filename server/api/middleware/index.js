@@ -1,7 +1,12 @@
 import { RequestLogger, ErrorLogger } from './logger.js';
 import Cors from './cors.js';
 import ForceSSL from './forceSSL.js';
-import { validatePasswordLink, validateAdmin, validateUser } from './auth.js';
+import {
+  validatePasswordLink,
+  validateAdmin,
+  validateUser,
+  validateGateway
+} from './auth.js';
 
 export {
   RequestLogger,
@@ -10,5 +15,6 @@ export {
   ForceSSL,
   validatePasswordLink,
   validateAdmin,
-  validateUser
+  validateUser,
+  validateGateway
 };
