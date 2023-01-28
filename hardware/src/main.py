@@ -1,6 +1,5 @@
 from sys import argv
 from traceback import print_exc
-from RPi.GPIO import setwarnings
 from simple_term_menu import TerminalMenu
 from Globals import BUZZER_PIN, LED_PINS, GATEWAY_ID, BASE_URL
 from main import Test, Admin, Reader
@@ -77,7 +76,6 @@ def main() -> None:
             return
         
         # Setup Stage
-        setwarnings(False)
         buzzer  = Buzzer(BUZZER_PIN)
         led     = LED(LED_PINS)
         effects = Effects(buzzer, led)
