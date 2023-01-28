@@ -86,7 +86,7 @@ class Effects:
             self.led.standby()
             self.buzzer.success()
             sleep(0.3)
-            self.processing()
+            self.led.processing()
             self.buzzer.off()
             sleep(1)
         self.off()

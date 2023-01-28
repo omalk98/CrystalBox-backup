@@ -26,16 +26,18 @@ def processArgs() -> dict:
                 args[arg] = True
     return args
 
-def loop(name, module: object, *args: tuple) -> None:
+def loop(name, module: object, **kwargs: dict) -> None:
     """Loop wrapper with keyboard interrupt handling"""
     try:
         print(f"### Starting {name} Loop ###")
-        module.run(*args)
+        module.run(**kwargs)
     except KeyboardInterrupt:
         print(f"### Exiting {name} Loop ###")
     except Exception as e:
         print(f"WARNING: Error in {name} Loop")
         print(e)
+    finally:
+        del module
 
 def helpMessage() -> None:
     """Print help message"""

@@ -12,9 +12,12 @@ class Admin(Mode):
 
     def __init__(self, buzzer: int, led: list, gate_id: str, base_url: str) -> None:
         super().__init__()
-        Admin.effects = Effects(buzzer, led)
-        Admin.rfid = RFID()
-        Admin.auth = Authenticator(gate_id, base_url)
+        if Admin.effects == None:
+            Admin.effects = Effects(buzzer, led)
+        if Admin.rfid == None:
+            Admin.rfid = RFID()
+        if Admin.auth == None:
+            Admin.auth = Authenticator(gate_id, base_url)
 
     def run(self, **kwargs: dict) -> None:
         """Run the admin menu"""
@@ -38,3 +41,6 @@ class Admin(Mode):
 
     def __del__(self) -> None:
         super().__del__()
+        Admin.effects = None
+        Admin.rfid = None
+        Admin.auth = None

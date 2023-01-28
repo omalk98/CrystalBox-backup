@@ -93,5 +93,5 @@ class LED:
         sleep(1.5)
 
         print("If you did not see a light, check the wiring then try again.")
-        print("If the color is not correct, change the pin numbers in \"pin_config.py\" - order is R G B - then try again.")
+        print("If the color is not correct, change the pin numbers in \".env\" - order is R G B - then try again.")
         print("### LED Test Complete ###")

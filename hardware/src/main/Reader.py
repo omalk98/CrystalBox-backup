@@ -50,3 +50,6 @@ class Reader(Mode):
 
     def __del__(self) -> None:
         super().__del__()
+        Reader.effects = None
+        Reader.rfid = None
+        Reader.auth = None

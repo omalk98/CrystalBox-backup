@@ -19,8 +19,7 @@ class Test(Mode):
             Test.led = LED(led)
         if Test.rfid == None:
             Test.rfid = RFID()
-        if Test.effects == None:
-            Test.effects = Effects.fromObjects(Test.buzzer, Test.led)
+        Test.effects = Effects.fromObjects(Test.buzzer, Test.led)
 
     def testAll(self) -> None:
         """Test all peripheral components"""
@@ -36,7 +35,7 @@ class Test(Mode):
             id, data = Test.rfid.read()
             print("ID: ", id)
             print("Data: ", data)
-            Test.effects.flashAndSound(colors[i], frequencies[i])
+            Test.effects.flashAndSound(Test.effects, colors[i], frequencies[i])
             print(f"Did you hear a {pitches[i]} pitch?") 
             print("Did you see a {colors[i]} LED flash?")
             

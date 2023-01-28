@@ -45,5 +45,5 @@ class Buzzer:
         self.failure()
         sleep(0.2)
         self.off()
-        print("If you did not hear a beep, check the wiring or change the pin number in \"pin_config.py\" then try again.")
+        print("If you did not hear a beep, check the wiring or change the pin number in \".env\" then try again.")
         print("### Buzzer Test Complete ###")
