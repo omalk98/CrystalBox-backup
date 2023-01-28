@@ -78,11 +78,11 @@ def main() -> None:
         
         # Setup Stage
         setwarnings(False)
-        buzzer = Buzzer(BUZZER_PIN)
-        led = LED(LED_PINS)
+        buzzer  = Buzzer(BUZZER_PIN)
+        led     = LED(LED_PINS)
         effects = Effects(buzzer, led)
-        rfid = RFID()
-        auth = Authenticator(BASE_URL, GATEWAY_ID)
+        rfid    = RFID()
+        auth    = Authenticator(BASE_URL, GATEWAY_ID)
         menu_items = [
             "[t] Test", 
             "[a] Admin", 
