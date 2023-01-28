@@ -37,7 +37,7 @@ class Test(Mode):
             print("Data: ", data)
             Test.effects.flashAndSound(Test.effects, colors[i], frequencies[i])
             print(f"Did you hear a {pitches[i]} pitch?") 
-            print("Did you see a {colors[i]} LED flash?")
+            print(f"Did you see a {colors[i]} LED flash?")
             
         print("### ALL Components Test Complete ###")
 

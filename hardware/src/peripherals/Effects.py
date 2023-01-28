@@ -9,7 +9,7 @@ class Effects:
         self.led = LED(led)
 
     @classmethod
-    def fromObjects(cls, buzzer: Buzzer, led: LED) -> None:
+    def fromObjects(cls, buzzer: Buzzer, led: LED) -> object:
         """Create an instance of this class from Buzzer and LED objects"""
         cls.buzzer = buzzer
         cls.led = led
@@ -62,12 +62,13 @@ class Effects:
 
     def flashAndSound(self, color, frequency) -> None:
         """Play a sound and flash an LED"""
-        self.buzzer.frequency(frequency)
+        self.buzzer.play(frequency)
         self.led.off()
         sleep(0.2)
         self.led.color(color)
         sleep(0.2)
-        self.off()
+        self.led.off()
+        self.buzzer.off()
         sleep(0.1)
 
     def test(self) -> None:
