@@ -90,6 +90,7 @@ def main() -> None:
             "[q] Quit"
         ]
 
+        # Main Loop
         while True:
             startupMessage()
             selection: int = None
