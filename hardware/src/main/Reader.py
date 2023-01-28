@@ -26,12 +26,12 @@ class Reader:
         """Run the reader loop, Reads RFID tags and validates access"""
         while True:
             self.effects.standbyMode()
-            key, uuid = RFID.read()
+            key, uuid = self.rfid.read()
 
             self.effects.processingMode()
             if not key or not uuid:
                 self.accessDenied()
-                return
+                continue
                 
             access_granted = self.auth.validateTagAccess(key, uuid)
             if access_granted:

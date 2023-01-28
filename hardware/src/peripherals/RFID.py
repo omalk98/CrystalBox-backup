@@ -12,6 +12,9 @@ class RFID:
         try:
             print("Place a card on the reader:")
             id, data = self.reader.read()
+        except KeyboardInterrupt:
+            print("Keyboard Interrupt.")
+            raise KeyboardInterrupt
         except:
             print("WARNING: RFID Read Error.")
             return None, None

@@ -33,23 +33,31 @@ class Effects:
         self.led.processing()
         self.buzzer.off()
 
+    def successState(self) -> None:
+        self.led.success()
+        self.buzzer.success()
+    
+    def failureState(self) -> None:
+        self.led.failure()
+        self.buzzer.failure()
+
     def success(self) -> None:
         """Play a success sound and light the LED green"""
-        self.successMode()
+        self.successState()
         sleep(0.05)
         self.off()
         sleep(0.05)
-        self.successMode()
+        self.successState()
         sleep(0.1)
         self.off()
 
     def failure(self) -> None:
         """Play a failure sound and light the LED red"""
-        self.failureMode()
+        self.failureState()
         sleep(0.2)
         self.off()
         sleep(0.01)
-        self.failureMode()
+        self.failureState()
         sleep(0.2)
         self.off()
 
