@@ -13,7 +13,7 @@ class Test:
 
     def testAll(self) -> None:
         """Test all peripheral components"""
-        
+
         print("### Test ALL Components ###")
         frequencies = [220.0, 440.0, 880.0]
         colors = ["red", "green", "blue"]
@@ -28,7 +28,6 @@ class Test:
             self.effects.flashAndSound(colors[i], frequencies[i])
             print(f"Did you hear a {pitches[i]} pitch?") 
             print(f"Did you see a {colors[i]} LED flash?")
-            
         print("### ALL Components Test Complete ###")
 
 
@@ -44,16 +43,20 @@ class Test:
             "[6] or q to Exit"
         ]
         while True:
-            selection = TerminalMenu(menu_items, title="Test Menu").show()
-            if selection == 0:
-                self.buzzer.test()
-            elif selection == 1:
-                self.led.test()
-            elif selection == 2:
-                self.effects.test()
-            elif selection == 3:
-                self.rfid.test()
-            elif selection == 4:
-                self.testAll()
-            else:
-                return
+            try:
+                selection = TerminalMenu(menu_items, title="Test Menu").show()
+                if selection == 0:
+                    self.buzzer.test()
+                elif selection == 1:
+                    self.led.test()
+                elif selection == 2:
+                    self.effects.test()
+                elif selection == 3:
+                    self.rfid.test()
+                elif selection == 4:
+                    self.testAll()
+                else:
+                    return
+            except KeyboardInterrupt:
+                self.effects.off()
+                raise KeyboardInterrupt

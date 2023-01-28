@@ -25,16 +25,20 @@ class Reader:
     def run(self, **kwargs: dict) -> None:
         """Run the reader loop, Reads RFID tags and validates access"""
         while True:
-            self.effects.standbyMode()
-            key, uuid = self.rfid.read()
+            try:
+                self.effects.standbyMode()
+                key, uuid = self.rfid.read()
 
-            self.effects.processingMode()
-            if not key or not uuid:
-                self.accessDenied()
-                continue
-                
-            access_granted = self.auth.validateTagAccess(key, uuid)
-            if access_granted:
-                self.accessGranted()
-            else:
-                self.accessDenied()
+                self.effects.processingMode()
+                if not key or not uuid:
+                    self.accessDenied()
+                    continue
+
+                access_granted = self.auth.validateTagAccess(key, uuid)
+                if access_granted:
+                    self.accessGranted()
+                else:
+                    self.accessDenied()
+            except KeyboardInterrupt:
+                self.effects.off()
+                raise KeyboardInterrupt
