@@ -60,7 +60,7 @@ class Test(Mode):
             elif selection == 1:
                 Test.led.test()
             elif selection == 2:
-                Test.effects.test()
+                Test.effects.test(Test.effects)
             elif selection == 3:
                 Test.rfid.test()
             elif selection == 4:
