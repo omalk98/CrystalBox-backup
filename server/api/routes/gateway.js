@@ -30,6 +30,6 @@ gatewayRouter.post(`${gatewayAPI}/create-tag/:uid/:key`, createUserTag);
 
 gatewayRouter.put(`${gatewayAPI}/replace-tag/:key/:uuid`, replaceUserTag);
 
-gatewayRouter.delete(`${gatewayAPI}/remove-tag/:key/:uuid`, removeUserTag);
+gatewayRouter.delete(`${gatewayAPI}/remove-tag/:key`, removeUserTag);
 
 export default gatewayRouter;

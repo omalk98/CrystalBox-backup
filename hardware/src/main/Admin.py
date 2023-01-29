@@ -115,6 +115,7 @@ class Admin:
 
             self.effects.processingMode()
             if not data or data != new_uuid:
+                self.auth.removeUserTag(user_id, key)
                 self.effects.failure()
                 raise
             sleep(0.4)

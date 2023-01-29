@@ -12,13 +12,16 @@ const validateUserAccess = async (req, res) => {
   const { gateway_id } = req.headers;
   const { key, uuid } = req.params;
   try {
-    if (!gateway_id) throw 500;
+    if (!gateway_id) throw 400;
     if (!key || !uuid) throw 401;
 
     await gatewayValidation(gateway_id, key, uuid);
     res.sendStatus(200);
   } catch (err) {
     switch (err) {
+      case 400:
+        res.sendStatus(400);
+        break;
       case 401:
         res.sendStatus(401);
         break;
@@ -43,6 +46,7 @@ const validateUserAccess = async (req, res) => {
 const getUserDetailsFromTag = async (req, res) => {
   const { key, uuid } = req.params;
   try {
+    if (!key || !uuid) throw 401;
     const tag = await Tag.findById(key);
     if (!tag || tag.uuid?.replace(/\s/g, '') !== uuid?.replace(/\s/g, '')) {
       throw 401;
@@ -66,6 +70,7 @@ const getUserDetailsFromTag = async (req, res) => {
 const getUserDetailsFromEmailOrUsername = async (req, res) => {
   const { username } = req.params;
   try {
+    if (!username) throw 401;
     const users = await Users.find(
       {
         $or: [
@@ -89,6 +94,8 @@ const getUserDetailsFromEmailOrUsername = async (req, res) => {
 const createUserTag = async (req, res) => {
   const { uid, key } = req.params;
   try {
+    if (!uid || !key) throw 401;
+
     const new_uuid = v4uuid();
 
     const tag = await Tag.findById(key);
@@ -120,11 +127,15 @@ const replaceUserTag = async (req, res) => {
 };
 
 const removeUserTag = async (req, res) => {
-  const { key, uuid } = req.params;
-  console.log('removeUserTag');
-  console.log(`key: ${key}`);
-  console.log(`uuid: ${uuid}`);
-  res.sendStatus(202);
+  const { key } = req.params;
+  try {
+    if (!key) throw 401;
+    await Tag.findByIdAndDelete(key);
+    res.sendStatus(202);
+  } catch (err) {
+    if (err === 401) res.sendStatus(401);
+    else res.sendStatus(500);
+  }
 };
 
 export {
