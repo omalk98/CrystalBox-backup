@@ -80,7 +80,7 @@ def main() -> None:
         led     = LED(LED_PINS)
         effects = Effects(buzzer, led)
         rfid    = RFID()
-        auth    = Authenticator(BASE_URL, GATEWAY_ID)
+        auth    = Authenticator(GATEWAY_ID, BASE_URL)
         menu_items = [
             "[t] Test", 
             "[a] Admin", 

@@ -1,44 +1,57 @@
-from requests import get, post, put, delete
+from requests import request, get, post, put, delete
 
 class Authenticator:
     """Handles communication with the server"""
 
     base_url: str = None
 
-    def __init__(self, gate_id: str, base_url: str = None) -> None:
-        self.gate_id = gate_id
-        if Authenticator.base_url != None:
+    def __init__(self, gateway_id: str, base_url: str = None) -> None:
+        self.gateway_id = gateway_id
+        if Authenticator.base_url == None:
             Authenticator.base_url = base_url
+
+    def fetch(self, method, url, data=None):
+        try:
+            response = request(method, f"{Authenticator.base_url}{url}", data=data, headers={"gateway_id" : self.gateway_id})
+            return response
+        except Exception:
+            print("WARNING: Failed to connect to server.")
+            return None
 
     def validateTagAccess(self, key: str, uuid: str) -> bool:
         """Validate an RFID tag's access permissions"""
-        url = f"{Authenticator.base_url}/access/{key}/{uuid}"
-        try:
-            response = get(url, headers=("Gate_ID", self.gate_id))
-            if not response or response.status_code != 200:
-                print("WARNING: Tag does not have appropriate access permissions.")
-                return False
-        except Exception:
-            print("WARNING: Failed to connect to server.")
+        url = f"/access/{key}/{uuid}"
+        response = self.fetch('get', url)
+        if not response or response.status_code != 200:
+            print("WARNING: Tag does not have appropriate access permissions.")
             return False
-
         return True
     
-    def getUserInfo(self, key: str, uuid: str) -> dict:
+    def getUserInfoFromTag(self, key: str, uuid: str) -> dict:
         """Get a User's information from the server"""
-        url = f"{Authenticator.base_url}/user-info/{key}/{uuid}"
-        response = get(url, headers=("Gate_ID", self.gate_id))
+        url = f"/user-info/{key}/{uuid}"
+        response = self.fetch("get", url)
         if not response or response.status_code != 200:
             print("WARNING: Failed to get user info.")
             return None
         user_info = response.json()
         return user_info
 
-    def createUserTag(self, key: str, uuid: str) -> str:
-        """Create a new User tag"""
-        url = f"{Authenticator.base_url}/create-tag/{key}"
-        response = post(url, headers=("Gate_ID", self.gate_id))
+    def getUserInfoFromEmailOrUsername(self, username: str) -> dict:
+        """Get a User's information from the server"""
+        url = f"/user-info/{username}"
+        response = self.fetch("get", url)
         if not response or response.status_code != 200:
+            print("WARNING: Failed to get user info.")
+            return None
+        user_info = response.json()
+        return user_info
+
+    def createUserTag(self, user_id: str, key: str) -> str:
+        """Create a new User tag"""
+        url = f"/create-tag/{user_id}/{key}"
+        response = self.fetch('post', url)
+        if not response or response.status_code != 201:
             print("WARNING: Failed to create tag.")
             return None
         new_uuid = response.json()["new_uuid"]
@@ -46,8 +59,8 @@ class Authenticator:
 
     def replaceUserTag(self, user_id: str, new_key: str) -> str:
         """Replace a User's RFID tag with a new one"""
-        url = f"{Authenticator.base_url}/replace-tag/{user_id}/{new_key}"
-        response = put(url, headers=("Gate_ID", self.gate_id))
+        url = f"/replace-tag/{user_id}/{new_key}"
+        response = self.fetch('put', url)
         if not response or response.status_code != 200:
             print("WARNING: Failed to replace tag.")
             return None
@@ -56,8 +69,8 @@ class Authenticator:
 
     def removeUserTag(self, user_id: str, key: str) -> bool:
         """Remove a User's RFID tag"""
-        url = f"{Authenticator.base_url}/remove-tag/{user_id}/{key}"
-        response = delete(url, headers=("Gate_ID", self.gate_id))
+        url = f"/remove-tag/{user_id}/{key}"
+        response = self.fetch('delete', url)
         if not response or response.status_code != 200:
             print("WARNING: Failed to remove tag.")
             return False

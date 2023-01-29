@@ -3,7 +3,8 @@ import { Router } from 'express';
 import { Cors, validateGateway } from '../middleware/index.js';
 import {
   validateUserAccess,
-  getUserDetails,
+  getUserDetailsFromTag,
+  getUserDetailsFromEmailOrUsername,
   createUserTag,
   replaceUserTag,
   removeUserTag
@@ -18,7 +19,12 @@ gatewayRouter.use(validateGateway);
 
 gatewayRouter.get(`${gatewayAPI}/access/:key/:uuid`, validateUserAccess);
 
-gatewayRouter.get(`${gatewayAPI}/user-info/:key/:uuid`, getUserDetails);
+gatewayRouter.get(
+  `${gatewayAPI}/user-info/:email`,
+  getUserDetailsFromEmailOrUsername
+);
+
+gatewayRouter.get(`${gatewayAPI}/user-info/:key/:uuid`, getUserDetailsFromTag);
 
 gatewayRouter.post(`${gatewayAPI}/create-tag/:key/:uuid`, createUserTag);
 
