@@ -18,8 +18,25 @@ const validateUserAccess = async (req, res) => {
     await gatewayValidation(gateway_id, key, uuid);
     res.sendStatus(200);
   } catch (err) {
-    if (err === 401) res.sendStatus(401);
-    else res.sendStatus(500);
+    switch (err) {
+      case 401:
+        res.sendStatus(401);
+        break;
+      case 403:
+        res.sendStatus(403);
+        break;
+      case 404:
+        res.sendStatus(404);
+        break;
+      case 407:
+        res.sendStatus(407);
+        break;
+      case 409:
+        res.sendStatus(409);
+        break;
+      default:
+        res.sendStatus(500);
+    }
   }
 };
 
@@ -27,16 +44,19 @@ const getUserDetailsFromTag = async (req, res) => {
   const { key, uuid } = req.params;
   try {
     const tag = await Tag.findById(key);
-    if (!tag || tag.uuid !== uuid) throw 401;
+    if (!tag || tag.uuid?.replace(/\s/g, '') !== uuid?.replace(/\s/g, '')) {
+      throw 401;
+    }
+
     const user = await Users.findById(tag.user_id, NoExtraUser_ID);
     if (!user) throw 401;
     const user_details = await UserDetails.findById(
-      user._id,
+      user.id,
       NoExtraUserDetails_ID
     );
     if (!user_details) throw 401;
 
-    res.status(200).json(detailedResponseUser(user));
+    res.status(200).json(detailedResponseUser(user, user_details));
   } catch (err) {
     if (err === 401) res.sendStatus(401);
     else res.sendStatus(500);
@@ -47,7 +67,12 @@ const getUserDetailsFromEmailOrUsername = async (req, res) => {
   const { username } = req.params;
   try {
     const users = await Users.find(
-      { $or: [{ email: `/${username}/` }, { username: `/${username}/` }] },
+      {
+        $or: [
+          { email: { $regex: `.*${username}.*` } },
+          { username: { $regex: `.*${username}.*` } }
+        ]
+      },
       NoExtraUser_ID
     );
     if (!users) throw 401;
@@ -62,20 +87,20 @@ const getUserDetailsFromEmailOrUsername = async (req, res) => {
 };
 
 const createUserTag = async (req, res) => {
-  const { user_id, key } = req.params;
+  const { uid, key } = req.params;
   try {
     const new_uuid = v4uuid();
 
-    const tag = Tag.findById(key);
+    const tag = await Tag.findById(key);
     if (!tag) {
       await Tag.create({
         _id: key,
         uuid: new_uuid,
-        user_id
+        user_id: uid
       });
     } else {
       tag.uuid = new_uuid;
-      tag.user_id = user_id;
+      tag.user_id = uid;
       await tag.save();
     }
 
@@ -99,7 +124,7 @@ const removeUserTag = async (req, res) => {
   console.log('removeUserTag');
   console.log(`key: ${key}`);
   console.log(`uuid: ${uuid}`);
-  res.sendStatus(200);
+  res.sendStatus(202);
 };
 
 export {

@@ -23,6 +23,7 @@ class RFID:
     def write(self, data) -> None:
         """Write data to the RFID card (wrapper function)"""
         try:
+            print("Place a card on the reader to be written to:")
             self.reader.write(data)
         except:
             print("WARNING: RFID Write Error.")

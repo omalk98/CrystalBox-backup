@@ -26,7 +26,7 @@ gatewayRouter.get(
 
 gatewayRouter.get(`${gatewayAPI}/user-info/:key/:uuid`, getUserDetailsFromTag);
 
-gatewayRouter.post(`${gatewayAPI}/create-tag/:key/:uuid`, createUserTag);
+gatewayRouter.post(`${gatewayAPI}/create-tag/:uid/:key`, createUserTag);
 
 gatewayRouter.put(`${gatewayAPI}/replace-tag/:key/:uuid`, replaceUserTag);
 

@@ -4,11 +4,17 @@ class Authenticator:
     """Handles communication with the server"""
 
     base_url: str = None
+    gateway_id = None
 
     def __init__(self, gateway_id: str, base_url: str = None) -> None:
-        self.gateway_id = gateway_id
-        if Authenticator.base_url == None:
+        if not Authenticator.gateway_id:
+            Authenticator.gateway_id = gateway_id
+        if not Authenticator.base_url:
             Authenticator.base_url = base_url
+
+    def setGatewayId(self, gateway_id: str) -> None:
+        """Set the gateway ID dynamically"""
+        Authenticator.gateway_id = gateway_id
 
     def fetch(self, method, url, data=None):
         try:
@@ -48,7 +54,7 @@ class Authenticator:
         return user_info
 
     def createUserTag(self, user_id: str, key: str) -> str:
-        """Create a new User tag"""
+        """Create a new User tag and return the new UUID"""
         url = f"/create-tag/{user_id}/{key}"
         response = self.fetch('post', url)
         if not response or response.status_code != 201:
@@ -58,7 +64,7 @@ class Authenticator:
         return new_uuid
 
     def replaceUserTag(self, user_id: str, new_key: str) -> str:
-        """Replace a User's RFID tag with a new one"""
+        """Replace a User's RFID tag with a new one and return the new UUID"""
         url = f"/replace-tag/{user_id}/{new_key}"
         response = self.fetch('put', url)
         if not response or response.status_code != 200:
@@ -71,7 +77,7 @@ class Authenticator:
         """Remove a User's RFID tag"""
         url = f"/remove-tag/{user_id}/{key}"
         response = self.fetch('delete', url)
-        if not response or response.status_code != 200:
+        if not response or response.status_code != 202:
             print("WARNING: Failed to remove tag.")
             return False
         return True

@@ -42,8 +42,8 @@ class Test:
             "[5] Test ALL",
             "[6] or q to Exit"
         ]
+        run_again = False
         while True:
-            run_again = False
             try:
                 if not run_again:
                     selection = TerminalMenu(menu_items, title="Test Menu").show()
