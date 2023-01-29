@@ -51,11 +51,11 @@ def helpMessage() -> None:
 
 def startupMessage() -> None:
     """Print startup message"""
+    print("\n##########################################")
+    print("### Welcome to the Gate Access Control ###\n") 
     print("##########################################")
-    print("### Welcome to the Gate Access Control ###\n")
     print("Q - Quit, CTRL+C - Exit Loop or Program")
-    print("Please select a mode to continue:")
-    print("##########################################")
+    print("Please select a mode to continue:\n")
 
 def clearStartupArgs(args) -> None:
     """Clears startup arguments"""
@@ -65,6 +65,24 @@ def clearStartupArgs(args) -> None:
     args["admin"] = False
     args["r"] = False
     args["reader"] = False
+
+def changeGatewayID() -> None:
+    """Change the gateway ID"""
+    print("### Change Gateway ID ###")
+    menu_items = [
+        "[1] OMALK98",
+        "[2] SDTHK96",
+        "[3] PHILI95"
+    ]
+    selection = TerminalMenu(menu_items, title="Select Gateway ID").show()
+    if selection == 0:
+        Authenticator.gateway_id = "OMALK98"
+    elif selection == 1:
+        Authenticator.gateway_id = "SDTHK96"
+    elif selection == 2:
+        Authenticator.gateway_id = "PHILI95"
+
+
 
 def main() -> None:
     """Main function, starts up with a menu to select which loop to run"""
@@ -84,7 +102,8 @@ def main() -> None:
         menu_items = [
             "[t] Test", 
             "[a] Admin", 
-            "[r] Reader", 
+            "[r] Reader",
+            "[c] Change Gateway ID" 
             "[q] Quit"
         ]
 
@@ -99,6 +118,8 @@ def main() -> None:
                 selection = 1
             elif args["r"] == True or args["reader"] == True:
                 selection = 2
+            elif args["c"] == True or args["change"] == True:
+                selection = 3
             else:
                 selection = TerminalMenu(menu_items, title="Main Menu").show()
             clearStartupArgs(args)
@@ -109,6 +130,8 @@ def main() -> None:
                 loop("ADMIN", Admin(effects, rfid, auth))
             elif selection == 2:
                 loop("READER", Reader(effects, rfid, auth))
+            elif selection == 3:
+                changeGatewayID()
             else:
                 break
     except KeyboardInterrupt:
