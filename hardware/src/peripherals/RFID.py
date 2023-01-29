@@ -18,7 +18,7 @@ class RFID:
         except:
             print("WARNING: RFID Read Error.")
             return None, None
-        return id, data
+        return id, data.strip()
 
     def write(self, data) -> None:
         """Write data to the RFID card (wrapper function)"""

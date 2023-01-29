@@ -15,7 +15,7 @@ const validateUserAccess = async (req, res) => {
     if (!gateway_id) throw 400;
     if (!key || !uuid) throw 401;
 
-    await gatewayValidation(gateway_id, key, uuid.replace(/\s/g, ''));
+    await gatewayValidation(gateway_id, key, uuid);
     res.sendStatus(200);
   } catch (err) {
     switch (err) {
@@ -48,7 +48,7 @@ const getUserDetailsFromTag = async (req, res) => {
   try {
     if (!key || !uuid) throw 401;
     const tag = await Tag.findById(key);
-    if (!tag || tag.uuid !== uuid.replace(/\s/g, '')) {
+    if (!tag || tag.uuid !== uuid) {
       throw 401;
     }
 

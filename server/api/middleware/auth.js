@@ -1,4 +1,9 @@
-import { PasswordTokens } from '../models/index.js';
+import {
+  Users,
+  PasswordTokens,
+  Gateway,
+  GatewayAccess
+} from '../models/index.js';
 import { verifyPasswordToken } from '../services/index.js';
 
 const validatePasswordLink = async (req, res, next) => {
@@ -19,18 +24,34 @@ const validatePasswordLink = async (req, res, next) => {
 };
 
 const validateAdmin = async (req, res, next) => {
+  const { autherization } = req.headers;
   next();
   // to be implemented
 };
 
 const validateUser = async (req, res, next) => {
+  const { autherization } = req.headers;
   next();
   // to be implemented
 };
 
 const validateGateway = async (req, res, next) => {
+  const { gateway_id } = req.headers;
+  const { key, uuid } = req.params;
+
+  const gateway = await Gateway.findById(gateway_id);
+  if (!gateway) {
+    await GatewayAccess.create({
+      gateway: gateway_id,
+      key,
+      uuid,
+      code: 407,
+      description: 'Gateway Not Found'
+    });
+    res.sendStatus(407);
+    return;
+  }
   next();
-  // to be implemented
 };
 
 export { validatePasswordLink, validateAdmin, validateUser, validateGateway };
