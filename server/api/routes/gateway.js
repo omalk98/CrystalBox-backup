@@ -20,7 +20,7 @@ gatewayRouter.use(validateGateway);
 gatewayRouter.get(`${gatewayAPI}/access/:key/:uuid`, validateUserAccess);
 
 gatewayRouter.get(
-  `${gatewayAPI}/user-info/:email`,
+  `${gatewayAPI}/user-info/:username`,
   getUserDetailsFromEmailOrUsername
 );
 

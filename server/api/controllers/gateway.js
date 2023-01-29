@@ -1,43 +1,89 @@
-const validateUserAccess = (req, res) => {
+import { v4 as v4uuid } from 'uuid';
+import {
+  detailedResponseUser,
+  responseUserList,
+  NoExtraUser_ID,
+  NoExtraUserDetails_ID,
+  gatewayValidation
+} from '../services/index.js';
+import { Users, UserDetails, Tag } from '../models/index.js';
+
+const validateUserAccess = async (req, res) => {
   const { gateway_id } = req.headers;
   const { key, uuid } = req.params;
-  console.log(req.headers);
-  console.log(`key: ${key}`);
-  console.log(`uuid: ${uuid}`);
-  // will be used in middleware
-  console.log(`Gate_ID: ${gateway_id}`);
+  try {
+    if (!gateway_id) throw 500;
+    if (!key || !uuid) throw 401;
 
-  if (uuid !== '123') {
-    setTimeout(() => {
-      res.status(401).send('Unauthorized');
-    }, 2000);
-    return;
+    await gatewayValidation(gateway_id, key, uuid);
+    res.sendStatus(200);
+  } catch (err) {
+    if (err === 401) res.sendStatus(401);
+    else res.sendStatus(500);
   }
-
-  res.status(200).send('Hello from the gateway!');
 };
 
 const getUserDetailsFromTag = async (req, res) => {
   const { key, uuid } = req.params;
-  console.log('getUserDetailsFromTag');
-  console.log(`key: ${key}`);
-  console.log(`uuid: ${uuid}`);
-  res.sendStatus(200);
+  try {
+    const tag = await Tag.findById(key);
+    if (!tag || tag.uuid !== uuid) throw 401;
+    const user = await Users.findById(tag.user_id, NoExtraUser_ID);
+    if (!user) throw 401;
+    const user_details = await UserDetails.findById(
+      user._id,
+      NoExtraUserDetails_ID
+    );
+    if (!user_details) throw 401;
+
+    res.status(200).json(detailedResponseUser(user));
+  } catch (err) {
+    if (err === 401) res.sendStatus(401);
+    else res.sendStatus(500);
+  }
 };
 
 const getUserDetailsFromEmailOrUsername = async (req, res) => {
-  const { key, uuid } = req.params;
-  console.log('getUserDetailsFromEmailOrUsername');
-  console.log(`key: ${key}`);
-  console.log(`uuid: ${uuid}`);
-  res.sendStatus(200);
+  const { username } = req.params;
+  try {
+    const users = await Users.find(
+      { $or: [{ email: `/${username}/` }, { username: `/${username}/` }] },
+      NoExtraUser_ID
+    );
+    if (!users) throw 401;
+
+    const user_list = responseUserList(users);
+
+    res.status(200).json(user_list);
+  } catch (err) {
+    if (err === 401) res.sendStatus(401);
+    else res.sendStatus(500);
+  }
 };
 
 const createUserTag = async (req, res) => {
   const { user_id, key } = req.params;
-  console.log(`key: ${key}`);
-  console.log(`uuid: ${user_id}`);
-  res.status(201).json({ new_uuid: '123' });
+  try {
+    const new_uuid = v4uuid();
+
+    const tag = Tag.findById(key);
+    if (!tag) {
+      await Tag.create({
+        _id: key,
+        uuid: new_uuid,
+        user_id
+      });
+    } else {
+      tag.uuid = new_uuid;
+      tag.user_id = user_id;
+      await tag.save();
+    }
+
+    res.status(201).json({ new_uuid });
+  } catch (err) {
+    if (err === 401) res.sendStatus(401);
+    else res.sendStatus(500);
+  }
 };
 
 const replaceUserTag = async (req, res) => {

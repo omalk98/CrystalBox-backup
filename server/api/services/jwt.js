@@ -10,7 +10,7 @@ import {
 } from '../models/index.js';
 import { responseUser } from './response-user.js';
 
-const generateAccessToken = async (id) => {
+export async function generateAccessToken(id) {
   try {
     const period = 20;
     const expires = Date.now() + 1000 * 60 * period; // 20 minutes
@@ -27,9 +27,9 @@ const generateAccessToken = async (id) => {
   } catch {
     throw 500;
   }
-};
+}
 
-const generateRefreshToken = async (id) => {
+export async function generateRefreshToken(id) {
   try {
     const period = 7;
     const expires = Date.now() + 1000 * 60 * 60 * 24 * period; // 7 days
@@ -46,9 +46,9 @@ const generateRefreshToken = async (id) => {
   } catch {
     throw 500;
   }
-};
+}
 
-const generatePasswordToken = async (id, long = false) => {
+export async function generatePasswordToken(id, long = false) {
   try {
     const period = long ? 60 * 24 : 15;
     const expires = Date.now() + 1000 * 60 * period; // 15 minutes || 24 hours
@@ -72,9 +72,9 @@ const generatePasswordToken = async (id, long = false) => {
   } catch {
     throw 500;
   }
-};
+}
 
-const verifyAccessToken = async (token, allowedRoles) => {
+export async function verifyAccessToken(token, allowedRoles) {
   try {
     if (!token) return false;
     const id = jwt.verify(
@@ -101,9 +101,9 @@ const verifyAccessToken = async (token, allowedRoles) => {
   } catch (err) {
     throw 500;
   }
-};
+}
 
-const verifyRefreshToken = async (token) => {
+export async function verifyRefreshToken(token) {
   try {
     if (!token) return false;
     const id = jwt.verify(
@@ -136,9 +136,9 @@ const verifyRefreshToken = async (token) => {
   } catch {
     throw 500;
   }
-};
+}
 
-const verifyPasswordToken = async (token_uuid, token) => {
+export async function verifyPasswordToken(token_uuid, token) {
   try {
     if (!token) return false;
     const [id, uid] = jwt.verify(
@@ -164,13 +164,4 @@ const verifyPasswordToken = async (token_uuid, token) => {
   } catch {
     throw 500;
   }
-};
-
-export {
-  generateAccessToken,
-  generateRefreshToken,
-  generatePasswordToken,
-  verifyAccessToken,
-  verifyRefreshToken,
-  verifyPasswordToken
-};
+}
