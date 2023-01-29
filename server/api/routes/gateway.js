@@ -12,7 +12,7 @@ import {
 
 const gatewayRouter = Router();
 const baseAPI = '/api/v1';
-const gatewayAPI = `${baseAPI}/gateway`;
+const gatewayAPI = `${baseAPI}/terminal/gateway`;
 
 gatewayRouter.use(Cors);
 gatewayRouter.use(validateGateway);
