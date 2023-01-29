@@ -48,7 +48,7 @@ const getUserDetailsFromTag = async (req, res) => {
   try {
     if (!key || !uuid) throw 401;
     const tag = await Tag.findById(key);
-    if (!tag || tag.uuid?.replace(/\s/g, '') !== uuid?.replace(/\s/g, '')) {
+    if (!tag || tag.uuid !== uuid.replace(/\s/g, '')) {
       throw 401;
     }
 

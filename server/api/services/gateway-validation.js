@@ -25,7 +25,7 @@ export default async function gatewayValidation(gateway_id, key, uuid) {
       description: 'Tag Not Found'
     });
     throw 404;
-  } else if (tag.uuid?.replace(/\s/g, '') !== uuid?.replace(/\s/g, '')) {
+  } else if (tag.uuid !== uuid) {
     await GatewayAccess.create({
       ...access_details,
       code: 409,
