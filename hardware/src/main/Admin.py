@@ -40,11 +40,17 @@ class Admin:
     def getUserInfoFromEmailOrUsername(self) -> str:
         """Get User Info From Email or Username and return the user id"""
         print("### Get User Info From Email or Username ###")
-        username = input("\nEnter partially the email or username of the user: ")
-        user_info = self.auth.getUserInfoFromEmailOrUsername(username)
-        if not user_info:
-            print("WARNING: User Not Found.")
-            return
+
+        user_found = False
+        while not user_found:
+            username = input("\nEnter partially the email or username of the user: ")
+            if (username == "q" or username == "Q" or username == "quit" or username == "x" or username == "X"):
+                return None
+            user_info = self.auth.getUserInfoFromEmailOrUsername(username)
+            if not user_info:
+                print("WARNING: User Not Found.")
+            else:
+                user_found = True
         
         user_id: str = None
         if len(user_info) > 1:
@@ -81,6 +87,8 @@ class Admin:
         print("### Create New User Tag ###")
         try:
             user_id = self.getUserInfoFromEmailOrUsername()
+            if not user_id:
+                return
 
             self.effects.standbyMode()
 
@@ -102,16 +110,16 @@ class Admin:
 
             self.rfid.write(new_uuid)
             self.effects.successState()
+            key, data = self.rfid.read()
             sleep(0.1)
+
             self.effects.processingMode()
-            user_info = self.auth.getUserInfoFromTag(key, new_uuid)
-            if not user_info:
+            if not data or data != new_uuid:
                 self.effects.failure()
                 raise
             sleep(0.4)
-            print(f"{dumps(user_info, sort_keys=True, indent=4)}")
 
-            print("\nSUCCESS: Tag created for the above user.")
+            print("\nSUCCESS: Tag created for the user.")
             self.effects.success()
         except KeyboardInterrupt:
             print("WARNING: Tag creation cancelled.")

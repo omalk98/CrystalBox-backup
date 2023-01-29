@@ -16,7 +16,9 @@ def processArgs() -> dict:
         "a":        False,
         "admin":    False,
         "r":        False,
-        "reader":   False
+        "reader":   False,
+        "c":        False,
+        "change":   False
     }
     for arg in argv:
         if arg.startswith("--") or arg.startswith("-"):
@@ -65,6 +67,8 @@ def clearStartupArgs(args) -> None:
     args["admin"] = False
     args["r"] = False
     args["reader"] = False
+    args["c"] = False
+    args["change"] = False
 
 def changeGatewayID() -> None:
     """Change the gateway ID"""
@@ -103,7 +107,7 @@ def main() -> None:
             "[t] Test", 
             "[a] Admin", 
             "[r] Reader",
-            "[c] Change Gateway ID" 
+            "[c] Change Gateway ID",
             "[q] Quit"
         ]
 

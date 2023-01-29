@@ -30,6 +30,7 @@ class Reader:
                 key, uuid = self.rfid.read()
 
                 self.effects.processingMode()
+                print("processing...\n")
                 if not key or not uuid:
                     self.accessDenied()
                     continue

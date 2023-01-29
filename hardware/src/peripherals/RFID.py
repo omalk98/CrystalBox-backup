@@ -27,6 +27,7 @@ class RFID:
             self.reader.write(data)
         except:
             print("WARNING: RFID Write Error.")
+            raise
 
     def test(self) -> None:
         """Test the RFID reader"""
