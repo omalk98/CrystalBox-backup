@@ -1,0 +1,7 @@
+colorzero==2.0
+gpiozero==1.6.2
+mfrc522==0.0.7
+python-dotenv==0.21.1
+RPi.GPIO==0.7.1
+simple-term-menu==1.6.1
+spidev==3.6

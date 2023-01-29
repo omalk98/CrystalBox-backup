@@ -28,4 +28,9 @@ const validateUser = async (req, res, next) => {
   // to be implemented
 };
 
-export { validatePasswordLink, validateAdmin, validateUser };
+const validateGateway = async (req, res, next) => {
+  next();
+  // to be implemented
+};
+
+export { validatePasswordLink, validateAdmin, validateUser, validateGateway };

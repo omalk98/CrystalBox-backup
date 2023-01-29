@@ -1,4 +1,5 @@
 import { Router } from 'express';
+
 import { homeController, footerController } from '../controllers/content.js';
 
 const contentRouter = Router();

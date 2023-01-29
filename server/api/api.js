@@ -11,6 +11,7 @@ import {
 } from './middleware/index.js';
 import {
   adminRouter,
+  userRouter,
   contentRouter,
   commonRouter,
   publicRouter,
@@ -44,6 +45,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(adminRouter);
+app.use(userRouter);
 app.use(contentRouter);
 app.use(commonRouter);
 app.use(publicRouter);

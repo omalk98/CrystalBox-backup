@@ -1,12 +1,33 @@
 import fs from 'fs';
 import { v4 as uuid } from 'uuid';
 import { hashSync } from 'bcrypt';
-import { Users, UserDetails, Passwords } from '../models/index.js';
+import { Users, UserDetails, Passwords, Gateway } from '../models/index.js';
 import { formatDate } from '../utilities/index.js';
 
 const populateDB = (req, res) => {
   const user = JSON.parse(fs.readFileSync('./data/user-data.json', 'utf8'));
   const { users, user_details } = user;
+
+  Gateway.create({
+    _id: 'OMALK98',
+    name: 'ThornHill Gateway',
+    location: 'ThornHill, ON, CA',
+    permissions: ['ADMIN']
+  });
+
+  Gateway.create({
+    _id: 'SDTHK96',
+    name: 'Vaughn Gateway',
+    location: 'Vaughn, ON, CA',
+    permissions: ['USER']
+  });
+
+  Gateway.create({
+    _id: 'PHILI95',
+    name: 'Scarborough Gateway',
+    location: 'Scarborough, ON, CA',
+    permissions: ['ADMIN', 'USER']
+  });
 
   let i;
   for (i = 0; i < users.length; i += 1) {

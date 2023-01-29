@@ -1,4 +1,5 @@
 import { Router } from 'express';
+
 import populateDB from '../controllers/populate-db.js';
 
 const populateDBRouter = Router();

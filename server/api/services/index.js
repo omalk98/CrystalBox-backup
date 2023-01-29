@@ -17,6 +17,7 @@ import {
 } from './response-user.js';
 
 import sendMail from './mailer.js';
+import gatewayValidation from './gateway-validation.js';
 
 export {
   generateAccessToken,
@@ -31,5 +32,6 @@ export {
   NoExtraUser_ID,
   NoExtraUserDetails_ID,
   sendMail,
+  gatewayValidation,
   databaseUserResponse
 };
