@@ -50,6 +50,7 @@ def helpMessage() -> None:
     print("--test,   -t : Start in TEST mode")
     print("--admin,  -a : Start in ADMIN mode")
     print("--reader, -r : Start in READER mode")
+    print("--change, -c : Change the gateway ID")
 
 def startupMessage() -> None:
     """Print startup message"""
