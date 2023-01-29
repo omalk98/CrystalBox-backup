@@ -30,7 +30,7 @@ const TagSchema = new Schema({
 });
 
 const Gateway = model('Gateway', GatewaySchema);
-const GatewayAccess = model('Gateway', GatewayAccessSchema);
+const GatewayAccess = model('Gateway_Access', GatewayAccessSchema);
 const Tag = model('Tag', TagSchema);
 
 export { Gateway, GatewayAccess, Tag };

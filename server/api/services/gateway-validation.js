@@ -6,7 +6,7 @@ export default async function gatewayValidation(gateway_id, key, uuid) {
 
   const gateway = await Gateway.findById(gateway_id);
   if (!gateway) {
-    await GatewayAccess.create({
+    await GatewayAccess.insert({
       ...access_details,
       code: 407,
       description: 'Gateway Not Found'
@@ -19,14 +19,14 @@ export default async function gatewayValidation(gateway_id, key, uuid) {
 
   const tag = await Tag.findById(key);
   if (!tag) {
-    await GatewayAccess.create({
+    await GatewayAccess.insert({
       ...access_details,
       code: 404,
       description: 'Tag Not Found'
     });
     throw 401;
   } else if (tag.uuid !== uuid) {
-    await GatewayAccess.create({
+    await GatewayAccess.insert({
       ...access_details,
       code: 409,
       description: 'Tag UUID Mismatch'
@@ -39,7 +39,7 @@ export default async function gatewayValidation(gateway_id, key, uuid) {
 
   const user = await Users.findById(tag.user_id, NoExtraUser_ID);
   if (!user) {
-    await GatewayAccess.create({
+    await GatewayAccess.insert({
       ...access_details,
       code: 401,
       description: 'User Not Found'
@@ -48,7 +48,7 @@ export default async function gatewayValidation(gateway_id, key, uuid) {
   }
 
   if (!user.roles.find((role) => gateway.permissions.includes(role))) {
-    await GatewayAccess.create({
+    await GatewayAccess.insert({
       ...access_details,
       user_id: user._id,
       code: 403,
@@ -57,7 +57,7 @@ export default async function gatewayValidation(gateway_id, key, uuid) {
     throw 401;
   }
 
-  await GatewayAccess.create({
+  await GatewayAccess.insert({
     ...access_details,
     user_id: user._id
   });
