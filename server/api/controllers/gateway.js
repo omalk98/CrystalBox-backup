@@ -15,7 +15,7 @@ const validateUserAccess = async (req, res) => {
     if (!gateway_id) throw 400;
     if (!key || !uuid) throw 401;
 
-    await gatewayValidation(gateway_id, key, uuid);
+    await gatewayValidation(gateway_id, key, uuid.replace(/\s/g, ''));
     res.sendStatus(200);
   } catch (err) {
     switch (err) {
