@@ -75,7 +75,7 @@ class Authenticator:
 
     def removeUserTag(self, user_id: str, key: str) -> bool:
         """Remove a User's RFID tag"""
-        url = f"/remove-tag/{user_id}/{key}"
+        url = f"/remove-tag/{key}"
         response = self.fetch('delete', url)
         if not response or response.status_code != 202:
             print("WARNING: Failed to remove tag.")
