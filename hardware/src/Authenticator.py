@@ -12,10 +12,6 @@ class Authenticator:
         if not Authenticator.base_url:
             Authenticator.base_url = base_url
 
-    def setGatewayId(self, gateway_id: str) -> None:
-        """Set the gateway ID dynamically"""
-        Authenticator.gateway_id = gateway_id
-
     def fetch(self, method, url, data=None):
         try:
             response = request(method, f"{Authenticator.base_url}{url}", data=data, headers={"gateway_id" : self.gateway_id})

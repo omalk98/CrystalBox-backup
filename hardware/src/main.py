@@ -81,11 +81,11 @@ def changeGatewayID() -> None:
     ]
     selection = TerminalMenu(menu_items, title="Select Gateway ID").show()
     if selection == 0:
-        Authenticator.setGatewayId("OMALK98")
+        Authenticator.gateway_id = "OMALK98"
     elif selection == 1:
-        Authenticator.setGatewayId("SDTHK96")
+        Authenticator.gateway_id = "SDTHK96"
     elif selection == 2:
-        Authenticator.setGatewayId("PHILI95")
+        Authenticator.gateway_id = "PHILI95"
 
 
 
