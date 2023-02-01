@@ -103,7 +103,7 @@ export async function verifyAccessToken(token, allowedRoles) {
   }
 }
 
-export async function verifyRefreshToken(token) {
+export async function verifyRefreshToken(token, ip) {
   try {
     if (!token) return false;
     const id = jwt.verify(
@@ -126,6 +126,9 @@ export async function verifyRefreshToken(token) {
       await RefreshTokens.deleteOne({ token: refresh.token });
       return false;
     }
+    user.last_login.time = Date.now();
+    user.last_login.ip = ip;
+    await user.save();
     return {
       user: responseUser(user, user_details),
       auth: {
