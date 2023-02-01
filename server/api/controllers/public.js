@@ -87,9 +87,7 @@ const refreshToken = async (req, res) => {
   try {
     const { token } = req.cookies;
     if (!token) throw 401;
-    const user_ip =
-      req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.ip;
-    const response = await verifyRefreshToken(token, user_ip.split(':').pop());
+    const response = await verifyRefreshToken(token);
     res.status(200).json(response);
   } catch (err) {
     res.status(401).json({ msg: 'Invalid token', code: 401 });
