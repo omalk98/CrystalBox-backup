@@ -30,7 +30,15 @@ const adminAnalytics = (req, res) => {
 
 const allUsers = async (req, res) => {
   try {
-    const userMinInfo = await Users.find({}, { ...NoExtraUser_ID });
+    const userMinInfo = await Users.find(
+      {
+        $or: [
+          { 'status.deleted': { $exists: false } },
+          { 'status.deleted': false }
+        ]
+      },
+      { ...NoExtraUser_ID }
+    );
     res.status(200).json(responseUserList(userMinInfo));
   } catch (err) {
     throw new Error(err);
@@ -149,10 +157,7 @@ const lockUserToggle = async (req, res) => {
 const deleteUser = async (req, res) => {
   const { id } = req.params;
   try {
-    const user = await Users.findById(id);
-    if (!user) throw 404;
-    user.status.deleted = true;
-    await user.save();
+    await toggleStatus(id, 'deleted');
     res.sendStatus(200);
   } catch (err) {
     if (err === 404) {

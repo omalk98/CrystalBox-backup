@@ -10,7 +10,8 @@ const Address = new Schema({
 
 const Status = new Schema({
   locked: { type: Boolean, required: true, default: false },
-  activated: { type: Boolean, required: true, default: false }
+  activated: { type: Boolean, required: true, default: false },
+  deleted: { type: Boolean }
 });
 
 const LastLogin = new Schema({
