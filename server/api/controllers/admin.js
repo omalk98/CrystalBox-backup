@@ -48,9 +48,7 @@ const userByID = async (req, res) => {
   } catch (err) {
     if (err === 404) {
       res.status(404).json({ message: 'User not found' });
-    } else {
-      res.sendStatus(500);
-    }
+    } else res.sendStatus(500);
   }
 };
 
@@ -112,46 +110,107 @@ const createUser = async (req, res) => {
       res.status(400).json({ msg: 'Invalid data', code: 400 });
     } else if (err === 409) {
       res.status(409).json({ msg: 'Username already exists', code: 409 });
-    } else {
-      res.sendStatus(500);
-    }
+    } else res.sendStatus(500);
   }
 };
 
-const activateUserToggle = (req, res) => {
-  const { id } = req.params;
-  console.log(id);
-  res.sendStatus(200);
+const toggleStatus = async (id, status) => {
+  const user = await Users.findById(id);
+  if (!user) throw 404;
+
+  user.status[status] = !user.status[status];
+  user.save();
 };
 
-const lockUserToggle = (req, res) => {
+const activateUserToggle = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
-  res.sendStatus(200);
+  try {
+    await toggleStatus(id, 'activated');
+    res.sendStatus(200);
+  } catch (err) {
+    if (err === 404) {
+      res.status(404).json({ msg: 'User not found', code: 404 });
+    } else res.sendStatus(500);
+  }
 };
 
-const deleteUser = (req, res) => {
+const lockUserToggle = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
-  res.sendStatus(200);
+  try {
+    await toggleStatus(id, 'locked');
+    res.sendStatus(200);
+  } catch (err) {
+    if (err === 404) {
+      res.status(404).json({ msg: 'User not found', code: 404 });
+    } else res.sendStatus(500);
+  }
 };
 
-const bulkDeactivateUsers = (req, res) => {
+const deleteUser = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
-  res.sendStatus(200);
+  try {
+    const user = await Users.findById(id);
+    if (!user) throw 404;
+    user.status.deleted = true;
+    await user.save();
+    res.sendStatus(200);
+  } catch (err) {
+    if (err === 404) {
+      res.status(404).json({ msg: 'User not found', code: 404 });
+    } else res.sendStatus(500);
+  }
 };
 
-const bulkLockUsers = (req, res) => {
-  const { id } = req.params;
-  console.log(id);
-  res.sendStatus(200);
+const bulkToggleStatus = async (ids, status, state = false) => {
+  if (!ids || !(ids instanceof Array)) throw 400;
+  ids.forEach(async (id) => {
+    const user = await Users.findById(id);
+    if (!user) throw 404;
+    user.status[status] = state;
+    user.save();
+  });
 };
 
-const bulkDeleteUsers = (req, res) => {
-  const { id } = req.params;
-  console.log(id);
-  res.sendStatus(200);
+const bulkDeactivateUsers = async (req, res) => {
+  const { ids } = req.body;
+  try {
+    await bulkToggleStatus(ids, 'activated');
+    res.sendStatus(200);
+  } catch (err) {
+    if (err === 400) {
+      res.status(400).json({ msg: 'Invalid data', code: 400 });
+    } else if (err === 404) {
+      res.status(404).json({ msg: 'User not found', code: 404 });
+    } else res.sendStatus(500);
+  }
+};
+
+const bulkLockUsers = async (req, res) => {
+  const { ids } = req.body;
+  try {
+    await bulkToggleStatus(ids, 'locked', true);
+    res.sendStatus(200);
+  } catch (err) {
+    if (err === 400) {
+      res.status(400).json({ msg: 'Invalid data', code: 400 });
+    } else if (err === 404) {
+      res.status(404).json({ msg: 'User not found', code: 404 });
+    } else res.sendStatus(500);
+  }
+};
+
+const bulkDeleteUsers = async (req, res) => {
+  const { ids } = req.body;
+  try {
+    await bulkToggleStatus(ids, 'deleted', true);
+    res.sendStatus(200);
+  } catch (err) {
+    if (err === 400) {
+      res.status(400).json({ msg: 'Invalid data', code: 400 });
+    } else if (err === 404) {
+      res.status(404).json({ msg: 'User not found', code: 404 });
+    } else res.sendStatus(500);
+  }
 };
 
 export {
