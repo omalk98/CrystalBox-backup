@@ -26,7 +26,14 @@ const login = async (req, res) => {
       NoExtraUser_ID
     );
 
-    if (!user) throw 401;
+    if (
+      !user ||
+      user.status.deleted ||
+      !user.status.activated ||
+      user.status.locked
+    ) {
+      throw 401;
+    }
     const userID = user._id;
 
     const pass = await Passwords.findById(userID);
