@@ -7,7 +7,8 @@ import {
   getUserDetailsFromEmailOrUsername,
   createUserTag,
   replaceUserTag,
-  removeUserTag
+  removeUserTag,
+  removeAllUserTags
 } from '../controllers/gateway.js';
 
 const gatewayRouter = Router();
@@ -28,8 +29,10 @@ gatewayRouter.get(`${gatewayAPI}/user-info/:key/:uuid`, getUserDetailsFromTag);
 
 gatewayRouter.post(`${gatewayAPI}/create-tag/:uid/:key`, createUserTag);
 
-gatewayRouter.put(`${gatewayAPI}/replace-tag/:key/:uuid`, replaceUserTag);
+gatewayRouter.put(`${gatewayAPI}/replace-tag/:uid/:key`, replaceUserTag);
 
 gatewayRouter.delete(`${gatewayAPI}/remove-tag/:key`, removeUserTag);
+
+gatewayRouter.delete(`${gatewayAPI}/remove-all-tags/:uid`, removeAllUserTags);
 
 export default gatewayRouter;

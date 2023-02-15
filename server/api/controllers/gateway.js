@@ -91,26 +91,30 @@ const getUserDetailsFromEmailOrUsername = async (req, res) => {
   }
 };
 
+const createTag = async (uid, key) => {
+  if (!uid || !key) throw 401;
+
+  const new_uuid = v4uuid();
+
+  const tag = await Tag.findById(key);
+  if (!tag) {
+    await Tag.create({
+      _id: key,
+      uuid: new_uuid,
+      user_id: uid
+    });
+  } else {
+    tag.uuid = new_uuid;
+    tag.user_id = uid;
+    await tag.save();
+  }
+  return new_uuid;
+};
+
 const createUserTag = async (req, res) => {
   const { uid, key } = req.params;
   try {
-    if (!uid || !key) throw 401;
-
-    const new_uuid = v4uuid();
-
-    const tag = await Tag.findById(key);
-    if (!tag) {
-      await Tag.create({
-        _id: key,
-        uuid: new_uuid,
-        user_id: uid
-      });
-    } else {
-      tag.uuid = new_uuid;
-      tag.user_id = uid;
-      await tag.save();
-    }
-
+    const new_uuid = await createTag(uid, key);
     res.status(201).json({ new_uuid });
   } catch (err) {
     if (err === 401) res.sendStatus(401);
@@ -119,11 +123,16 @@ const createUserTag = async (req, res) => {
 };
 
 const replaceUserTag = async (req, res) => {
-  const { key, uuid } = req.params;
-  console.log('replaceUserTag');
-  console.log(`key: ${key}`);
-  console.log(`uuid: ${uuid}`);
-  res.sendStatus(200);
+  const { uid, key } = req.params;
+  try {
+    if (!uid) throw 401;
+    await Tag.deleteMany({ user_id: uid });
+    const new_uuid = await createTag(uid, key);
+    res.status(201).json({ new_uuid });
+  } catch (err) {
+    if (err === 401) res.sendStatus(401);
+    else res.sendStatus(500);
+  }
 };
 
 const removeUserTag = async (req, res) => {
@@ -138,11 +147,24 @@ const removeUserTag = async (req, res) => {
   }
 };
 
+const removeAllUserTags = async (req, res) => {
+  const { uid } = req.params;
+  try {
+    if (!uid) throw 401;
+    await Tag.deleteMany({ user_id: uid });
+    res.sendStatus(202);
+  } catch (err) {
+    if (err === 401) res.sendStatus(401);
+    else res.sendStatus(500);
+  }
+};
+
 export {
   validateUserAccess,
   getUserDetailsFromTag,
   getUserDetailsFromEmailOrUsername,
   createUserTag,
   replaceUserTag,
-  removeUserTag
+  removeUserTag,
+  removeAllUserTags
 };
