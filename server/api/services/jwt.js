@@ -92,7 +92,10 @@ export async function verifyAccessToken(token, allowedRoles) {
       access.token !== token ||
       access.expires < Date.now() ||
       user._id !== id ||
-      user.roles.find((role) => allowedRoles.includes(role)) === -1
+      user.roles.find((role) => allowedRoles.includes(role)) === -1 ||
+      user.status.deleted ||
+      !user.status.activated ||
+      user.status.locked
     ) {
       await AccessTokens.deleteOne({ token: access.token });
       return false;
@@ -103,7 +106,7 @@ export async function verifyAccessToken(token, allowedRoles) {
   }
 }
 
-export async function verifyRefreshToken(token, ip) {
+export async function verifyRefreshToken(token) {
   try {
     if (!token) return false;
     const id = jwt.verify(
@@ -119,16 +122,17 @@ export async function verifyRefreshToken(token, ip) {
     const user_details = await UserDetails.findById(id);
     if (
       !refresh ||
+      !user ||
       refresh.token !== token ||
       refresh.expires < Date.now() ||
-      user._id !== id
+      user._id !== id ||
+      user.status.deleted ||
+      !user.status.activated ||
+      user.status.locked
     ) {
       await RefreshTokens.deleteOne({ token: refresh.token });
       return false;
     }
-    user.last_login.time = Date.now();
-    user.last_login.ip = ip;
-    await user.save();
     return {
       user: responseUser(user, user_details),
       auth: {
@@ -158,7 +162,10 @@ export async function verifyPasswordToken(token_uuid, token) {
       !access ||
       access.token !== token ||
       access.expires < Date.now() ||
-      user._id !== id
+      user._id !== id ||
+      user.status.deleted ||
+      !user.status.activated ||
+      user.status.locked
     ) {
       await PasswordTokens.deleteOne({ token: access.token });
       return false;

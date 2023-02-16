@@ -83,10 +83,15 @@ const toggleLockUser = (id) =>
   options(`${adminBaseRoute}/lock-user-toggle/${id}`, httpType.PUT);
 
 const bulkDeactivateUsers = (ids) =>
-  options(`${adminBaseRoute}/bulk-deactivate-users`, httpType.PUT, ids, null);
+  options(
+    `${adminBaseRoute}/bulk-deactivate-users`,
+    httpType.PUT,
+    { ids },
+    null
+  );
 
 const bulkLockUsers = (ids) =>
-  options(`${adminBaseRoute}/bulk-lock-users`, httpType.PUT, ids, null);
+  options(`${adminBaseRoute}/bulk-lock-users`, httpType.PUT, { ids }, null);
 
 const Put = {
   userDetails,
@@ -109,7 +114,12 @@ const deleteUser = (id) =>
   options(`${adminBaseRoute}/delete-user/${id}`, httpType.DELETE);
 
 const bulkDeleteUsers = (ids) =>
-  options(`${adminBaseRoute}/bulk-delete-users`, httpType.DELETE, ids, null);
+  options(
+    `${adminBaseRoute}/bulk-delete-users`,
+    httpType.DELETE,
+    { ids },
+    null
+  );
 
 const Delete = {
   deleteUser,

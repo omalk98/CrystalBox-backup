@@ -1,5 +1,6 @@
 from requests import request, get, post, put, delete
 
+
 class Authenticator:
     """Handles communication with the server"""
 
@@ -14,7 +15,8 @@ class Authenticator:
 
     def fetch(self, method, url, data=None):
         try:
-            response = request(method, f"{Authenticator.base_url}{url}", data=data, headers={"gateway_id" : self.gateway_id})
+            response = request(method, f"{Authenticator.base_url}{url}", data=data, headers={
+                               "gateway_id": self.gateway_id})
             return response
         except Exception:
             print("WARNING: Failed to connect to server.")
@@ -28,7 +30,7 @@ class Authenticator:
             print("WARNING: Tag does not have appropriate access permissions.")
             return False
         return True
-    
+
     def getUserInfoFromTag(self, key: str, uuid: str) -> dict:
         """Get a User's information from the server"""
         url = f"/user-info/{key}/{uuid}"
@@ -63,13 +65,13 @@ class Authenticator:
         """Replace a User's RFID tag with a new one and return the new UUID"""
         url = f"/replace-tag/{user_id}/{new_key}"
         response = self.fetch('put', url)
-        if not response or response.status_code != 200:
+        if not response or response.status_code != 201:
             print("WARNING: Failed to replace tag.")
             return None
         new_uuid = response.json()["new_uuid"]
         return new_uuid
 
-    def removeUserTag(self, user_id: str, key: str) -> bool:
+    def removeUserTag(self, key: str) -> bool:
         """Remove a User's RFID tag"""
         url = f"/remove-tag/{key}"
         response = self.fetch('delete', url)
@@ -78,4 +80,11 @@ class Authenticator:
             return False
         return True
 
-    
+    def removeAllUserTags(self, uid: str) -> bool:
+        """Remove a User's full RFID tag list"""
+        url = f"/remove-all-tags/{uid}"
+        response = self.fetch('delete', url)
+        if not response or response.status_code != 202:
+            print("WARNING: Failed to remove tags.")
+            return False
+        return True

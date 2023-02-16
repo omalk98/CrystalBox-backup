@@ -26,7 +26,14 @@ const login = async (req, res) => {
       NoExtraUser_ID
     );
 
-    if (!user) throw 401;
+    if (
+      !user ||
+      user.status.deleted ||
+      !user.status.activated ||
+      user.status.locked
+    ) {
+      throw 401;
+    }
     const userID = user._id;
 
     const pass = await Passwords.findById(userID);
@@ -87,9 +94,7 @@ const refreshToken = async (req, res) => {
   try {
     const { token } = req.cookies;
     if (!token) throw 401;
-    const user_ip =
-      req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.ip;
-    const response = await verifyRefreshToken(token, user_ip.split(':').pop());
+    const response = await verifyRefreshToken(token);
     res.status(200).json(response);
   } catch (err) {
     res.status(401).json({ msg: 'Invalid token', code: 401 });

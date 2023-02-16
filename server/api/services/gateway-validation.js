@@ -57,6 +57,36 @@ export default async function gatewayValidation(gateway_id, key, uuid) {
     throw 403;
   }
 
+  if (user.status.deleted) {
+    await GatewayAccess.create({
+      ...access_details,
+      user_id: user._id,
+      code: 403,
+      description: 'User is Deleted'
+    });
+    throw 403;
+  }
+
+  if (!user.status.activated) {
+    await GatewayAccess.create({
+      ...access_details,
+      user_id: user._id,
+      code: 403,
+      description: 'User Not Activated'
+    });
+    throw 403;
+  }
+
+  if (user.status.locked) {
+    await GatewayAccess.create({
+      ...access_details,
+      user_id: user._id,
+      code: 403,
+      description: 'User is Locked'
+    });
+    throw 403;
+  }
+
   await GatewayAccess.create({
     ...access_details,
     user_id: user._id
