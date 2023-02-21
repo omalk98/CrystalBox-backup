@@ -26,12 +26,7 @@ const login = async (req, res) => {
       NoExtraUser_ID
     );
 
-    if (
-      !user ||
-      user.status.deleted ||
-      !user.status.activated ||
-      user.status.locked
-    ) {
+    if (!user || user.status.deleted || !user.status.activated) {
       throw 401;
     }
     const userID = user._id;

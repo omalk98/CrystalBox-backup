@@ -94,8 +94,7 @@ export async function verifyAccessToken(token, allowedRoles) {
       user._id !== id ||
       user.roles.find((role) => allowedRoles.includes(role)) === -1 ||
       user.status.deleted ||
-      !user.status.activated ||
-      user.status.locked
+      !user.status.activated
     ) {
       await AccessTokens.deleteOne({ token: access.token });
       return false;
@@ -127,8 +126,7 @@ export async function verifyRefreshToken(token) {
       refresh.expires < Date.now() ||
       user._id !== id ||
       user.status.deleted ||
-      !user.status.activated ||
-      user.status.locked
+      !user.status.activated
     ) {
       await RefreshTokens.deleteOne({ token: refresh.token });
       return false;
@@ -164,8 +162,7 @@ export async function verifyPasswordToken(token_uuid, token) {
       access.expires < Date.now() ||
       user._id !== id ||
       user.status.deleted ||
-      !user.status.activated ||
-      user.status.locked
+      !user.status.activated
     ) {
       await PasswordTokens.deleteOne({ token: access.token });
       return false;
