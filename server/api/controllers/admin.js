@@ -127,7 +127,7 @@ const toggleStatus = async (id, status) => {
   if (!user) throw 404;
 
   user.status[status] = !user.status[status];
-  user.save();
+  await user.save();
 };
 
 const activateUserToggle = async (req, res) => {
@@ -172,7 +172,7 @@ const bulkToggleStatus = async (ids, status, state = false) => {
     const user = await Users.findById(id);
     if (!user) throw 404;
     user.status[status] = state;
-    user.save();
+    await user.save();
   });
 };
 
