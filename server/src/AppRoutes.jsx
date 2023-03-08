@@ -1,29 +1,27 @@
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Loader } from './Components/Common';
+import { Loader } from './components/common';
 
 const PersistLogin = lazy(() => import('./PersistLogin'));
-const Home = lazy(() => import('./Pages/Home'));
-const ForgotPassword = lazy(() => import('./Pages/ForgotPassword'));
-const ProtectedRoutes = lazy(() =>
-  import('./Components/Protected/ProtectedRoutes')
-);
+const Home = lazy(() => import('./pages/home'));
+const ForgotPassword = lazy(() => import('./pages/forgot-password'));
+const ProtectedRoutes = lazy(() => import('./components/protected/routes'));
 const RoleProtectedRoutes = lazy(() =>
-  import('./Components/Protected/RoleProtectedRoutes')
+  import('./components/protected/role-routes')
 );
-const About = lazy(() => import('./Pages/About'));
-const ErrorPage = lazy(() => import('./Pages/ErrorPage'));
-const Login = lazy(() => import('./Pages/Login'));
-const Dashboard = lazy(() => import('./Pages/Dashboard'));
-const Profile = lazy(() => import('./Pages/Profile'));
-const Users = lazy(() => import('./Pages/Admin/Users'));
-const Analytics = lazy(() => import('./Pages/Admin/Analytics'));
-const ReissueRFID = lazy(() => import('./Pages/Admin/Utilities/ReissueRFID'));
-const CreateUser = lazy(() => import('./Pages/Admin/Utilities/CreateUser'));
-const UserInfo = lazy(() => import('./Pages/UserInfo'));
-const LockSystem = lazy(() => import('./Pages/Admin/Utilities/LockSystem'));
+const About = lazy(() => import('./pages/about'));
+const ErrorPage = lazy(() => import('./pages/404'));
+const Login = lazy(() => import('./pages/login'));
+const Dashboard = lazy(() => import('./pages/dashboard'));
+const Profile = lazy(() => import('./pages/profile'));
+const Users = lazy(() => import('./pages/Admin/Users'));
+const Analytics = lazy(() => import('./pages/Admin/Analytics'));
+const ReissueRFID = lazy(() => import('./pages/Admin/Utilities/ReissueRFID'));
+const CreateUser = lazy(() => import('./pages/Admin/Utilities/CreateUser'));
+const UserInfo = lazy(() => import('./pages/user-info'));
+const LockSystem = lazy(() => import('./pages/Admin/Utilities/LockSystem'));
 
-const TrackingRecord = lazy(() => import('./Pages/User/TrackingRecord'));
+const TrackingRecord = lazy(() => import('./pages/user/tracking-record'));
 
 export default function AppRoutes() {
   return (
