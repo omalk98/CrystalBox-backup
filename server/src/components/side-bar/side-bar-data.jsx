@@ -32,39 +32,23 @@ const SideBarData = (roles) => {
       {
         title: 'Analytics',
         icon: <Icons.Analytics />,
-        link: `${baseAdminRoute}/analytics`
-      },
-      {
-        title: 'Utilities',
-        icon: <Icons.Utilities />,
         sub: [
           {
-            title: 'Create User',
-            icon: <Icons.CreateUser />,
-            link: `${baseAdminRoute}/utilities/create-user`
+            title: 'Graphs',
+            icon: <Icons.Graph />,
+            link: `${baseAdminRoute}/analytics/graphs`
           },
           {
-            title: 'Reissue RFID',
-            icon: <Icons.RFID />,
-            link: `${baseAdminRoute}/utilities/reissue-RFID`
-          },
-          {
-            title: 'Lock System',
-            icon: <Icons.Lock />,
-            link: `${baseAdminRoute}/utilities/lock-system`
+            title: 'Records',
+            icon: <Icons.Records />,
+            link: `${baseAdminRoute}/analytics/records`
           }
         ]
       },
       {
-        title: 'Settings',
-        icon: <Icons.Settings />,
-        sub: [
-          {
-            title: 'Setting Tool',
-            icon: <Icons.Logout />,
-            link: '#'
-          }
-        ]
+        title: 'Create User',
+        icon: <Icons.CreateUser />,
+        link: `${baseAdminRoute}/utilities/create-user`
       }
     ];
   }

@@ -22,7 +22,7 @@ const originFilter = (og, cb) => {
 };
 
 const corsOptions = {
-  origin: '*',
+  origin: process.env.VITE_DEV_NETWORK_IP ? originFilter : '*',
   optionsSuccessStatus: 200,
   credentials: true
 };

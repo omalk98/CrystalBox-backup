@@ -20,6 +20,7 @@ import {
   BsSun,
   BsMoonStarsFill,
   BsCaretDownFill,
+  BsFillDatabaseFill,
   BsTrash,
   BsFillTelephoneFill,
   BsFillSuitHeartFill,
@@ -54,6 +55,8 @@ import { RiAdminLine, RiPagesLine } from 'react-icons/ri';
 import { VscGraphLine, VscPerson } from 'react-icons/vsc';
 
 import { GiPokecog, GiSecurityGate } from 'react-icons/gi';
+
+import { GoGraph } from 'react-icons/go';
 
 import { CgProfile } from 'react-icons/cg';
 
@@ -112,7 +115,9 @@ const Icons = {
   EditUser: TbListDetails,
   Back: TiArrowBackOutline,
   Key: TbKey,
-  KeyOff: TbKeyOff
+  KeyOff: TbKeyOff,
+  Graph: GoGraph,
+  Records: BsFillDatabaseFill
 };
 
 export default Icons;

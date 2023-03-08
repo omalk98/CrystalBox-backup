@@ -8,7 +8,12 @@ import {
   sendMail,
   generatePasswordToken
 } from '../services/index.js';
-import { Users, UserDetails, Passwords } from '../models/index.js';
+import {
+  Users,
+  UserDetails,
+  Passwords,
+  GatewayAccess
+} from '../models/index.js';
 
 const analyticsData = JSON.parse(
   fs.readFileSync('./data/analytics-data.json', 'utf8')
@@ -24,13 +29,17 @@ const personalDetails = (req, res) => {
   res.status(200).json({ status: 'ok' });
 };
 
-const adminAnalytics = (req, res) => {
+const graphData = (req, res) => {
   res.status(200).json(analyticsData);
 };
 
-const gatewayData = (req, res) => {
-  console.log('gateway data');
-  res.sendStatus(200);
+const recordData = async (req, res) => {
+  try {
+    const gatewayInfo = await GatewayAccess.find({});
+    res.status(200).json(gatewayInfo);
+  } catch (err) {
+    res.sendStatus(500);
+  }
 };
 
 const allUsers = async (req, res) => {
@@ -46,7 +55,7 @@ const allUsers = async (req, res) => {
     );
     res.status(200).json(responseUserList(userMinInfo));
   } catch (err) {
-    throw new Error(err);
+    res.sendStatus(500);
   }
 };
 
@@ -226,8 +235,8 @@ const bulkDeleteUsers = async (req, res) => {
 export {
   userDetails,
   personalDetails,
-  adminAnalytics,
-  gatewayData,
+  graphData,
+  recordData,
   allUsers,
   userByID,
   createUser,

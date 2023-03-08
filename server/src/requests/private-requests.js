@@ -24,14 +24,18 @@ const allUsers = (signal) =>
 const userById = (id, signal) =>
   options(`${adminBaseRoute}/user/${id}`, httpType.GET, null, signal);
 
-const analyticsData = (signal) =>
-  options(`${adminBaseRoute}/analytics`, httpType.GET, null, signal);
+const graphData = (signal) =>
+  options(`${adminBaseRoute}/analytics/graphs`, httpType.GET, signal);
+
+const recordData = (signal) =>
+  options(`${adminBaseRoute}/analytics/records`, httpType.GET, null, signal);
 
 const Get = {
   dashboardData,
   allUsers,
   userById,
-  analyticsData
+  graphData,
+  recordData
 };
 
 // ============================================================

@@ -4,8 +4,8 @@ import { validateAdmin } from '../middleware/index.js';
 import {
   userDetails,
   personalDetails,
-  adminAnalytics,
-  gatewayData,
+  graphData,
+  recordData,
   allUsers,
   userByID,
   createUser,
@@ -25,9 +25,9 @@ adminRouter.use(validateAdmin);
 
 adminRouter.put(`${adminAPI}/user/update-target-user-details`, userDetails);
 
-adminRouter.get(`${adminAPI}/analytics`, adminAnalytics);
+adminRouter.get(`${adminAPI}/analytics/graphs`, graphData);
 
-adminRouter.get(`${adminAPI}/gateway-data`, gatewayData);
+adminRouter.get(`${adminAPI}/analytics/records`, recordData);
 
 adminRouter.put(
   `${adminAPI}/user/update-target-personal-details`,

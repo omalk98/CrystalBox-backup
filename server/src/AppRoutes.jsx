@@ -12,16 +12,17 @@ const RoleProtectedRoutes = lazy(() =>
 const About = lazy(() => import('./pages/about'));
 const ErrorPage = lazy(() => import('./pages/404'));
 const Login = lazy(() => import('./pages/login'));
-const Dashboard = lazy(() => import('./pages/dashboard'));
-const Profile = lazy(() => import('./pages/profile'));
-const Users = lazy(() => import('./pages/admin/users'));
-const Analytics = lazy(() => import('./pages/admin/analytics'));
-const ReissueRFID = lazy(() => import('./pages/admin/utilities/reissue-rfid'));
-const CreateUser = lazy(() => import('./pages/admin/utilities/create-user'));
+const Dashboard = lazy(() => import('./pages/console/dashboard'));
+const Profile = lazy(() => import('./pages/console/profile'));
+const Users = lazy(() => import('./pages/console/admin/users'));
+const Graphs = lazy(() => import('./pages/console/admin/analytics/graphs'));
+const Records = lazy(() => import('./pages/console/admin/analytics/records'));
+const CreateUser = lazy(() => import('./pages/console/admin/create-user'));
 const UserInfo = lazy(() => import('./pages/user-info'));
-const LockSystem = lazy(() => import('./pages/admin/utilities/lock-system'));
 
-const TrackingRecord = lazy(() => import('./pages/user/tracking-record'));
+const TrackingRecord = lazy(() =>
+  import('./pages/console/user/tracking-record')
+);
 
 export default function AppRoutes() {
   return (
@@ -83,28 +84,20 @@ export default function AppRoutes() {
               />
 
               <Route
-                path="/console/admin/analytics"
-                element={<Analytics />}
+                path="/console/admin/create-user"
+                element={<CreateUser />}
               />
 
-              <Route path="/console/admin/utilities">
+              <Route path="/console/admin/analytics">
                 <Route
-                  path="/console/admin/utilities/reissue-RFID"
-                  element={<ReissueRFID />}
+                  path="/console/admin/analytics/graphs"
+                  element={<Graphs />}
                 />
-
                 <Route
-                  path="/console/admin/utilities/create-user"
-                  element={<CreateUser />}
-                />
-
-                <Route
-                  path="/console/admin/utilities/lock-system"
-                  element={<LockSystem />}
+                  path="/console/admin/analytics/records"
+                  element={<Records />}
                 />
               </Route>
-
-              <Route path="/console/admin/settings">{/* coming soon */}</Route>
             </Route>
 
             {/* User Routes */}
