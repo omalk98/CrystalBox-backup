@@ -14,12 +14,12 @@ const ErrorPage = lazy(() => import('./pages/404'));
 const Login = lazy(() => import('./pages/login'));
 const Dashboard = lazy(() => import('./pages/dashboard'));
 const Profile = lazy(() => import('./pages/profile'));
-const Users = lazy(() => import('./pages/Admin/Users'));
-const Analytics = lazy(() => import('./pages/Admin/Analytics'));
-const ReissueRFID = lazy(() => import('./pages/Admin/Utilities/ReissueRFID'));
-const CreateUser = lazy(() => import('./pages/Admin/Utilities/CreateUser'));
+const Users = lazy(() => import('./pages/admin/users'));
+const Analytics = lazy(() => import('./pages/admin/analytics'));
+const ReissueRFID = lazy(() => import('./pages/admin/utilities/reissue-rfid'));
+const CreateUser = lazy(() => import('./pages/admin/utilities/create-user'));
 const UserInfo = lazy(() => import('./pages/user-info'));
-const LockSystem = lazy(() => import('./pages/Admin/Utilities/LockSystem'));
+const LockSystem = lazy(() => import('./pages/admin/utilities/lock-system'));
 
 const TrackingRecord = lazy(() => import('./pages/user/tracking-record'));
 
