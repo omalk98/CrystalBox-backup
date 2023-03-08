@@ -3,8 +3,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import AppRoutes from './AppRoutes';
-import Header from './Components/Base/Header/Header';
-import Footer from './Components/Base/Footer/Footer';
+import Header from './Components/Header';
+import Footer from './Components/Footer';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 

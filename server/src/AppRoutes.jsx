@@ -3,47 +3,27 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { Loader } from './Components/Common';
 
 const PersistLogin = lazy(() => import('./PersistLogin'));
-const Home = lazy(() => import('./Components/Base/Main/Home/Home'));
-const ForgotPassword = lazy(() =>
-  import('./Components/Base/ForgotPassword/ForgotPassword')
-);
+const Home = lazy(() => import('./Pages/Home'));
+const ForgotPassword = lazy(() => import('./Pages/ForgotPassword'));
 const ProtectedRoutes = lazy(() =>
-  import('./Components/ProtectedRoute/ProtectedRoutes')
+  import('./Components/Protected/ProtectedRoutes')
 );
 const RoleProtectedRoutes = lazy(() =>
-  import('./Components/ProtectedRoute/RoleProtectedRoutes')
+  import('./Components/Protected/RoleProtectedRoutes')
 );
-const About = lazy(() => import('./Components/Base/Main/About/About'));
-const ErrorPage = lazy(() => import('./Components/Base/ErrorPage/ErrorPage'));
-const Login = lazy(() => import('./Components/Login/Login'));
-const Dashboard = lazy(() =>
-  import('./Components/ProtectedRoute/Dashboard/Dashboard')
-);
-const Profile = lazy(() =>
-  import('./Components/ProtectedRoute/Profile/Profile')
-);
-const Users = lazy(() =>
-  import('./Components/ProtectedRoute/Admin/Users/Users')
-);
-const Analytics = lazy(() =>
-  import('./Components/ProtectedRoute/Admin/Analytics/AnalyticsComponent')
-);
-const ReissueRFID = lazy(() =>
-  import('./Components/ProtectedRoute/Admin/Utilities/ReissueRFID/ReissueRFID')
-);
-const CreateUser = lazy(() =>
-  import('./Components/ProtectedRoute/Admin/Utilities/CreateUser/CreateUser')
-);
-const UserInfo = lazy(() =>
-  import('./Components/ProtectedRoute/Admin/Users/UserInfo/UserInfo')
-);
-const LockSystem = lazy(() =>
-  import('./Components/ProtectedRoute/Admin/Utilities/LockSystem/LockSystem')
-);
+const About = lazy(() => import('./Pages/About'));
+const ErrorPage = lazy(() => import('./Pages/ErrorPage'));
+const Login = lazy(() => import('./Pages/Login'));
+const Dashboard = lazy(() => import('./Pages/Dashboard'));
+const Profile = lazy(() => import('./Pages/Profile'));
+const Users = lazy(() => import('./Pages/Admin/Users'));
+const Analytics = lazy(() => import('./Pages/Admin/Analytics'));
+const ReissueRFID = lazy(() => import('./Pages/Admin/Utilities/ReissueRFID'));
+const CreateUser = lazy(() => import('./Pages/Admin/Utilities/CreateUser'));
+const UserInfo = lazy(() => import('./Pages/UserInfo'));
+const LockSystem = lazy(() => import('./Pages/Admin/Utilities/LockSystem'));
 
-const TrackingRecord = lazy(() =>
-  import('./Components/ProtectedRoute/User/TrackingRecord/TrackingRecord')
-);
+const TrackingRecord = lazy(() => import('./Pages/User/TrackingRecord'));
 
 export default function AppRoutes() {
   return (

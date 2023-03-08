@@ -28,6 +28,11 @@ const adminAnalytics = (req, res) => {
   res.status(200).json(analyticsData);
 };
 
+const gatewayData = (req, res) => {
+  console.log('gateway data');
+  res.sendStatus(200);
+};
+
 const allUsers = async (req, res) => {
   try {
     const userMinInfo = await Users.find(
@@ -222,6 +227,7 @@ export {
   userDetails,
   personalDetails,
   adminAnalytics,
+  gatewayData,
   allUsers,
   userByID,
   createUser,
