@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
-import { setTitle } from '../../Components/Common';
+import { setTitle } from '../../components/common';
 
 export default function ErrorPage({ type }) {
   const navigate = useNavigate();

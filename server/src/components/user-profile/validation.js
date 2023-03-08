@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import Validation from '../../Requests/field-validation';
+import Validation from '../../requests/field-validation';
 
 const UserPasswordSchema = Yup.object().shape({
   new_password: Validation.Password,

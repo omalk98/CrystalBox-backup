@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import Validation from '../../../../Requests/field-validation';
+import Validation from '../../../../requests/field-validation';
 
 export const UserSchema = Yup.object().shape({
   user_details: Yup.object({

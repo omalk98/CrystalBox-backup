@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import Icons from '../../Resources/Icons';
-import { PageTab } from '../../Components/Common';
-import UserProfile from '../../Components/UserProfile';
+import Icons from '../../resources/icons';
+import { PageTab } from '../../components/common';
+import UserProfile from '../../components/user-profile';
 
 export default function Profile() {
   const userData = useSelector((state) => state.user);

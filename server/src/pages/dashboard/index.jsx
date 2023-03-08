@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Card } from 'react-bootstrap';
 
 import Requests from '../../requests';
-import { PageTab, Loader } from '../../Components/Common';
+import { PageTab, Loader } from '../../components/common';
 import Icons from '../../resources/icons';
-import DashboardCards from './DashboardData';
+import DashboardCards from './dashboard-data';
 
-import './Dashboard.css';
+import './dashboard.css';
 
 function DashboardCard({ title, text, color, icon }) {
   return (

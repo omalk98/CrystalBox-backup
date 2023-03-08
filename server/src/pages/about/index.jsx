@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { setTitle } from '../../Components/Common';
+import { setTitle } from '../../components/common';
 
 export default function About() {
   setTitle('About');

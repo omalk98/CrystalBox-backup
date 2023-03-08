@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Icons from '../../../../Resources/Icons';
-import { PageTab } from '../../../../Components/Common';
+import Icons from '../../../../resources/icons';
+import { PageTab } from '../../../../components/common';
 
 export default function LockSystem() {
   return (

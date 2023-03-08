@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Alert, Button } from 'react-bootstrap';
 
-import Requests from '../../Requests';
-import Icons from '../../Resources/Icons';
-import { Loader, setTitle } from '../../Components/Common';
+import Requests from '../../requests';
+import Icons from '../../resources/icons';
+import { Loader, setTitle } from '../../components/common';
 
-import './Home.css';
+import './home.css';
 
 function Article({ title, text }) {
   const [isLong] = useState(text?.length > 250);

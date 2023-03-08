@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
 
-import Requests from '../../Requests';
-import { PageTab } from '../../Components/Common';
-import Icons from '../../Resources/Icons';
-import UserProfile from '../../Components/UserProfile';
+import Requests from '../../requests';
+import { PageTab } from '../../components/common';
+import Icons from '../../resources/icons';
+import UserProfile from '../../components/user-profile';
 
 function UserInfoButtons({ user, setUser, id }) {
   const navigate = useNavigate();

@@ -14,17 +14,17 @@ import {
 } from 'chart.js';
 import { Doughnut, Line, Bar } from 'react-chartjs-2';
 
-import Requests from '../../../Requests';
+import Requests from '../../../requests';
 
-import { PageTab, Loader } from '../../../Components/Common';
-import Icons from '../../../Resources/Icons';
+import { PageTab, Loader } from '../../../components/common';
+import Icons from '../../../resources/icons';
 import {
   AnalyticsDailyData,
   AnalyticsWeeklyData,
   AnalyticsMonthlyData
-} from './AnalyticsData';
+} from './analytics-data';
 
-import './AnalyticsStyles.css';
+import './analytics-styles.css';
 
 ChartJS.register(
   ArcElement,

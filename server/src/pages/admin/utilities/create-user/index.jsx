@@ -2,15 +2,15 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Alert } from 'react-bootstrap';
 
-import Requests from '../../../../Requests';
-import Icons from '../../../../Resources/Icons';
+import Requests from '../../../../requests';
+import Icons from '../../../../resources/icons';
 import {
   PageTab,
   getInputType,
   capitalizeFirst,
   ProvinceListOptions
-} from '../../../../Components/Common';
-import UserModel, { UserSchema } from './UserModel';
+} from '../../../../components/common';
+import UserModel, { UserSchema } from './user-model';
 
 function FormField({ title, prefix }) {
   const type = getInputType(title);

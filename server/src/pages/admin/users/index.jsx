@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Requests from '../../../Requests';
-import Icons from '../../../Resources/Icons';
+import Requests from '../../../requests';
+import Icons from '../../../resources/icons';
 import {
   CountInput,
   fuzzySearch,
   Loader,
   PageTab,
   sortData
-} from '../../../Components/Common';
-import BulkOptions from '../../../Components/BulkOptions';
-import DataTable from '../../../Components/DataTable';
-import Pagination from '../../../Components/Pagination';
-import SearchBar from '../../../Components/SearchBar';
+} from '../../../components/common';
+import BulkOptions from '../../../components/bulk-options';
+import DataTable from '../../../components/data-table';
+import Pagination from '../../../components/pagination';
+import SearchBar from '../../../components/search-bar';
 
-import './Users.css';
+import './users.css';
 
 function StateCounter({ rCount, page, length }) {
   return (

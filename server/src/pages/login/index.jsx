@@ -3,11 +3,11 @@ import { Alert, Button, Form, Row } from 'react-bootstrap';
 import { Navigate, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import Requests from '../../Requests';
-import { authenticateUser, setUser } from '../../Store/Actions';
-import Icons from '../../Resources/Icons';
+import Requests from '../../requests';
+import { authenticateUser, setUser } from '../../store/actions';
+import Icons from '../../resources/icons';
 
-import './Login.css';
+import './login.css';
 
 const isMobile = navigator.userAgent.match(
   /Android|webOS|iPhone|iPod|Blackberry/i

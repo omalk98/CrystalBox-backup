@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { Form, Alert } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
-import { PageTab } from '../../Components/Common';
-import Icons from '../../Resources/Icons';
-import Requests from '../../Requests';
+import { PageTab } from '../../components/common';
+import Icons from '../../resources/icons';
+import Requests from '../../requests';
 
 export default function ForgotPassword() {
   const emailField = useRef();
