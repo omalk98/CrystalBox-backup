@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Alert, Button, Form, Row } from 'react-bootstrap';
 import { Navigate, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -26,7 +26,9 @@ function LoginPage({ from }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  autofocus.current?.focus();
+  useEffect(() => {
+    autofocus.current?.focus();
+  }, []);
 
   const toggleRememberMe = () => {
     if (rememberMe) localStorage.removeItem('c_box_remember_me');
