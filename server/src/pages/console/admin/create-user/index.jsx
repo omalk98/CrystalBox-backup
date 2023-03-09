@@ -9,7 +9,7 @@ import {
   getInputType,
   capitalizeFirst,
   ProvinceListOptions
-} from '../../../../components/common';
+} from '../../../../components';
 import UserModel, { UserSchema } from './user-model';
 
 function FormField({ title, prefix }) {

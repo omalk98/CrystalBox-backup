@@ -4,20 +4,35 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import Icons from '../../resources/icons';
+import { formatDate } from '../common';
 
 import './data-table.css';
 
 const TData = ({ data, titles }) =>
-  data.map((text, i) => (
-    <td
-      key={i}
-      title={titles[i]}
-    >
-      {text instanceof Array ? text.join(' - ') : text}
-    </td>
-  ));
+  data.map((text, i) => {
+    let formatted_text = text;
+    if (text instanceof Array) {
+      formatted_text = text.join(' - ');
+    } else if (
+      typeof text === 'string' &&
+      text?.split('T').length === 2 &&
+      text.includes(':')
+    ) {
+      formatted_text = formatDate(text);
+    } else if (text instanceof Object) {
+      formatted_text = '';
+    }
+    return (
+      <td
+        key={i}
+        title={titles[i]}
+      >
+        {formatted_text}
+      </td>
+    );
+  });
 
-function TRow({ column, selectedUsers, setSelectedUsers }) {
+function TRow({ column, selectedUsers, setSelectedUsers, selectable }) {
   const selected = useRef();
   const navigate = useNavigate();
   const editUser = (id) => navigate(`/console/admin/users/${id}`);
@@ -30,25 +45,27 @@ function TRow({ column, selectedUsers, setSelectedUsers }) {
   };
   return (
     <tr className="data-table-row">
-      <td>
-        <button
-          title="Edit User"
-          type="button"
-          className="clear-input edit-user-button"
-          onClick={() => editUser(column?.id)}
-        >
-          <Icons.EditUser />
-          &nbsp;&nbsp;Edit
-        </button>
-        <input
-          id={column?.id}
-          type="checkbox"
-          name="selected-user"
-          ref={selected}
-          defaultChecked={selectedUsers.includes(column?.id)}
-          onChange={() => modifyList(column?.id, selected?.current?.checked)}
-        />
-      </td>
+      {selectable ? (
+        <td>
+          <button
+            title="Edit User"
+            type="button"
+            className="clear-input edit-user-button"
+            onClick={() => editUser(column?.id)}
+          >
+            <Icons.EditUser />
+            &nbsp;&nbsp;Edit
+          </button>
+          <input
+            id={column?.id}
+            type="checkbox"
+            name="selected-user"
+            ref={selected}
+            defaultChecked={selectedUsers.includes(column?.id)}
+            onChange={() => modifyList(column?.id, selected?.current?.checked)}
+          />
+        </td>
+      ) : null}
       <TData
         data={Object.values(column)}
         titles={Object.keys(column)}
@@ -57,7 +74,14 @@ function TRow({ column, selectedUsers, setSelectedUsers }) {
   );
 }
 
-function TBody({ columns, count, page, selectedUsers, setSelectedUsers }) {
+function TBody({
+  columns,
+  count,
+  page,
+  selectedUsers,
+  setSelectedUsers,
+  selectable
+}) {
   return (
     <tbody>
       {typeof columns === 'string' ? (
@@ -69,10 +93,11 @@ function TBody({ columns, count, page, selectedUsers, setSelectedUsers }) {
       ) : (
         columns.slice(count * (page - 1), count * page).map((column) => (
           <TRow
-            key={column?.id}
+            key={column?.id || column?._id}
             column={column}
             selectedUsers={selectedUsers}
             setSelectedUsers={setSelectedUsers}
+            selectable={selectable}
           />
         ))
       )}
@@ -111,7 +136,7 @@ function TH({ title, sortData }) {
   );
 }
 
-function THead({ titles, sortData, page, setSelectedUsers }) {
+function THead({ titles, sortData, page, setSelectedUsers, selectable }) {
   const selectAll = useRef();
 
   const handleSelectAll = () => {
@@ -139,14 +164,16 @@ function THead({ titles, sortData, page, setSelectedUsers }) {
   return titles && typeof titles !== 'string' ? (
     <thead>
       <tr className="data-table-row">
-        <th>
-          Select All&nbsp;&nbsp;
-          <input
-            type="checkbox"
-            ref={selectAll}
-            onChange={handleSelectAll}
-          />
-        </th>
+        {selectable ? (
+          <th>
+            Select All&nbsp;&nbsp;
+            <input
+              type="checkbox"
+              ref={selectAll}
+              onChange={handleSelectAll}
+            />
+          </th>
+        ) : null}
         {Object.keys(titles).map((title, i) => (
           <TH
             key={i}
@@ -166,7 +193,8 @@ export default function DataTable({
   sortData,
   editUser,
   selectedUsers,
-  setSelectedUsers
+  setSelectedUsers,
+  selectable
 }) {
   const theme = useSelector((state) => state.theme);
 
@@ -183,6 +211,7 @@ export default function DataTable({
         sortData={sortData}
         page={page}
         setSelectedUsers={setSelectedUsers}
+        selectable={selectable}
       />
       <TBody
         columns={columns}
@@ -191,6 +220,7 @@ export default function DataTable({
         editUser={editUser}
         selectedUsers={selectedUsers}
         setSelectedUsers={setSelectedUsers}
+        selectable={selectable}
       />
     </Table>
   );

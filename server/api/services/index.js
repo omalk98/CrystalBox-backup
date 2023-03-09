@@ -12,8 +12,10 @@ import {
   databaseUserResponse,
   responseUserList,
   detailedResponseUser,
+  parseGatewayData,
   NoExtraUser_ID,
-  NoExtraUserDetails_ID
+  NoExtraUserDetails_ID,
+  GatewayAccess_Lookup
 } from './response-user.js';
 
 import sendMail from './mailer.js';
@@ -29,8 +31,10 @@ export {
   responseUser,
   responseUserList,
   detailedResponseUser,
+  parseGatewayData,
   NoExtraUser_ID,
   NoExtraUserDetails_ID,
+  GatewayAccess_Lookup,
   sendMail,
   gatewayValidation,
   databaseUserResponse

@@ -4,9 +4,11 @@ import {
   detailedResponseUser,
   NoExtraUser_ID,
   NoExtraUserDetails_ID,
+  GatewayAccess_Lookup,
   databaseUserResponse,
   sendMail,
-  generatePasswordToken
+  generatePasswordToken,
+  parseGatewayData
 } from '../services/index.js';
 import {
   Users,
@@ -35,7 +37,12 @@ const graphData = (req, res) => {
 
 const recordData = async (req, res) => {
   try {
-    const gatewayInfo = await GatewayAccess.find({});
+    const rawGatewayInfo = await GatewayAccess.aggregate(
+      GatewayAccess_Lookup
+    ).sort({
+      access_date: -1
+    });
+    const gatewayInfo = parseGatewayData(rawGatewayInfo);
     res.status(200).json(gatewayInfo);
   } catch (err) {
     res.sendStatus(500);

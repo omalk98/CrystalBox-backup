@@ -99,6 +99,23 @@ export async function databaseUserResponse(user) {
   };
 }
 
+export function parseGatewayData(data) {
+  return data.map((record) => ({
+    id: record._id,
+    gateway: record.gateway,
+    access_date: record.access_date,
+    key: record.key,
+    user_id: record.user_id,
+    name: `${record?.details?.first_name || 'unknown'} ${
+      record?.details?.last_name || ''
+    }`,
+    username: record?.user?.username || 'unknown',
+    email: record?.user?.email || 'unknown',
+    code: record.code,
+    description: record.description
+  }));
+}
+
 export const NoExtraUser_ID = {
   __v: 0,
   'status._id': 0,
@@ -109,3 +126,50 @@ export const NoExtraUserDetails_ID = {
   __v: 0,
   'address._id': 0
 };
+
+export const GatewayAccess_Lookup = [
+  {
+    $lookup: {
+      from: 'users',
+      localField: 'user_id',
+      foreignField: '_id',
+      as: 'user'
+    }
+  },
+  {
+    $unwind: { path: '$user', preserveNullAndEmptyArrays: true }
+  },
+  {
+    $project: {
+      __v: 0,
+      'user._id': 0,
+      'user.__v': 0,
+      'user.status': 0,
+      'user.last_login': 0,
+      'user.roles': 0,
+      'user.date_joined': 0
+    }
+  },
+  {
+    $lookup: {
+      from: 'user_details',
+      localField: 'user_id',
+      foreignField: '_id',
+      as: 'details'
+    }
+  },
+  {
+    $unwind: { path: '$details', preserveNullAndEmptyArrays: true }
+  },
+  {
+    $project: {
+      __v: 0,
+      'details._id': 0,
+      'details.__v': 0,
+      'details.address': 0,
+      'details.image': 0,
+      'details.date_of_birth': 0,
+      'details.phone': 0
+    }
+  }
+];

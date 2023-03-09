@@ -35,10 +35,10 @@ function LoginPage({ from }) {
   };
 
   if (import.meta.env.DEV) {
-    if (password !== import.meta.env.VITE_TEST_PASS) {
+    if (password !== import.meta.env.VITE_TEST_PASS && rememberMe) {
       setPassword(import.meta.env.VITE_TEST_PASS);
     }
-    if (username !== import.meta.env.VITE_TEST_USER) {
+    if (username !== import.meta.env.VITE_TEST_USER && rememberMe) {
       setUsername(import.meta.env.VITE_TEST_USER);
     }
   }
