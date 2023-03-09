@@ -108,7 +108,7 @@ function GraphType({ type, data }) {
     case 'polar':
       return <PolarArea data={data} />;
     default:
-      return <Doughnut data={data} />;
+      return <Bar data={data} />;
   }
 }
 
@@ -117,7 +117,7 @@ function GraphChart({
   toggles,
   size = 'sm',
   period = 'daily',
-  type = 'doughnut'
+  type = 'bar'
 }) {
   const main_title = 'Gateway Usage';
   const [_size, setSize] = useState(size);

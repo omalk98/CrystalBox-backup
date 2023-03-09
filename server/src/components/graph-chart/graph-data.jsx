@@ -35,6 +35,13 @@ export const Toggles = {
     { value: 'monthly', text: 'Monthly Stats' }
   ],
   type: [
+    { value: 'bar', text: 'Bar Chart', icon: <Icons.Graph />, color: 'purple' },
+    {
+      value: 'line',
+      text: 'Line Chart',
+      icon: <Icons.Analytics />,
+      color: 'pink'
+    },
     {
       value: 'doughnut',
       text: 'Doughnut',
@@ -58,13 +65,6 @@ export const Toggles = {
       text: 'Radar Chart',
       icon: <Icons.RadarChart />,
       color: 'black'
-    },
-    { value: 'bar', text: 'Bar Chart', icon: <Icons.Graph />, color: 'purple' },
-    {
-      value: 'line',
-      text: 'Line Chart',
-      icon: <Icons.Analytics />,
-      color: 'pink'
     }
   ]
 };
