@@ -174,7 +174,7 @@ function GraphCharts({ graphs }) {
 }
 
 export default function GraphView({ graphs }) {
-  const [summary, setSummary] = useState(false);
+  const [summary, setSummary] = useState(true);
   const theme = useSelector((state) => state.theme);
   ChartJS.defaults.color = theme === 'light' ? '#000' : '#fff';
   return (
