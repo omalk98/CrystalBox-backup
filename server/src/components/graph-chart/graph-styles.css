@@ -1,0 +1,108 @@
+.graph-chart {
+    margin: 15px;
+    display: inline-block;
+    background-color: var(--main-bg);
+    color: var(--main-color);
+    border: #000 solid 1px;
+    border-radius: 5px;
+    min-height: 430px;
+    box-shadow: 0 3px 8px #000;
+    padding: 5px 10px;
+}
+
+.graph-chart-sm {
+    width: 30%;
+    min-width: 350px;
+}
+
+.graph-chart-md {
+    width: 60%;
+    min-width: 650px;
+}
+
+.graph-chart-lg {
+    width: 90%;
+}
+
+.graph-toggle-container {
+    font-size: 9pt;
+    padding: 10px 15px;
+    width: 100%;
+}
+
+.graph-toggle-container svg {
+    font-size: 15pt;
+}
+
+.graph-toggle {
+    margin: 25px 0;
+}
+
+.graph-toggle label {
+    border: solid 1px #000;
+    padding: 5px 10px;
+    border-radius: 20px;
+    transition: 0.4s;
+}
+
+.graph-toggle label:hover,
+.graph-toggle label.active {
+    background-color: var(--glow-color);
+}
+
+.graph-toggle label.active {
+    border: solid 1px var(--glow-color);
+    box-shadow: 0 0 5px var(--glow-color);
+}
+
+.graph-toggle input[type="radio"] {
+    outline: none;
+    appearance: none;
+}
+
+.graph-toggle-size {
+    display: flex;
+    justify-content: right;
+    align-items: end;
+    margin-top: 0;
+}
+
+.graph-toggle-size label {
+    width: 32px;
+    height: 32px;
+    margin: 0 5px;
+    border: solid 1px var(--glow-color);
+}
+
+.graph-toggle-size label:nth-child(1) {
+    width: 20px;
+    height: 20px;
+}
+
+.graph-toggle-size label:nth-child(2) {
+    width: 27px;
+    height: 27px;
+}
+
+.graph-toggle-type,
+.graph-toggle-period {
+    display: flex;
+    justify-content: space-around;
+}
+
+@media screen and (max-width: 800px) {
+    .graph-chart {
+        width: 95%;
+        height: auto;
+        min-height: 0;
+    }
+
+    .graph-chart-sm {
+        width: 70%;
+        min-width: 0;
+    }
+
+    .graph-chart-md {
+        min-width: 0;
+    }
+}

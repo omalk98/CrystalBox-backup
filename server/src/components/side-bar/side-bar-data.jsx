@@ -30,6 +30,11 @@ const SideBarData = (roles) => {
         link: `${baseAdminRoute}/users`
       },
       {
+        title: 'Create User',
+        icon: <Icons.CreateUser />,
+        link: `${baseAdminRoute}/create-user`
+      },
+      {
         title: 'Analytics',
         icon: <Icons.Analytics />,
         sub: [
@@ -44,11 +49,6 @@ const SideBarData = (roles) => {
             link: `${baseAdminRoute}/analytics/records`
           }
         ]
-      },
-      {
-        title: 'Create User',
-        icon: <Icons.CreateUser />,
-        link: `${baseAdminRoute}/utilities/create-user`
       }
     ];
   }

@@ -4,7 +4,8 @@ import {
   AiOutlineUser,
   AiOutlineEyeInvisible,
   AiFillEye,
-  AiOutlineEdit
+  AiOutlineEdit,
+  AiOutlineRadarChart
 } from 'react-icons/ai';
 
 import {
@@ -43,7 +44,9 @@ import {
   BiSave,
   BiStats,
   BiDollar,
-  BiMailSend
+  BiMailSend,
+  BiDoughnutChart,
+  BiPieChart
 } from 'react-icons/bi';
 
 import { FaHome, FaBars, FaSearch, FaLongArrowAltUp } from 'react-icons/fa';
@@ -56,6 +59,8 @@ import { VscGraphLine, VscPerson } from 'react-icons/vsc';
 
 import { GiPokecog, GiSecurityGate } from 'react-icons/gi';
 
+import { TiArrowBackOutline, TiChartPieOutline } from 'react-icons/ti';
+
 import { GoGraph } from 'react-icons/go';
 
 import { CgProfile } from 'react-icons/cg';
@@ -63,8 +68,6 @@ import { CgProfile } from 'react-icons/cg';
 import { HiChip } from 'react-icons/hi';
 
 import { ImNewspaper } from 'react-icons/im';
-
-import { TiArrowBackOutline } from 'react-icons/ti';
 
 const Icons = {
   Dashboard: MdOutlineDashboard,
@@ -117,7 +120,11 @@ const Icons = {
   Key: TbKey,
   KeyOff: TbKeyOff,
   Graph: GoGraph,
-  Records: BsFillDatabaseFill
+  Records: BsFillDatabaseFill,
+  DoughnutChart: BiDoughnutChart,
+  RadarChart: AiOutlineRadarChart,
+  PieChart: BiPieChart,
+  PolarChart: TiChartPieOutline
 };
 
 export default Icons;

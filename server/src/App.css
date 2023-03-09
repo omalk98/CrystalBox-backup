@@ -39,6 +39,7 @@ body {
   --cool-yellow: #f5d300;
   --cool-pink: #fe53bb;
   --cool-lime: #b8fb3c;
+  --cool-black: #000000;
   --disabled-color: #a0a0a0;
 
   --glow-color: var(--cool-green);
@@ -250,6 +251,11 @@ main {
 .glow-pink {
   --glow-color: var(--cool-pink);
 }
+
+.glow-black {
+  --glow-color: var(--cool-black);
+}
+
 
 .glow-disabled {
   --glow-color: var(--disabled-color);

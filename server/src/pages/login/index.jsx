@@ -18,18 +18,30 @@ function LoginPage({ from }) {
   const [error, setError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState('');
-  const password = useRef();
+  const [password, setPassword] = useState();
   const [rememberMe, setRememberMe] = useState(
     localStorage.getItem('c_box_remember_me') === 'true'
   );
+  const autofocus = useRef();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  autofocus.current?.focus();
 
   const toggleRememberMe = () => {
     if (rememberMe) localStorage.removeItem('c_box_remember_me');
     else localStorage.setItem('c_box_remember_me', !rememberMe);
     setRememberMe((rm) => !rm);
   };
+
+  if (import.meta.env.DEV) {
+    if (password !== import.meta.env.VITE_TEST_PASS) {
+      setPassword(import.meta.env.VITE_TEST_PASS);
+    }
+    if (username !== import.meta.env.VITE_TEST_USER) {
+      setUsername(import.meta.env.VITE_TEST_USER);
+    }
+  }
 
   const login = async (e) => {
     e.preventDefault();
@@ -38,7 +50,7 @@ function LoginPage({ from }) {
     try {
       const res = await Requests.Public.Post.userLogin({
         username: username.replace(/^\s+|\s+$/g, ''),
-        password: password.current?.value.replace(/^\s+|\s+$/g, ''),
+        password: password.replace(/^\s+|\s+$/g, ''),
         rememberMe
       });
       if (res.status !== 200) throw new Error('Invalid Credentials');
@@ -80,6 +92,7 @@ function LoginPage({ from }) {
                         className="login-input glow-blue"
                         type="text"
                         placeholder="Username"
+                        ref={autofocus}
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
@@ -93,7 +106,8 @@ function LoginPage({ from }) {
                         type={showPassword ? 'text' : 'password'}
                         placeholder="Password"
                         style={{ paddingRight: '50px' }}
-                        ref={password}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                       />
                       <button

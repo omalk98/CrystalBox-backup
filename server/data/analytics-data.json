@@ -1,42 +1,38 @@
 {
   "graphs": {
-    "labels": ["A125", "A246", "B318", "C62", "C101", "D443"],
+    "labels": ["OMALK98", "SDTHK96", "PHILI95"],
     "daily": [
       {
-        "dataset": [12, 19, 3, 5, 2, 3],
+        "dataset": [12, 19, 3],
         "label": "Gate Usage"
       }
     ],
     "weekly": [
       {
-        "dataset": [34, 56, 76, 29, 18, 25],
+        "dataset": [34, 56, 76],
         "label": "Home Robberies"
       },
       {
-        "dataset": [39, 66, 56, 18, 30, 45],
+        "dataset": [39, 66, 56],
         "label": "Not Sure What"
       },
       {
-        "dataset": [32, 16, 86, 36, 25, 41],
+        "dataset": [32, 16, 86],
         "label": "Something Else"
       }
     ],
     "monthly": [
       {
-        "dataset": [281, 726, 173, 234, 282, 353],
+        "dataset": [281, 726, 173],
         "label": "Mice Caught"
       },
       {
-        "dataset": [323, 176, 586, 236, 235, 410],
+        "dataset": [323, 176, 586],
         "label": "Some Data"
       },
       {
-        "dataset": [247, 376, 463, 237, 182, 393],
+        "dataset": [247, 376, 463],
         "label": "Ze Title"
-      },
-      {
-        "dataset": [332, 146, 886, 367, 125, 641],
-        "label": "Blah Blah"
       }
     ]
   }
