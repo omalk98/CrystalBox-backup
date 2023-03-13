@@ -6,6 +6,7 @@ import { Loader, PageTab, SearchSortDataTable } from '../../../../components';
 
 export default function Users() {
   const [users, setUsers] = useState([]);
+  const [refresh, setRefresh] = useState(null);
   const privateRequest = Requests.Private.Hook();
   useEffect(() => {
     const controller = new AbortController();
@@ -27,7 +28,7 @@ export default function Users() {
     return () => {
       controller.abort();
     };
-  }, []);
+  }, [refresh]);
 
   return users.length ? (
     <PageTab
@@ -40,6 +41,7 @@ export default function Users() {
         title="User List"
         type="Users"
         icon={<Icons.Users />}
+        refreshUsers={() => setRefresh({})}
         selectable
       />
     </PageTab>

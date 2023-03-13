@@ -1,27 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fuzzySearch, sortData, CountInput } from '../common';
+import {
+  sortData,
+  CountInput,
+  getMinMaxDateTime,
+  advancedSearch
+} from '../common';
 import BulkOptions from '../bulk-options';
 import DataTable from '../data-table';
 import Pagination from '../pagination';
 import SearchBar from '../search-bar';
 import StateCounter from '../state-counter';
 import './search-sort-data-table.css';
+import DatePicker from '../date-picker';
 
 export default function DataTableComponent({
   columns,
   title,
   type,
   icon,
-  selectable
+  selectable,
+  refreshUsers
 }) {
   const [data, setData] = useState(columns);
+  const getMinMax = useCallback(() => getMinMaxDateTime(columns), [columns]);
+  const { min, max } = getMinMax();
   const [rCount, setRCount] = useState(15);
   const [page, setPage] = useState(1);
-  const navigate = useNavigate();
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [search, setSearch] = useState('');
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [, forceUpdate] = useState();
-
+  const navigate = useNavigate();
   useEffect(() => {
     setData(columns);
   }, [columns]);
@@ -31,12 +42,16 @@ export default function DataTableComponent({
     else forceUpdate({});
   }, [data]);
 
-  const searchData = (search) => {
-    const filteredData = fuzzySearch(search, columns);
+  useEffect(() => {
+    const filteredData = advancedSearch(columns, {
+      startDateTime: startDate,
+      endDateTime: endDate,
+      searchStr: search
+    });
     setData(filteredData);
-  };
+  }, [startDate, endDate, search]);
 
-  const SortData = (sortBy, sortOrder) => {
+  const sortColumnData = (sortBy, sortOrder) => {
     const sortedData = sortData(data, sortBy, sortOrder);
     setData(sortedData);
     if (page !== 1) setPage(1);
@@ -58,6 +73,7 @@ export default function DataTableComponent({
           selectedUsers={selectedUsers}
           setSelectedUsers={setSelectedUsers}
           removeUsers={removeUsers}
+          refreshUsers={refreshUsers}
         />
       ) : null}
       <section className="data-table-component">
@@ -70,6 +86,14 @@ export default function DataTableComponent({
           icon={icon}
         />
         <div className="data-table-modifiers">
+          <DatePicker
+            setStartDate={setStartDate}
+            setEndDate={setEndDate}
+            min={min?.toISOString().split('.')[0] || ''}
+            max={max?.toISOString().split('.')[0] || ''}
+          />
+        </div>
+        <div className="data-table-modifiers">
           <span className="data-table-row-count-container">
             <CountInput
               title="# Rows"
@@ -81,7 +105,7 @@ export default function DataTableComponent({
             />
           </span>
           <span className="search-box-container">
-            <SearchBar searchData={searchData} />
+            <SearchBar setSearch={setSearch} />
           </span>
         </div>
         <div className="data-table">
@@ -89,7 +113,7 @@ export default function DataTableComponent({
             columns={data}
             count={rCount}
             page={page}
-            sortData={SortData}
+            sortData={sortColumnData}
             editUser={editUser}
             setSelectedUsers={setSelectedUsers}
             selectedUsers={selectedUsers}

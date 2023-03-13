@@ -64,7 +64,7 @@ export const Toggles = {
       value: 'radar',
       text: 'Radar Chart',
       icon: <Icons.RadarChart />,
-      color: 'black'
+      color: 'orange'
     }
   ]
 };

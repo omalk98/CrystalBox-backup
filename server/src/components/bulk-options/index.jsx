@@ -7,9 +7,11 @@ import Icons from '../../resources/icons';
 export default function BulkOptions({
   selectedUsers,
   setSelectedUsers,
-  removeUsers
+  removeUsers,
+  refreshUsers
 }) {
   const [message, setMessage] = useState({});
+  const [animation, setAnimation] = useState(false);
   const privateRequest = Requests.Private.Hook();
 
   const deactivateUsers = async () => {
@@ -109,7 +111,6 @@ export default function BulkOptions({
           <Icons.Lock />
           &nbsp;Lock Selected Users
         </button>
-
         <button
           type="button"
           className="clear-input hover-black glow-red"
@@ -117,6 +118,18 @@ export default function BulkOptions({
         >
           <Icons.Trash />
           &nbsp;Delete Selected Users
+        </button>
+        <button
+          type="button"
+          className="clear-input hover-black glow-orange"
+          onClick={() => {
+            refreshUsers();
+            setAnimation(true);
+          }}
+          onAnimationEnd={() => setAnimation(false)}
+        >
+          <Icons.Refresh className={animation ? 'spin-clockwise-once' : ''} />
+          &nbsp;Refresh Users
         </button>
       </div>
       {Object.values(message).length !== 0 && (

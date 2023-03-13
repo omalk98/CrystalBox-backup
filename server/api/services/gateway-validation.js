@@ -2,7 +2,8 @@ import { NoExtraUser_ID } from './response-user.js';
 import { Users, Gateway, GatewayAccess, Tag } from '../models/index.js';
 
 export default async function gatewayValidation(gateway_id, key, uuid) {
-  const access_details = { gateway: gateway_id, key, uuid };
+  const access_date = new Date();
+  const access_details = { gateway: gateway_id, key, uuid, access_date };
 
   const gateway = await Gateway.findById(gateway_id);
   if (!gateway) {

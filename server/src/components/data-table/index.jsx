@@ -32,7 +32,7 @@ const TData = ({ data, titles }) =>
     );
   });
 
-function TRow({ column, selectedUsers, setSelectedUsers, selectable }) {
+function TRow({ column, num, selectedUsers, setSelectedUsers, selectable }) {
   const selected = useRef();
   const navigate = useNavigate();
   const editUser = (id) => navigate(`/console/admin/users/${id}`);
@@ -66,6 +66,7 @@ function TRow({ column, selectedUsers, setSelectedUsers, selectable }) {
           />
         </td>
       ) : null}
+      <td title="Number">{num}</td>
       <TData
         data={Object.values(column)}
         titles={Object.keys(column)}
@@ -91,10 +92,11 @@ function TBody({
           </td>
         </tr>
       ) : (
-        columns.slice(count * (page - 1), count * page).map((column) => (
+        columns.slice(count * (page - 1), count * page).map((column, i) => (
           <TRow
             key={column?.id || column?._id}
             column={column}
+            num={count * (page - 1) + i + 1}
             selectedUsers={selectedUsers}
             setSelectedUsers={setSelectedUsers}
             selectable={selectable}
@@ -174,6 +176,7 @@ function THead({ titles, sortData, page, setSelectedUsers, selectable }) {
             />
           </th>
         ) : null}
+        <th title="Number">#</th>
         {Object.keys(titles).map((title, i) => (
           <TH
             key={i}

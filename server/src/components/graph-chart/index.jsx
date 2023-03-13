@@ -66,7 +66,33 @@ function GraphRadioToggleSet({ state, setter, toggles, name, color }) {
   );
 }
 
-function GraphToggles({ size, setSize, period, setPeriod, type, setType }) {
+function GraphOptionToggleSet({ setter, toggles, name, color }) {
+  return (
+    <div
+      className={`graph-toggle graph-toggle-${name} ${
+        color ? `glow-${color}` : ''
+      } glow-black`}
+    >
+      <select
+        id={`graph_select_${name}`}
+        name={`graph-${name}`}
+        className="detail-input"
+      >
+        {toggles?.map((toggle) => (
+          <option
+            key={toggle?.value}
+            name={`graph-${name}`}
+            onClick={() => setter(toggle?.value)}
+          >
+            {capitalizeFirst(`${toggle?.value} data`, ' ')}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
+
+function GraphToggles({ size, setSize, setPeriod, type, setType }) {
   return (
     <nav className="graph-toggle-container">
       <GraphRadioToggleSet
@@ -76,8 +102,7 @@ function GraphToggles({ size, setSize, period, setPeriod, type, setType }) {
         name="size"
         color="red"
       />
-      <GraphRadioToggleSet
-        state={period}
+      <GraphOptionToggleSet
         setter={setPeriod}
         toggles={Toggles.period}
         name="period"
@@ -129,7 +154,6 @@ function GraphChart({
         <GraphToggles
           size={_size}
           setSize={setSize}
-          period={_period}
           setPeriod={setPeriod}
           type={_type}
           setType={setType}
@@ -173,22 +197,11 @@ function GraphCharts({ graphs }) {
   );
 }
 
-export default function GraphView({ graphs }) {
-  const [summary, setSummary] = useState(true);
+export default function GraphView({ graphs, summary }) {
   const theme = useSelector((state) => state.theme);
   ChartJS.defaults.color = theme === 'light' ? '#000' : '#fff';
   return (
     <section className="graph-charts">
-      <div className="users-options">
-        <button
-          type="button"
-          className={`clear-input glow-${summary ? 'red' : 'purple'}`}
-          onClick={() => setSummary((prev) => !prev)}
-        >
-          View&nbsp;
-          {summary ? 'Details' : 'Summary'}
-        </button>
-      </div>
       {summary ? (
         <GraphCharts graphs={graphs} />
       ) : (

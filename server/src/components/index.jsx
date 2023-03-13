@@ -8,10 +8,13 @@ import {
   formatDate,
   formatPhone,
   fuzzySearch,
+  advancedSearch,
   getInputType,
   provinceList,
   setTitle,
   sortData,
+  filterDateTime,
+  getMinMaxDateTime,
   ProvinceListOptions
 } from './common';
 import BulkOptions from './bulk-options';
@@ -29,6 +32,7 @@ import SideBar from './side-bar';
 import UserProfile from './user-profile';
 import StateCounter from './state-counter';
 import SearchSortDataTable from './search-sort-data-table';
+import DatePicker from './date-picker';
 
 export {
   CountInput,
@@ -40,6 +44,9 @@ export {
   formatDate,
   formatPhone,
   fuzzySearch,
+  advancedSearch,
+  filterDateTime,
+  getMinMaxDateTime,
   getInputType,
   provinceList,
   setTitle,
@@ -59,5 +66,6 @@ export {
   SideBar,
   UserProfile,
   StateCounter,
-  SearchSortDataTable
+  SearchSortDataTable,
+  DatePicker
 };

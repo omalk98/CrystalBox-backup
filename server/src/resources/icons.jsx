@@ -5,7 +5,8 @@ import {
   AiOutlineEyeInvisible,
   AiFillEye,
   AiOutlineEdit,
-  AiOutlineRadarChart
+  AiOutlineRadarChart,
+  AiOutlineReload
 } from 'react-icons/ai';
 
 import {
@@ -124,7 +125,8 @@ const Icons = {
   DoughnutChart: BiDoughnutChart,
   RadarChart: AiOutlineRadarChart,
   PieChart: BiPieChart,
-  PolarChart: TiChartPieOutline
+  PolarChart: TiChartPieOutline,
+  Refresh: AiOutlineReload
 };
 
 export default Icons;

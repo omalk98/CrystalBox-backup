@@ -7,6 +7,9 @@ import Icons from '../../../../../resources/icons';
 
 export default function Graphs() {
   const [graphData, setGraphData] = useState({});
+  const [summary, setSummary] = useState(true);
+  const [refresh, setRefresh] = useState(null);
+  const [animation, setAnimation] = useState(false);
   const privateRequest = Requests.Private.Hook();
 
   useEffect(() => {
@@ -29,7 +32,7 @@ export default function Graphs() {
     return () => {
       controller.abort();
     };
-  }, []);
+  }, [refresh]);
 
   return (
     <PageTab
@@ -38,8 +41,33 @@ export default function Graphs() {
       title="Graphs"
       icon={<Icons.Graph />}
     >
+      <div className="users-options">
+        <button
+          type="button"
+          className={`clear-input glow-${summary ? 'red' : 'purple'}`}
+          onClick={() => setSummary((prev) => !prev)}
+        >
+          View&nbsp;
+          {summary ? 'Details' : 'Summary'}
+        </button>
+        <button
+          type="button"
+          className="clear-input glow-orange"
+          onClick={() => {
+            setRefresh({});
+            setAnimation(true);
+          }}
+          onAnimationEnd={() => setAnimation(false)}
+        >
+          <Icons.Refresh className={animation ? 'spin-clockwise-once' : ''} />
+          &nbsp;Refresh Data
+        </button>
+      </div>
       {graphData?.graphs ? (
-        <GraphView graphs={graphData?.graphs} />
+        <GraphView
+          graphs={graphData?.graphs}
+          summary={summary}
+        />
       ) : (
         <Loader
           variant="success"

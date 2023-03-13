@@ -9,23 +9,25 @@ const isMobile = navigator.userAgent.match(
   /Android|webOS|iPhone|iPod|Blackberry/i
 );
 
-export default function SearchBar({ searchData }) {
-  const [search, setSearch] = useState('');
+export default function SearchBar({ setSearch }) {
+  const [internalSearch, setInternalSearch] = useState('');
 
-  const debouncedSearch = useDebounce(search, 400);
+  const debouncedSearch = useDebounce(internalSearch, 400);
 
   const handleChange = (e) => {
-    setSearch(e?.target?.value);
+    setInternalSearch(e?.target?.value);
   };
 
   useEffect(() => {
-    searchData(search);
+    setSearch(internalSearch);
   }, [debouncedSearch]);
 
   return (
     <div className="search-box">
       <div
-        className={`search-box-form ${search ? 'search-box-form-open' : ''}`}
+        className={`search-box-form ${
+          internalSearch ? 'search-box-form-open' : ''
+        }`}
       >
         <input
           id="search-box"

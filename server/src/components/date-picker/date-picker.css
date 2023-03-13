@@ -1,0 +1,24 @@
+.date-picker-box {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.date-picker-box input {
+    display: block;
+    width: auto;
+    margin: 5px 0;
+}
+
+
+@media screen and (max-width: 800px) {
+    .date-picker-box {
+        flex-direction: column;
+    }
+
+    .date-picker-box button {
+        margin-top: 15px;
+    }
+}
