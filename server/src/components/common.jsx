@@ -323,7 +323,6 @@ export const reactSelectStyles = {
     ...provided,
     width: '100%',
     display: 'flex',
-    justifyContent: 'center',
     padding: '5px 0'
   }),
   control: (provided) => ({

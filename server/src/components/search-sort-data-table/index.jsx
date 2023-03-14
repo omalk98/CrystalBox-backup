@@ -136,18 +136,6 @@ export default function DataTableComponent({
             classNamePrefix="react-select"
             styles={reactSelectStyles}
           />
-        </div>
-        <div className="data-table-modifiers">
-          <span className="data-table-row-count-container">
-            <CountInput
-              title="# Rows"
-              count={rCount}
-              setCount={setRCount}
-              id="data-table-row-count"
-              min={5}
-              max={50}
-            />
-          </span>
           <span className="search-box-container">
             <SearchBar setSearch={setSearch} />
           </span>
@@ -184,6 +172,16 @@ export default function DataTableComponent({
             page={page}
             setPage={setPage}
           />
+          <span className="data-table-row-count-container">
+            <CountInput
+              title="# Rows"
+              count={rCount}
+              setCount={setRCount}
+              id="data-table-row-count"
+              min={5}
+              max={50}
+            />
+          </span>
         </div>
         <StateCounter
           page={page}
