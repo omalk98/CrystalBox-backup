@@ -29,6 +29,15 @@
     border-top: solid 1px var(--main-color);
 }
 
+.data-table-modifiers.users-options {
+    flex-wrap: wrap;
+}
+
+.data-table-modifiers.users-options>button {
+    margin: 5px;
+}
+
+
 .selected-users {
     border: solid 1px #000;
     border-radius: 5px;
@@ -44,6 +53,10 @@
 @media screen and (max-width: 800px) {
     .data-table-modifiers {
         flex-direction: column;
+    }
+
+    .data-table-modifiers.users-options {
+        flex-direction: row;
     }
 
     .search-box-container {
