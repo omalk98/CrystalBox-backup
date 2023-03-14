@@ -172,7 +172,7 @@ export const fuzzySearch = (data, searchStr) => {
 
 export const advancedSearch = (
   data,
-  { startDateTime, endDateTime, searchStr }
+  { startDateTime, endDateTime, searchStr, fields }
 ) => {
   if (!data?.length) return [];
   if (!startDateTime && !endDateTime && !searchStr) return data;
@@ -221,9 +221,16 @@ export const advancedSearch = (
     if (!searchStr) return true;
 
     // Fuzzy search
-    isMatch = Object.values(item).some((value) =>
-      value.toString().toLowerCase().includes(searchStr.toLowerCase())
-    );
+    if (fields?.length) {
+      isMatch = fields.some((field) => {
+        const value = item[field];
+        return value.toString().toLowerCase().includes(searchStr.toLowerCase());
+      });
+    } else {
+      isMatch = Object.values(item).some((value) =>
+        value.toString().toLowerCase().includes(searchStr.toLowerCase())
+      );
+    }
 
     return isMatch;
   });
@@ -295,6 +302,91 @@ export const getInputType = (key) => {
     type = 'checkbox';
   } else type = 'text';
   return type;
+};
+
+export const colorList = [
+  { name: 'red', hex: '#ff0000' },
+  { name: 'green', hex: '#1db954' },
+  { name: 'blue', hex: '#00bcd4' },
+  { name: 'purple', hex: '#7431f9' },
+  { name: 'orange', hex: '#ed9038' },
+  { name: 'aqua', hex: '#09fbd3' },
+  { name: 'yellow', hex: '#f5d300' },
+  { name: 'pink', hex: '#fe53bb' },
+  { name: 'lime', hex: '#b8fb3c' },
+  { name: 'mint', hex: '#09bc8a' },
+  { name: 'black', hex: '#000000' }
+];
+
+export const reactSelectStyles = {
+  container: (provided) => ({
+    ...provided,
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    padding: '5px 0'
+  }),
+  control: (provided) => ({
+    ...provided,
+    maxWidth: '400px',
+    width: '100%',
+    minHeight: '40px',
+    backgroundColor: 'transparent',
+    borderColor: 'var(--main-color)',
+    borderRadius: '50px',
+    color: 'var(--main-color)',
+    padding: '5px'
+  }),
+  option: (provided) => ({
+    ...provided,
+    color: 'var(--main-color)',
+    backgroundColor: 'var(--search-box-bg)',
+    ':hover': {
+      backgroundColor: 'var(--main-color-flip)'
+    }
+  }),
+  placeholder: (provided) => ({
+    ...provided,
+    color: 'var(--main-color)'
+  }),
+  input: (provided) => ({
+    ...provided,
+    color: 'var(--main-color)'
+  }),
+  menu: (provided) => ({
+    ...provided,
+    maxWidth: '500px'
+  }),
+  multiValue: (provided, { data }) => ({
+    ...provided,
+    backgroundColor: `${data.color}80`,
+    borderRadius: '50px',
+    padding: '0 5px',
+    border: `solid 1px ${data.color}`
+  }),
+  multiValueLabel: (provided) => ({
+    ...provided,
+    color: '#fff'
+  }),
+  multiValueRemove: (provided) => ({
+    ...provided,
+    borderRadius: '20px',
+    marginLeft: '3px'
+  }),
+  dropdownIndicator: (provided) => ({
+    ...provided,
+    color: 'var(--main-color)',
+    ':hover': {
+      color: 'var(--disabled-color)'
+    }
+  }),
+  clearIndicator: (provided) => ({
+    ...provided,
+    color: 'var(--main-color)',
+    ':hover': {
+      color: 'var(--disabled-color)'
+    }
+  })
 };
 
 export const provinceList = [

@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Select from 'react-select';
 import {
   sortData,
   CountInput,
   getMinMaxDateTime,
-  advancedSearch
+  advancedSearch,
+  capitalizeFirst,
+  reactSelectStyles,
+  colorList
 } from '../common';
 import BulkOptions from '../bulk-options';
 import DataTable from '../data-table';
@@ -30,13 +34,14 @@ export default function DataTableComponent({
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [search, setSearch] = useState('');
+  const [columnFilter, setColumnFilter] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
+  const [hiddenFields, setHiddenFields] = useState(new Set());
   const [, forceUpdate] = useState();
   const navigate = useNavigate();
   useEffect(() => {
     setData(columns);
   }, [columns]);
-
   useEffect(() => {
     if (page !== 1) setPage(1);
     else forceUpdate({});
@@ -46,10 +51,11 @@ export default function DataTableComponent({
     const filteredData = advancedSearch(columns, {
       startDateTime: startDate,
       endDateTime: endDate,
-      searchStr: search
+      searchStr: search,
+      fields: columnFilter
     });
     setData(filteredData);
-  }, [startDate, endDate, search]);
+  }, [startDate, endDate, search, columnFilter]);
 
   const sortColumnData = (sortBy, sortOrder) => {
     const sortedData = sortData(data, sortBy, sortOrder);
@@ -58,12 +64,30 @@ export default function DataTableComponent({
     else forceUpdate({});
   };
 
+  const filterColumnData = (selected) => {
+    setColumnFilter(selected.map((item) => item.value));
+  };
+
   const editUser = (idx) => {
     navigate(`/admin/users/${data[idx].id}`);
   };
 
   const removeUsers = (ids) => {
     setData((prev) => prev.filter((user) => !ids.includes(user.id)));
+  };
+
+  const hideField = (field) => {
+    setHiddenFields((prev) => {
+      prev.add(field);
+      return new Set(prev);
+    });
+  };
+
+  const showField = (field) => {
+    setHiddenFields((prev) => {
+      prev.delete(field);
+      return new Set(prev);
+    });
   };
 
   return (
@@ -94,6 +118,26 @@ export default function DataTableComponent({
           />
         </div>
         <div className="data-table-modifiers">
+          <Select
+            options={
+              // prettier-ignore
+              columns[0]
+                ? Object.keys(columns[0]).map((key, i) => ({
+                  label: capitalizeFirst(key, '_'),
+                  value: key,
+                  color: colorList[i]?.hex
+                }))
+                : []
+            }
+            onChange={filterColumnData}
+            placeholder="Filter Search by Column..."
+            isMulti
+            className="react-select-container"
+            classNamePrefix="react-select"
+            styles={reactSelectStyles}
+          />
+        </div>
+        <div className="data-table-modifiers">
           <span className="data-table-row-count-container">
             <CountInput
               title="# Rows"
@@ -108,12 +152,25 @@ export default function DataTableComponent({
             <SearchBar setSearch={setSearch} />
           </span>
         </div>
+        <div className="data-table-modifiers users-options mb-0">
+          {Array.from(hiddenFields).map((field, i) => (
+            <button
+              className={`clear-input glow-${colorList[i]?.name}`}
+              key={`show_${field}`}
+              onClick={() => showField(field)}
+            >
+              {capitalizeFirst(field)}
+            </button>
+          ))}
+        </div>
         <div className="data-table">
           <DataTable
             columns={data}
             count={rCount}
             page={page}
             sortData={sortColumnData}
+            hiddenFields={hiddenFields}
+            hideColumn={hideField}
             editUser={editUser}
             setSelectedUsers={setSelectedUsers}
             selectedUsers={selectedUsers}

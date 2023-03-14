@@ -111,6 +111,7 @@ export function parseGatewayData(data) {
     }`,
     username: record?.user?.username || 'unknown',
     email: record?.user?.email || 'unknown',
+    roles: record?.user?.roles || ['unknown'],
     code: record.code,
     description: record.description
   }));
@@ -146,7 +147,6 @@ export const GatewayAccess_Lookup = [
       'user.__v': 0,
       'user.status': 0,
       'user.last_login': 0,
-      'user.roles': 0,
       'user.date_joined': 0
     }
   },

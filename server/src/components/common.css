@@ -209,6 +209,10 @@
     margin-top: -4px;
 }
 
+select.detail-input {
+    text-align: center;
+}
+
 .detail-input:focus {
     border: 1px solid var(--glow-color);
     box-shadow: 0 0 5px var(--glow-color);

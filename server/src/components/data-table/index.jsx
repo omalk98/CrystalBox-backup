@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import Icons from '../../resources/icons';
-import { formatDate } from '../common';
+import { capitalizeFirst, formatDate } from '../common';
 
 import './data-table.css';
 
@@ -79,6 +79,7 @@ function TBody({
   columns,
   count,
   page,
+  hiddenFields,
   selectedUsers,
   setSelectedUsers,
   selectable
@@ -92,22 +93,31 @@ function TBody({
           </td>
         </tr>
       ) : (
-        columns.slice(count * (page - 1), count * page).map((column, i) => (
-          <TRow
-            key={column?.id || column?._id}
-            column={column}
-            num={count * (page - 1) + i + 1}
-            selectedUsers={selectedUsers}
-            setSelectedUsers={setSelectedUsers}
-            selectable={selectable}
-          />
-        ))
+        columns
+          .slice(count * (page - 1), count * page)
+          .map((column) => {
+            const newColumn = { ...column };
+            hiddenFields.forEach((field) => {
+              delete newColumn[field];
+            });
+            return newColumn;
+          })
+          .map((column, i) => (
+            <TRow
+              key={column?.id || column?._id}
+              column={column}
+              num={count * (page - 1) + i + 1}
+              selectedUsers={selectedUsers}
+              setSelectedUsers={setSelectedUsers}
+              selectable={selectable}
+            />
+          ))
       )}
     </tbody>
   );
 }
 
-function TH({ title, sortData }) {
+function TH({ title, sortData, hideColumn }) {
   const [sortOrder, setSortOrder] = useState('');
 
   const handleSort = () => {
@@ -115,30 +125,51 @@ function TH({ title, sortData }) {
     setSortOrder((order) => (order === 'ASC' ? 'DESC' : 'ASC'));
   };
   return (
-    <th
-      className="data-table-th"
-      title="click-to-sort"
-    >
-      <button
-        type="button"
-        className="data-table-th-button"
-        onClick={handleSort}
-      >
-        {title}
-        <span className="data-table-th-icon">
-          <Icons.ArrowLong
-            title={sortOrder === 'DESC' ? 'descending' : 'ascending'}
-            className={`data-table-sort-arrow ${
-              sortOrder === 'DESC' && 'rotate-180'
-            }`}
-          />
-        </span>
-      </button>
+    <th title={capitalizeFirst(title, '_')}>
+      <div className="data-table-th">
+        {capitalizeFirst(title, '_')}
+        <div className="data-table-th-buttons">
+          <button
+            title={sortOrder === 'DESC' ? 'Descending' : 'Ascending'}
+            type="button"
+            className="data-table-th-button"
+            onClick={handleSort}
+          >
+            <span className="data-table-th-icon">
+              <Icons.ArrowLong
+                className={`data-table-sort-arrow ${
+                  sortOrder === 'DESC' && 'rotate-180'
+                }`}
+              />
+            </span>
+          </button>
+          {title === 'id' || title === '_id' ? null : (
+            <button
+              title="Hide Column"
+              type="button"
+              className="data-table-th-button"
+              onClick={() => hideColumn(title)}
+            >
+              <span className="data-table-th-icon">
+                <Icons.Visible className="data-table-sort-arrow" />
+              </span>
+            </button>
+          )}
+        </div>
+      </div>
     </th>
   );
 }
 
-function THead({ titles, sortData, page, setSelectedUsers, selectable }) {
+function THead({
+  titles,
+  sortData,
+  hiddenFields,
+  hideColumn,
+  page,
+  setSelectedUsers,
+  selectable
+}) {
   const selectAll = useRef();
 
   const handleSelectAll = () => {
@@ -177,13 +208,16 @@ function THead({ titles, sortData, page, setSelectedUsers, selectable }) {
           </th>
         ) : null}
         <th title="Number">#</th>
-        {Object.keys(titles).map((title, i) => (
-          <TH
-            key={i}
-            title={title}
-            sortData={sortData}
-          />
-        ))}
+        {Object.keys(titles)
+          .filter((title) => !hiddenFields.has(title))
+          .map((title, i) => (
+            <TH
+              key={i}
+              title={title}
+              sortData={sortData}
+              hideColumn={hideColumn}
+            />
+          ))}
       </tr>
     </thead>
   ) : null;
@@ -194,6 +228,8 @@ export default function DataTable({
   count,
   page,
   sortData,
+  hiddenFields,
+  hideColumn,
   editUser,
   selectedUsers,
   setSelectedUsers,
@@ -212,12 +248,25 @@ export default function DataTable({
       <THead
         titles={columns && columns[0]}
         sortData={sortData}
+        hiddenFields={hiddenFields}
+        hideColumn={hideColumn}
         page={page}
         setSelectedUsers={setSelectedUsers}
         selectable={selectable}
       />
       <TBody
         columns={columns}
+        hiddenFields={hiddenFields}
+        //   hiddenFields?.length
+        //     ? columns.map((column) => {
+        //       const newColumn = { ...column };
+        //       hiddenFields.forEach((field) => {
+        //         delete newColumn[field];
+        //       });
+        //       return newColumn;
+        //     })
+        //     : columns
+        // }
         count={count}
         page={page}
         editUser={editUser}

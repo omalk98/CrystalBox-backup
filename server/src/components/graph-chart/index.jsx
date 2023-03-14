@@ -20,6 +20,7 @@ import { capitalizeFirst } from '../common';
 import GraphData, { Toggles } from './graph-data';
 
 import './graph-styles.css';
+import SelectBox from '../select-box';
 
 ChartJS.register(
   ArcElement,
@@ -71,23 +72,14 @@ function GraphOptionToggleSet({ setter, toggles, name, color }) {
     <div
       className={`graph-toggle graph-toggle-${name} ${
         color ? `glow-${color}` : ''
-      } glow-black`}
+      } glow-yellow`}
     >
-      <select
+      <SelectBox
         id={`graph_select_${name}`}
         name={`graph-${name}`}
-        className="detail-input"
-      >
-        {toggles?.map((toggle) => (
-          <option
-            key={toggle?.value}
-            name={`graph-${name}`}
-            onClick={() => setter(toggle?.value)}
-          >
-            {capitalizeFirst(`${toggle?.value} data`, ' ')}
-          </option>
-        ))}
-      </select>
+        toggles={toggles}
+        setter={setter}
+      />
     </div>
   );
 }

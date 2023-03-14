@@ -92,7 +92,6 @@
 
 .graph-toggle-period select {
     max-width: 200px;
-    text-align: center;
 }
 
 @media screen and (max-width: 800px) {
