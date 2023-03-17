@@ -172,7 +172,7 @@ export default function DataTableComponent({
             page={page}
             setPage={setPage}
           />
-          <span className="data-table-row-count-container">
+          <span className="mx-2">
             <CountInput
               title="# Rows"
               count={rCount}

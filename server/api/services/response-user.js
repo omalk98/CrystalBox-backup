@@ -54,7 +54,8 @@ export function responseUserList(users) {
     roles: user.roles,
     activated: user.status.activated ? 'Yes' : 'No',
     locked: user.status.locked ? 'Yes' : 'No',
-    email: user.email
+    email: user.email,
+    date_joined: user.date_joined
   }));
 }
 

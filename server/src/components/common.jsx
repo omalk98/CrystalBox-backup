@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
+
+import useDebounce from '../hooks/useDebounce';
 
 import './common.css';
 
@@ -45,16 +47,23 @@ export function Loader({ text = '', variant = 'primary', animation = 'grow' }) {
   );
 }
 export function CountInput({ title, count, setCount, id, max, min }) {
+  const [cnt, setCnt] = useState(count);
+  const debouncedCount = useDebounce(cnt, 500);
+
+  useEffect(() => {
+    setCount(debouncedCount);
+  }, [debouncedCount]);
+
   const handleChange = (e) => {
     if (e.target.value < min) {
-      setCount(min);
+      setCnt(min);
       return;
     }
     if (e.target.value > max) {
-      setCount(max);
+      setCnt(max);
       return;
     }
-    setCount(e.target.value);
+    setCnt(e.target.value);
   };
 
   return (
@@ -65,7 +74,7 @@ export function CountInput({ title, count, setCount, id, max, min }) {
         type="number"
         min={min}
         max={max}
-        defaultValue={count}
+        value={cnt}
         onChange={handleChange}
       />
       <label htmlFor={id}>{title}</label>
