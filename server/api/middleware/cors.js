@@ -11,10 +11,7 @@ const allowedOrigins = [
 
 // eslint-disable-next-line no-unused-vars
 const originFilter = (og, cb) => {
-  if (
-    allowedOrigins.indexOf(og) !== -1 ||
-    (process.env.VITE_DEV_NETWORK_IP && !og)
-  ) {
+  if (allowedOrigins.indexOf(og) !== -1 || !og) {
     cb(null, true);
   } else {
     cb('Not allowed by CORS');
@@ -22,7 +19,7 @@ const originFilter = (og, cb) => {
 };
 
 const corsOptions = {
-  origin: '*',
+  origin: originFilter,
   optionsSuccessStatus: 200,
   credentials: true
 };

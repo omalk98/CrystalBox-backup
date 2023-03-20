@@ -1,0 +1,20 @@
+.data-table-counter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px 15px;
+    min-height: 50px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.data-table-counter>span>svg {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+}
+
+.data-table-counter>span>u {
+    margin-left: 10px;
+}

@@ -1,48 +1,27 @@
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Loader } from './Components/Common';
+import { Loader } from './components/common';
 
 const PersistLogin = lazy(() => import('./PersistLogin'));
-const Home = lazy(() => import('./Components/Base/Main/Home/Home'));
-const ForgotPassword = lazy(() =>
-  import('./Components/Base/ForgotPassword/ForgotPassword')
-);
-const ProtectedRoutes = lazy(() =>
-  import('./Components/ProtectedRoute/ProtectedRoutes')
-);
+const Home = lazy(() => import('./pages/home'));
+const ForgotPassword = lazy(() => import('./pages/forgot-password'));
+const ProtectedRoutes = lazy(() => import('./components/protected/routes'));
 const RoleProtectedRoutes = lazy(() =>
-  import('./Components/ProtectedRoute/RoleProtectedRoutes')
+  import('./components/protected/role-routes')
 );
-const About = lazy(() => import('./Components/Base/Main/About/About'));
-const ErrorPage = lazy(() => import('./Components/Base/ErrorPage/ErrorPage'));
-const Login = lazy(() => import('./Components/Login/Login'));
-const Dashboard = lazy(() =>
-  import('./Components/ProtectedRoute/Dashboard/Dashboard')
-);
-const Profile = lazy(() =>
-  import('./Components/ProtectedRoute/Profile/Profile')
-);
-const Users = lazy(() =>
-  import('./Components/ProtectedRoute/Admin/Users/Users')
-);
-const Analytics = lazy(() =>
-  import('./Components/ProtectedRoute/Admin/Analytics/AnalyticsComponent')
-);
-const ReissueRFID = lazy(() =>
-  import('./Components/ProtectedRoute/Admin/Utilities/ReissueRFID/ReissueRFID')
-);
-const CreateUser = lazy(() =>
-  import('./Components/ProtectedRoute/Admin/Utilities/CreateUser/CreateUser')
-);
-const UserInfo = lazy(() =>
-  import('./Components/ProtectedRoute/Admin/Users/UserInfo/UserInfo')
-);
-const LockSystem = lazy(() =>
-  import('./Components/ProtectedRoute/Admin/Utilities/LockSystem/LockSystem')
-);
+const About = lazy(() => import('./pages/about'));
+const ErrorPage = lazy(() => import('./pages/404'));
+const Login = lazy(() => import('./pages/login'));
+const Dashboard = lazy(() => import('./pages/console/dashboard'));
+const Profile = lazy(() => import('./pages/console/profile'));
+const Users = lazy(() => import('./pages/console/admin/users'));
+const Graphs = lazy(() => import('./pages/console/admin/analytics/graphs'));
+const Records = lazy(() => import('./pages/console/admin/analytics/records'));
+const CreateUser = lazy(() => import('./pages/console/admin/create-user'));
+const UserInfo = lazy(() => import('./pages/user-info'));
 
 const TrackingRecord = lazy(() =>
-  import('./Components/ProtectedRoute/User/TrackingRecord/TrackingRecord')
+  import('./pages/console/user/tracking-record')
 );
 
 export default function AppRoutes() {
@@ -105,28 +84,20 @@ export default function AppRoutes() {
               />
 
               <Route
-                path="/console/admin/analytics"
-                element={<Analytics />}
+                path="/console/admin/create-user"
+                element={<CreateUser />}
               />
 
-              <Route path="/console/admin/utilities">
+              <Route path="/console/admin/analytics">
                 <Route
-                  path="/console/admin/utilities/reissue-RFID"
-                  element={<ReissueRFID />}
+                  path="/console/admin/analytics/graphs"
+                  element={<Graphs />}
                 />
-
                 <Route
-                  path="/console/admin/utilities/create-user"
-                  element={<CreateUser />}
-                />
-
-                <Route
-                  path="/console/admin/utilities/lock-system"
-                  element={<LockSystem />}
+                  path="/console/admin/analytics/records"
+                  element={<Records />}
                 />
               </Route>
-
-              <Route path="/console/admin/settings">{/* coming soon */}</Route>
             </Route>
 
             {/* User Routes */}

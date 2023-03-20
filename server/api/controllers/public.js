@@ -47,7 +47,7 @@ const login = async (req, res) => {
       res.cookie('token', refreshToken, {
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-        sameSite: 'none'
+        sameSite: 'Lax'
       });
     } else res.clearCookie('token', { httpOnly: true });
 

@@ -1,42 +1,65 @@
 {
-  "graphs": {
-    "labels": ["A125", "A246", "B318", "C62", "C101", "D443"],
-    "daily": [
+  "daily": {
+    "labels": ["OMALK98", "SDTHK95", "PHILI95"],
+    "datasets": [
       {
-        "dataset": [12, 19, 3, 5, 2, 3],
+        "dataset": [12, 19, 6],
         "label": "Gate Usage"
       }
+    ]
+  },
+  "weekly": {
+    "labels": [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
     ],
-    "weekly": [
+    "datasets": [
       {
-        "dataset": [34, 56, 76, 29, 18, 25],
-        "label": "Home Robberies"
+        "dataset": [34, 56, 76, 65, 73, 24, 12],
+        "label": "OMALK98"
       },
       {
-        "dataset": [39, 66, 56, 18, 30, 45],
-        "label": "Not Sure What"
+        "dataset": [39, 66, 56, 29, 75, 73, 55],
+        "label": "SDTHK95"
       },
       {
-        "dataset": [32, 16, 86, 36, 25, 41],
-        "label": "Something Else"
+        "dataset": [32, 16, 86, 12, 34, 23, 45],
+        "label": "PHILI95"
       }
+    ]
+  },
+  "annual": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
     ],
-    "monthly": [
+    "datasets": [
       {
-        "dataset": [281, 726, 173, 234, 282, 353],
-        "label": "Mice Caught"
+        "dataset": [281, 726, 173, 456, 789, 123, 456, 789, 123, 456, 789, 123],
+        "label": "OMALK98"
       },
       {
-        "dataset": [323, 176, 586, 236, 235, 410],
-        "label": "Some Data"
+        "dataset": [323, 176, 586, 764, 123, 456, 789, 123, 456, 789, 123, 456],
+        "label": "SDTHK95"
       },
       {
-        "dataset": [247, 376, 463, 237, 182, 393],
-        "label": "Ze Title"
-      },
-      {
-        "dataset": [332, 146, 886, 367, 125, 641],
-        "label": "Blah Blah"
+        "dataset": [247, 376, 463, 385, 284, 874, 123, 456, 789, 123, 456, 789],
+        "label": "PHILI95"
       }
     ]
   }

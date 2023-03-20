@@ -36,7 +36,7 @@ const app = express();
 
 app.use(RequestLogger);
 app.use(ErrorLogger);
-if (process.env.VITE_DEV_NETWORK_IP) {
+if (process.env.DEV) {
   app.use(Cors);
   app.use(populateDBRouter);
 } else app.use(ForceSSL);
