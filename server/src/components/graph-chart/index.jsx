@@ -17,7 +17,7 @@ import {
 import { Doughnut, Line, Bar, Pie, Radar, PolarArea } from 'react-chartjs-2';
 
 import { capitalizeFirst } from '../common';
-import GraphData, { Toggles } from './graph-data';
+import graphData, { Toggles } from './graph-data';
 
 import './graph-styles.css';
 import SelectBox from '../select-box';
@@ -155,7 +155,7 @@ function GraphChart({
       <hr />
       <GraphType
         type={_type}
-        data={GraphData(_period, graphs)}
+        data={graphData(graphs, _period)}
       />
     </div>
   );
@@ -182,7 +182,7 @@ function GraphCharts({ graphs }) {
         graphs={graphs}
         title="Monthly Gateway Usage"
         size="lg"
-        period="monthly"
+        period="annual"
         type="line"
       />
     </section>

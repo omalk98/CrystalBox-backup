@@ -1,38 +1,65 @@
 {
-  "graphs": {
-    "labels": ["OMALK98", "SDTHK96", "PHILI95"],
-    "daily": [
+  "daily": {
+    "labels": ["OMALK98", "SDTHK95", "PHILI95"],
+    "datasets": [
       {
-        "dataset": [12, 19, 3],
+        "dataset": [12, 19, 6],
         "label": "Gate Usage"
       }
+    ]
+  },
+  "weekly": {
+    "labels": [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
     ],
-    "weekly": [
+    "datasets": [
       {
-        "dataset": [34, 56, 76],
-        "label": "Home Robberies"
+        "dataset": [34, 56, 76, 65, 73, 24, 12],
+        "label": "OMALK98"
       },
       {
-        "dataset": [39, 66, 56],
-        "label": "Not Sure What"
+        "dataset": [39, 66, 56, 29, 75, 73, 55],
+        "label": "SDTHK95"
       },
       {
-        "dataset": [32, 16, 86],
-        "label": "Something Else"
+        "dataset": [32, 16, 86, 12, 34, 23, 45],
+        "label": "PHILI95"
       }
+    ]
+  },
+  "annual": {
+    "labels": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
     ],
-    "monthly": [
+    "datasets": [
       {
-        "dataset": [281, 726, 173],
-        "label": "Mice Caught"
+        "dataset": [281, 726, 173, 456, 789, 123, 456, 789, 123, 456, 789, 123],
+        "label": "OMALK98"
       },
       {
-        "dataset": [323, 176, 586],
-        "label": "Some Data"
+        "dataset": [323, 176, 586, 764, 123, 456, 789, 123, 456, 789, 123, 456],
+        "label": "SDTHK95"
       },
       {
-        "dataset": [247, 376, 463],
-        "label": "Ze Title"
+        "dataset": [247, 376, 463, 385, 284, 874, 123, 456, 789, 123, 456, 789],
+        "label": "PHILI95"
       }
     ]
   }

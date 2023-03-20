@@ -63,9 +63,9 @@ export default function Graphs() {
           &nbsp;Refresh Data
         </button>
       </div>
-      {graphData?.graphs ? (
+      {Object.keys(graphData).length ? (
         <GraphView
-          graphs={graphData?.graphs}
+          graphs={graphData}
           summary={summary}
         />
       ) : (

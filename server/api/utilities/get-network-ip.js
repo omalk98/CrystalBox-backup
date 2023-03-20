@@ -15,7 +15,7 @@ export default function getNetworkIP() {
       }
     }
   }
-  const ip = Object.values(results);
+  const ip = Object.values(results)[0];
   if (process.env.DEV) process.env.VITE_DEV_NETWORK_IP = ip;
   return ip;
 }

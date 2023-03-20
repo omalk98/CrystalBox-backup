@@ -1,14 +1,15 @@
-import fs from 'fs';
 import {
   responseUserList,
   detailedResponseUser,
   NoExtraUser_ID,
   NoExtraUserDetails_ID,
   GatewayAccess_Lookup,
+  Analytics_Lookup,
   databaseUserResponse,
   sendMail,
   generatePasswordToken,
-  parseGatewayData
+  parseGatewayData,
+  parseAnalyticsData
 } from '../services/index.js';
 import {
   Users,
@@ -16,10 +17,6 @@ import {
   Passwords,
   GatewayAccess
 } from '../models/index.js';
-
-const analyticsData = JSON.parse(
-  fs.readFileSync('./data/analytics-data.json', 'utf8')
-);
 
 const userDetails = (req, res) => {
   console.log(req.body);
@@ -31,8 +28,37 @@ const personalDetails = (req, res) => {
   res.status(200).json({ status: 'ok' });
 };
 
-const graphData = (req, res) => {
-  res.status(200).json(analyticsData);
+const graphData = async (req, res) => {
+  const current_date = new Date();
+  current_date.setHours(0, 0, 0, 0);
+
+  current_date.setDate(current_date.getDate() - 1);
+  const yesterday = new Date(current_date);
+
+  current_date.setDate(current_date.getDate() - 6);
+  const last_week = new Date(current_date);
+
+  current_date.setDate(current_date.getDate() + 7);
+  current_date.setFullYear(current_date.getFullYear() - 1);
+  const last_year = new Date(current_date.getFullYear() - 1);
+
+  try {
+    const daily = await GatewayAccess.aggregate(
+      Analytics_Lookup(yesterday, 'daily')
+    ).sort({ '_id.gateway': 1 });
+    const weekly = await GatewayAccess.aggregate(
+      Analytics_Lookup(last_week, 'weekly')
+    ).sort({ '_id.access_date': 1, '_id.gateway': 1 });
+    const annual = await GatewayAccess.aggregate(
+      Analytics_Lookup(last_year, 'annual')
+    ).sort({ '_id.access_date': 1, '_id.gateway': 1 });
+
+    const analyticsData = await parseAnalyticsData(daily, weekly, annual);
+
+    res.status(200).json(analyticsData);
+  } catch (err) {
+    res.sendStatus(500);
+  }
 };
 
 const recordData = async (req, res) => {

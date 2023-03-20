@@ -5,9 +5,15 @@ const colorScheme = (opacity) => [
   `rgba(255, 99, 132, ${opacity})`,
   `rgba(54, 162, 235, ${opacity})`,
   `rgba(255, 206, 86, ${opacity})`,
-  `rgba(75, 192, 192, ${opacity})`,
   `rgba(153, 102, 255, ${opacity})`,
-  `rgba(255, 159, 64, ${opacity})`
+  `rgba(75, 192, 192, ${opacity})`,
+  `rgba(255, 159, 64, ${opacity})`,
+  `rgba(29, 185, 84, ${opacity})`,
+  `rgba(254, 83, 187, ${opacity})`,
+  `rgba(184, 251, 60, ${opacity})`,
+  `rgba(255, 0, 0, ${opacity})`,
+  `rgba(9, 188, 138, ${opacity})`,
+  `rgba(0, 0, 0, ${opacity})`
 ];
 
 // prettier-ignore
@@ -32,7 +38,7 @@ export const Toggles = {
   period: [
     { value: 'daily', text: 'Daily Stats' },
     { value: 'weekly', text: 'Weekly Stats' },
-    { value: 'monthly', text: 'Monthly Stats' }
+    { value: 'annual', text: 'Annual Stats' }
   ],
   type: [
     { value: 'bar', text: 'Bar Chart', icon: <Icons.Graph />, color: 'purple' },
@@ -69,7 +75,7 @@ export const Toggles = {
   ]
 };
 
-const GraphData = (type, data) => {
+const graphData = (data, type) => {
   let dataSet = null;
   switch (type?.toLowerCase()) {
     case 'daily':
@@ -78,16 +84,16 @@ const GraphData = (type, data) => {
     case 'weekly':
       dataSet = data?.weekly;
       break;
-    case 'monthly':
-      dataSet = data?.monthly;
+    case 'annual':
+      dataSet = data?.annual;
       break;
     default:
       dataSet = data?.daily;
   }
   return {
-    labels: data?.labels,
-    datasets: dataSet ? chartDataset(dataSet) : []
+    labels: dataSet?.labels,
+    datasets: dataSet?.datasets ? chartDataset(dataSet.datasets) : []
   };
 };
 
-export default GraphData;
+export default graphData;

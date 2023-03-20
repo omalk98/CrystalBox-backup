@@ -1,5 +1,5 @@
 import getNetworkIP from './get-network-ip.js';
 import __dirname from './dirname.js';
-import formatDate from './format-date.js';
+import formatDate, { weekdays, months } from './format-date.js';
 
-export { __dirname, formatDate, getNetworkIP };
+export { __dirname, formatDate, getNetworkIP, weekdays, months };

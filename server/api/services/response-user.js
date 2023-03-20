@@ -1,6 +1,8 @@
 import { v4 as uuid } from 'uuid';
 import { faker } from '@faker-js/faker';
 import { hash } from 'bcrypt';
+import { Gateway } from '../models/index.js';
+import { weekdays, months } from '../utilities/index.js';
 
 export function responseUser(user, user_details) {
   return {
@@ -174,3 +176,100 @@ export const GatewayAccess_Lookup = [
     }
   }
 ];
+
+export const Analytics_Lookup = (date, period) => {
+  let group_by = {};
+  switch (period) {
+    case 'daily':
+      group_by = {
+        gateway: '$gateway'
+      };
+      break;
+    case 'weekly':
+      group_by = {
+        gateway: '$gateway',
+        access_date: { $dayOfWeek: '$access_date' }
+      };
+      break;
+    case 'annual':
+      group_by = {
+        gateway: '$gateway',
+        access_date: { $month: '$access_date' }
+      };
+      break;
+    default:
+      group_by = {
+        gateway: '$gateway'
+      };
+  }
+  return [
+    {
+      $match: {
+        access_date: {
+          $gte: date
+        }
+      }
+    },
+    {
+      $group: {
+        _id: group_by,
+        count: { $sum: 1 }
+      }
+    }
+  ];
+};
+
+export const parseAnalyticsData = async (
+  daily_data,
+  weekly_data,
+  annual_data
+) => {
+  const gateways = await Gateway.find({}, { _id: 1 }).sort({ _id: 1 });
+
+  const daily_dataset = gateways.map((gateway) => {
+    const record = daily_data.find((rec) => rec._id.gateway === gateway._id);
+    return record ? record.count : 0;
+  });
+
+  const weekly_dataset = gateways.map((gateway) => {
+    const records = weekly_data.filter(
+      (rec) => rec._id.gateway === gateway._id
+    );
+    const week_arr = weekdays.map(({ num }) => {
+      const record = records.find((rec) => rec._id.access_date === num);
+      return record ? record.count : 0;
+    });
+    return { label: gateway._id, dataset: week_arr };
+  });
+
+  const annual_dataset = gateways.map((gateway) => {
+    const records = annual_data.filter(
+      (rec) => rec._id.gateway === gateway._id
+    );
+    const month_arr = months.map(({ num }) => {
+      const record = records.find((rec) => rec._id.access_date === num);
+      return record ? record.count : 0;
+    });
+    return { label: gateway._id, dataset: month_arr };
+  });
+
+  return {
+    daily: {
+      labels: gateways.map((gateway) => gateway._id),
+      datasets: [
+        {
+          dataset: daily_dataset,
+          label: 'Gate Usage'
+        }
+      ]
+    },
+    weekly: {
+      labels: weekdays.map((day) => day.name),
+      datasets: weekly_dataset
+    },
+    annual: {
+      labels: months.map((month) => month.name),
+      datasets: annual_dataset
+    }
+  };
+};
