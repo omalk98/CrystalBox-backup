@@ -7,13 +7,11 @@ import {
   dashedString,
   formatDate,
   formatPhone,
-  fuzzySearch,
   advancedSearch,
   getInputType,
   provinceList,
   setTitle,
   sortData,
-  filterDateTime,
   getMinMaxDateTime,
   ProvinceListOptions
 } from './common';
@@ -43,9 +41,7 @@ export {
   dashedString,
   formatDate,
   formatPhone,
-  fuzzySearch,
   advancedSearch,
-  filterDateTime,
   getMinMaxDateTime,
   getInputType,
   provinceList,

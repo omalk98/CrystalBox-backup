@@ -5,6 +5,8 @@ import useDebounce from '../hooks/useDebounce';
 
 import './common.css';
 
+const offset = new Date().getTimezoneOffset() / 60;
+
 export const setTitle = (title) => {
   document.title = `${title ? `${title} | ` : ''} Crystal Box`;
 };
@@ -119,64 +121,15 @@ export const getMinMaxDateTime = (data) => {
   const dateTimeFields = Object.keys(data[0]).filter((key) =>
     key.toLowerCase().match(/time|date/)
   );
-  const offset = new Date().getTimezoneOffset() / 60 + 1;
   if (!dateTimeFields.length) return { min: null, max: null };
   const dateTimeValues = data.map((item) =>
     dateTimeFields.map((field) => new Date(item[field]))
   );
   const min = new Date(Math.min(...dateTimeValues.flat()));
   const max = new Date(Math.max(...dateTimeValues.flat()));
-  min.setHours(min.getHours() + offset);
-  max.setHours(max.getHours() + offset);
+  min.setHours(min.getHours() - offset);
+  max.setHours(max.getHours() - offset);
   return { min, max };
-};
-
-export const filterDateTime = (data, start, end) => {
-  if (!data?.length || (!start && !end)) return data;
-  const dateTimeFields = Object.keys(data[0]).filter((key) =>
-    key.toLowerCase().match(/time|date/)
-  );
-  const startDT = new Date(start);
-  const endDT = new Date(end);
-  const offset = new Date().getTimezoneOffset() / 60;
-  if (start) startDT.setHours(start.getHours() - offset - 2);
-  if (end) endDT.setHours(end.getHours() - offset - 2);
-  if (!dateTimeFields.length) return data;
-  const filteredData = data.filter((item) => {
-    if (!start && end) {
-      return dateTimeFields.some((field) => {
-        const dt = new Date(item[field]);
-        dt.setHours(dt.getHours() + offset);
-        return dt <= endDT;
-      });
-    }
-    if (start && !end) {
-      return dateTimeFields.some((field) => {
-        const dt = new Date(item[field]);
-        dt.setHours(dt.getHours() + offset);
-        return dt >= startDT;
-      });
-    }
-    return dateTimeFields.some((field) => {
-      const sdt = new Date(item[field]);
-      const edt = new Date(item[field]);
-      sdt.setHours(sdt.getHours() + offset);
-      edt.setHours(edt.getHours() + offset);
-      return sdt >= startDT && edt <= endDT;
-    });
-  });
-  return filteredData?.length ? filteredData : 'No results found';
-};
-
-export const fuzzySearch = (data, searchStr) => {
-  if (!data?.length) return [];
-  if (!searchStr) return data;
-  const filteredData = data.filter((item) =>
-    Object.values(item).some((value) =>
-      value.toString().toLowerCase().includes(searchStr.toLowerCase())
-    )
-  );
-  return filteredData?.length ? filteredData : 'No results found';
 };
 
 export const advancedSearch = (
@@ -191,9 +144,8 @@ export const advancedSearch = (
   );
   const startDT = new Date(startDateTime);
   const endDT = new Date(endDateTime);
-  const offset = new Date().getTimezoneOffset() / 60;
-  if (startDateTime) startDT.setHours(startDateTime.getHours() - offset - 2);
-  if (endDateTime) endDT.setHours(endDateTime.getHours() - offset - 2);
+  if (startDateTime) startDT.setHours(startDateTime.getHours() + offset - 1);
+  if (endDateTime) endDT.setHours(endDateTime.getHours() + offset);
   if (!dateTimeFields.length) return data;
 
   const filteredData = data.filter((item) => {
@@ -264,6 +216,7 @@ export const formatDate = (date, dateDelimiter = '-', timeDelimiter = ':') => {
   dateSlots[1] = parseInt(dateSlots[1], 10) - 1;
 
   const returnDate = new Date(...dateSlots, ...timeSlots);
+  returnDate.setHours(returnDate.getHours() - offset);
   // prettier-ignore
   return hasTime
     ? returnDate.toLocaleTimeString('en-US', {
@@ -274,8 +227,7 @@ export const formatDate = (date, dateDelimiter = '-', timeDelimiter = ':') => {
       hour: 'numeric',
       minute: 'numeric',
       second: 'numeric',
-      hour12: true,
-      timeZone: 'Europe/London'
+      hour12: true
     })
     : returnDate.toLocaleDateString('en-US', {
       year: 'numeric',
