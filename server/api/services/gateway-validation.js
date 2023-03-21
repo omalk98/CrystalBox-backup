@@ -15,7 +15,7 @@ export default async function gatewayValidation(gateway_id, key, uuid) {
     throw 407;
   }
   gateway.access_count += 1;
-  gateway.last_access = new Date();
+  gateway.last_access = access_date;
   await gateway.save();
 
   const tag = await Tag.findById(key);
@@ -35,7 +35,7 @@ export default async function gatewayValidation(gateway_id, key, uuid) {
     throw 409;
   }
   tag.access_count += 1;
-  tag.last_access = new Date();
+  tag.last_access = access_date;
   await tag.save();
 
   const user = await Users.findById(tag.user_id, NoExtraUser_ID);
