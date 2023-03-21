@@ -1,9 +1,17 @@
 import { Router } from 'express';
 
-import populateDB from '../controllers/populate-db.js';
+import {
+  createGateways,
+  populateUsers,
+  populateAccessRecords
+} from '../controllers/populate-db.js';
 
 const populateDBRouter = Router();
 
-populateDBRouter.get('/populate-db', populateDB);
+populateDBRouter.get('/create-gateways', createGateways);
+
+populateDBRouter.get('/populate-users', populateUsers);
+
+populateDBRouter.get('/populate-records', populateAccessRecords);
 
 export default populateDBRouter;

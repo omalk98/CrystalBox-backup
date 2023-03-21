@@ -30,21 +30,20 @@ const personalDetails = (req, res) => {
 
 const graphData = async (req, res) => {
   const current_date = new Date();
-  current_date.setHours(0, 0, 0, 0);
 
-  current_date.setDate(current_date.getDate() - 1);
-  const yesterday = new Date(current_date);
+  current_date.setHours(0, 0, 0, 0);
+  const today = new Date(current_date);
 
   current_date.setDate(current_date.getDate() - 6);
   const last_week = new Date(current_date);
 
-  current_date.setDate(current_date.getDate() + 7);
-  current_date.setFullYear(current_date.getFullYear() - 1);
-  const last_year = new Date(current_date.getFullYear() - 1);
+  current_date.setDate(current_date.getDate() + 6);
+  current_date.setMonth(0, 1);
+  const last_year = new Date(current_date);
 
   try {
     const daily = await GatewayAccess.aggregate(
-      Analytics_Lookup(yesterday, 'daily')
+      Analytics_Lookup(today, 'daily')
     ).sort({ '_id.gateway': 1 });
     const weekly = await GatewayAccess.aggregate(
       Analytics_Lookup(last_week, 'weekly')
