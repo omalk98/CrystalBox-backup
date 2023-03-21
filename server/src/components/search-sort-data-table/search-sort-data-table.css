@@ -37,6 +37,9 @@
     margin: 5px;
 }
 
+.data-table-modifiers.users-options>button>svg {
+    margin-left: 15px;
+}
 
 .selected-users {
     border: solid 1px #000;
@@ -66,5 +69,9 @@
 
     .data-table-counter>span>u {
         display: block;
+    }
+
+    .react-select-container {
+        justify-content: center;
     }
 }

@@ -17,6 +17,7 @@ import SearchBar from '../search-bar';
 import StateCounter from '../state-counter';
 import './search-sort-data-table.css';
 import DatePicker from '../date-picker';
+import Icons from '../../resources/icons';
 
 export default function DataTableComponent({
   columns,
@@ -133,7 +134,6 @@ export default function DataTableComponent({
             placeholder="Filter Search by Column..."
             isMulti
             className="react-select-container"
-            classNamePrefix="react-select"
             styles={reactSelectStyles}
           />
           <span className="search-box-container">
@@ -143,11 +143,13 @@ export default function DataTableComponent({
         <div className="data-table-modifiers users-options mb-0">
           {Array.from(hiddenFields).map((field, i) => (
             <button
+              title="Show Column"
               className={`clear-input glow-${colorList[i]?.name}`}
               key={`show_${field}`}
               onClick={() => showField(field)}
             >
               {capitalizeFirst(field)}
+              <Icons.Hidden />
             </button>
           ))}
         </div>
