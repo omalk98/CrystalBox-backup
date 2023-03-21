@@ -30,14 +30,15 @@ const personalDetails = (req, res) => {
 
 const graphData = async (req, res) => {
   const current_date = new Date();
+  const day = current_date.getDay();
 
   current_date.setHours(0, 0, 0, 0);
   const today = new Date(current_date);
 
-  current_date.setDate(current_date.getDate() - 6);
+  current_date.setDate(current_date.getDate() - day);
   const last_week = new Date(current_date);
 
-  current_date.setDate(current_date.getDate() + 6);
+  current_date.setDate(current_date.getDate() + day);
   current_date.setMonth(0, 1);
   const last_year = new Date(current_date);
 
